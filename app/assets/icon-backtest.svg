@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none" stroke-linecap="round">
+  <!-- Rising equity bars with a dashed outcome line. -->
+  <path d="M10 52h44" stroke="#A6958C" stroke-width="2.4"/>
+  <g fill="rgba(212,175,55,0.16)" stroke="#E3B341" stroke-width="2.4" stroke-linejoin="round">
+    <rect x="15" y="32" width="8" height="20" rx="1.5"/>
+    <rect x="28" y="24" width="8" height="28" rx="1.5"/>
+    <rect x="41" y="16" width="8" height="36" rx="1.5"/>
+  </g>
+  <path d="M13 26L30 18l10 4 12-12" stroke="#E3B341" stroke-width="2.4" stroke-dasharray="4 4"/>
+</svg>

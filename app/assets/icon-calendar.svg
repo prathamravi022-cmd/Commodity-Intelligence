@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Expiry / lifecycle calendar with a settlement coin. -->
+  <rect x="12" y="17" width="40" height="35" rx="5" fill="rgba(212,175,55,0.08)"
+        stroke="#E3B341" stroke-width="2.6"/>
+  <path d="M12 28h40" stroke="#E3B341" stroke-width="2.6"/>
+  <path d="M22 11v10M42 11v10" stroke="#E3B341" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+  <circle cx="43" cy="43" r="7" fill="rgba(212,175,55,0.22)" stroke="#F0D98A" stroke-width="2"/>
+  <path d="M43 39.6v6.8M40.4 43h5.2" stroke="#F0D98A" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+</svg>

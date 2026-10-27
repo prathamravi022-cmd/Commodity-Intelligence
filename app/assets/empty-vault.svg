@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none" stroke-linecap="round">
+  <!-- Empty state: a vault door with nothing behind it yet. -->
+  <circle cx="32" cy="32" r="23" fill="rgba(212,175,55,0.06)" stroke="#E3B341" stroke-width="2.4" opacity=".85"/>
+  <circle cx="32" cy="32" r="12.5" stroke="#A6958C" stroke-width="2.2"/>
+  <g stroke="#A6958C" stroke-width="2.2">
+    <path d="M32 19.5v6M32 38.5v6M19.5 32h6M38.5 32h6"/>
+  </g>
+  <circle cx="32" cy="32" r="3.4" fill="#E3B341"/>
+</svg>

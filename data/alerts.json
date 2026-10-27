@@ -1,0 +1,402 @@
+[
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437248+00:00",
+    "trade_date": "2025-12-16 00:00:00",
+    "pair": "GOLDM@2026-05-05 vs GOLDTEN@2026-04-28",
+    "leg_a": "GOLDM@2026-05-05",
+    "leg_b": "GOLDTEN@2026-04-28",
+    "z_score": 2.000434174354692,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437270+00:00",
+    "trade_date": "2025-12-17 00:00:00",
+    "pair": "GOLDGUINEA@2026-04-29 vs GOLDPETAL@2026-04-30",
+    "leg_a": "GOLDGUINEA@2026-04-29",
+    "leg_b": "GOLDPETAL@2026-04-30",
+    "z_score": 2.3882377162717994,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437281+00:00",
+    "trade_date": "2026-01-07 00:00:00",
+    "pair": "GOLDGUINEA@2026-04-29 vs GOLDPETAL@2026-04-30",
+    "leg_a": "GOLDGUINEA@2026-04-29",
+    "leg_b": "GOLDPETAL@2026-04-30",
+    "z_score": -2.358341722351756,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437297+00:00",
+    "trade_date": "2026-01-14 00:00:00",
+    "pair": "GOLDM@2026-05-05 vs GOLDTEN@2026-04-28",
+    "leg_a": "GOLDM@2026-05-05",
+    "leg_b": "GOLDTEN@2026-04-28",
+    "z_score": -2.178717768426954,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437317+00:00",
+    "trade_date": "2026-01-26 00:00:00",
+    "pair": "GOLDM@2026-05-05 vs GOLDTEN@2026-04-28",
+    "leg_a": "GOLDM@2026-05-05",
+    "leg_b": "GOLDTEN@2026-04-28",
+    "z_score": -2.1958315447006025,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437331+00:00",
+    "trade_date": "2026-01-28 00:00:00",
+    "pair": "GOLDGUINEA@2026-04-29 vs GOLDPETAL@2026-04-30",
+    "leg_a": "GOLDGUINEA@2026-04-29",
+    "leg_b": "GOLDPETAL@2026-04-30",
+    "z_score": -2.2315740125847525,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437344+00:00",
+    "trade_date": "2026-02-02 00:00:00",
+    "pair": "GOLDGUINEA@2026-04-29 vs GOLDPETAL@2026-04-30",
+    "leg_a": "GOLDGUINEA@2026-04-29",
+    "leg_b": "GOLDPETAL@2026-04-30",
+    "z_score": -2.3794250476441188,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437352+00:00",
+    "trade_date": "2026-02-03 00:00:00",
+    "pair": "GOLDM@2026-05-05 vs GOLDTEN@2026-04-28",
+    "leg_a": "GOLDM@2026-05-05",
+    "leg_b": "GOLDTEN@2026-04-28",
+    "z_score": -2.429608632593802,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437377+00:00",
+    "trade_date": "2026-02-05 00:00:00",
+    "pair": "GOLDGUINEA@2026-04-29 vs GOLDM@2026-05-05",
+    "leg_a": "GOLDGUINEA@2026-04-29",
+    "leg_b": "GOLDM@2026-05-05",
+    "z_score": -2.2026653341789872,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437385+00:00",
+    "trade_date": "2026-02-09 00:00:00",
+    "pair": "GOLDM@2026-05-05 vs GOLDTEN@2026-04-28",
+    "leg_a": "GOLDM@2026-05-05",
+    "leg_b": "GOLDTEN@2026-04-28",
+    "z_score": -2.2299785350622723,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437393+00:00",
+    "trade_date": "2026-02-11 00:00:00",
+    "pair": "GOLDM@2026-05-05 vs GOLDPETAL@2026-04-30",
+    "leg_a": "GOLDM@2026-05-05",
+    "leg_b": "GOLDPETAL@2026-04-30",
+    "z_score": -2.430937816395398,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437400+00:00",
+    "trade_date": "2026-02-16 00:00:00",
+    "pair": "GOLDPETAL@2026-04-30 vs GOLDTEN@2026-04-28",
+    "leg_a": "GOLDPETAL@2026-04-30",
+    "leg_b": "GOLDTEN@2026-04-28",
+    "z_score": 20.506678477053697,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437408+00:00",
+    "trade_date": "2026-02-16 00:00:00",
+    "pair": "GOLDGUINEA@2026-04-29 vs GOLDM@2026-05-05",
+    "leg_a": "GOLDGUINEA@2026-04-29",
+    "leg_b": "GOLDM@2026-05-05",
+    "z_score": 14.175993499874611,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437415+00:00",
+    "trade_date": "2026-04-02 00:00:00",
+    "pair": "GOLDGUINEA@2026-04-29 vs GOLDPETAL@2026-04-30",
+    "leg_a": "GOLDGUINEA@2026-04-29",
+    "leg_b": "GOLDPETAL@2026-04-30",
+    "z_score": 2.033257475888966,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437423+00:00",
+    "trade_date": "2026-04-03 00:00:00",
+    "pair": "GOLDM@2026-05-05 vs GOLDTEN@2026-04-28",
+    "leg_a": "GOLDM@2026-05-05",
+    "leg_b": "GOLDTEN@2026-04-28",
+    "z_score": 3.119920444950457,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437441+00:00",
+    "trade_date": "2026-04-08 00:00:00",
+    "pair": "GOLDGUINEA@2026-04-29 vs GOLDPETAL@2026-04-30",
+    "leg_a": "GOLDGUINEA@2026-04-29",
+    "leg_b": "GOLDPETAL@2026-04-30",
+    "z_score": 2.938700146369139,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437455+00:00",
+    "trade_date": "2026-04-21 00:00:00",
+    "pair": "GOLDGUINEA@2026-04-29 vs GOLDM@2026-05-05",
+    "leg_a": "GOLDGUINEA@2026-04-29",
+    "leg_b": "GOLDM@2026-05-05",
+    "z_score": 7.71977852019977,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437462+00:00",
+    "trade_date": "2026-04-21 00:00:00",
+    "pair": "GOLDGUINEA@2026-04-29 vs GOLDTEN@2026-04-28",
+    "leg_a": "GOLDGUINEA@2026-04-29",
+    "leg_b": "GOLDTEN@2026-04-28",
+    "z_score": 7.235319515347797,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437470+00:00",
+    "trade_date": "2026-04-21 00:00:00",
+    "pair": "GOLDPETAL@2026-04-30 vs GOLDTEN@2026-04-28",
+    "leg_a": "GOLDPETAL@2026-04-30",
+    "leg_b": "GOLDTEN@2026-04-28",
+    "z_score": 7.8823644459990465,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437477+00:00",
+    "trade_date": "2026-04-30 00:00:00",
+    "pair": "GOLDM@2026-05-05 vs GOLDTEN@2026-04-28",
+    "leg_a": "GOLDM@2026-05-05",
+    "leg_b": "GOLDTEN@2026-04-28",
+    "z_score": 2.0850328212768705,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437485+00:00",
+    "trade_date": "2026-05-01 00:00:00",
+    "pair": "GOLDGUINEA@2026-04-29 vs GOLDM@2026-05-05",
+    "leg_a": "GOLDGUINEA@2026-04-29",
+    "leg_b": "GOLDM@2026-05-05",
+    "z_score": 5.62798571097762,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437492+00:00",
+    "trade_date": "2026-05-01 00:00:00",
+    "pair": "GOLDGUINEA@2026-04-29 vs GOLDTEN@2026-04-28",
+    "leg_a": "GOLDGUINEA@2026-04-29",
+    "leg_b": "GOLDTEN@2026-04-28",
+    "z_score": 5.274149227691934,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437500+00:00",
+    "trade_date": "2026-05-01 00:00:00",
+    "pair": "GOLDPETAL@2026-04-30 vs GOLDTEN@2026-04-28",
+    "leg_a": "GOLDPETAL@2026-04-30",
+    "leg_b": "GOLDTEN@2026-04-28",
+    "z_score": 5.346409610981882,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437508+00:00",
+    "trade_date": "2026-06-05 00:00:00",
+    "pair": "GOLDGUINEA@2026-04-29 vs GOLDPETAL@2026-04-30",
+    "leg_a": "GOLDGUINEA@2026-04-29",
+    "leg_b": "GOLDPETAL@2026-04-30",
+    "z_score": 2.383884170751755,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437515+00:00",
+    "trade_date": "2026-06-26 00:00:00",
+    "pair": "GOLDGUINEA@2026-04-29 vs GOLDPETAL@2026-04-30",
+    "leg_a": "GOLDGUINEA@2026-04-29",
+    "leg_b": "GOLDPETAL@2026-04-30",
+    "z_score": -2.3577173971917027,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437528+00:00",
+    "trade_date": "2026-07-03 00:00:00",
+    "pair": "GOLDM@2026-05-05 vs GOLDTEN@2026-04-28",
+    "leg_a": "GOLDM@2026-05-05",
+    "leg_b": "GOLDTEN@2026-04-28",
+    "z_score": -2.1789201945438776,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437547+00:00",
+    "trade_date": "2026-07-15 00:00:00",
+    "pair": "GOLDM@2026-05-05 vs GOLDTEN@2026-04-28",
+    "leg_a": "GOLDM@2026-05-05",
+    "leg_b": "GOLDTEN@2026-04-28",
+    "z_score": -2.195704264858789,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437560+00:00",
+    "trade_date": "2026-07-17 00:00:00",
+    "pair": "GOLDGUINEA@2026-04-29 vs GOLDPETAL@2026-04-30",
+    "leg_a": "GOLDGUINEA@2026-04-29",
+    "leg_b": "GOLDPETAL@2026-04-30",
+    "z_score": -2.233609364342167,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437573+00:00",
+    "trade_date": "2026-07-22 00:00:00",
+    "pair": "GOLDGUINEA@2026-04-29 vs GOLDPETAL@2026-04-30",
+    "leg_a": "GOLDGUINEA@2026-04-29",
+    "leg_b": "GOLDPETAL@2026-04-30",
+    "z_score": -2.3816793549987443,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437580+00:00",
+    "trade_date": "2026-07-23 00:00:00",
+    "pair": "GOLDM@2026-05-05 vs GOLDTEN@2026-04-28",
+    "leg_a": "GOLDM@2026-05-05",
+    "leg_b": "GOLDTEN@2026-04-28",
+    "z_score": -2.429152095060758,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437604+00:00",
+    "trade_date": "2026-07-27 00:00:00",
+    "pair": "GOLDGUINEA@2026-04-29 vs GOLDTEN@2026-04-28",
+    "leg_a": "GOLDGUINEA@2026-04-29",
+    "leg_b": "GOLDTEN@2026-04-28",
+    "z_score": -2.347650335076293,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437611+00:00",
+    "trade_date": "2026-07-29 00:00:00",
+    "pair": "GOLDM@2026-05-05 vs GOLDTEN@2026-04-28",
+    "leg_a": "GOLDM@2026-05-05",
+    "leg_b": "GOLDTEN@2026-04-28",
+    "z_score": -2.230489452973371,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437618+00:00",
+    "trade_date": "2026-07-31 00:00:00",
+    "pair": "GOLDM@2026-05-05 vs GOLDPETAL@2026-04-30",
+    "leg_a": "GOLDM@2026-05-05",
+    "leg_b": "GOLDPETAL@2026-04-30",
+    "z_score": -2.4323103806754522,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437627+00:00",
+    "trade_date": "2026-08-05 00:00:00",
+    "pair": "GOLDGUINEA@2026-04-29 vs GOLDM@2026-05-05",
+    "leg_a": "GOLDGUINEA@2026-04-29",
+    "leg_b": "GOLDM@2026-05-05",
+    "z_score": 14.174743910984164,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437634+00:00",
+    "trade_date": "2026-08-05 00:00:00",
+    "pair": "GOLDGUINEA@2026-04-29 vs GOLDTEN@2026-04-28",
+    "leg_a": "GOLDGUINEA@2026-04-29",
+    "leg_b": "GOLDTEN@2026-04-28",
+    "z_score": 6.582002491964423,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437641+00:00",
+    "trade_date": "2026-08-05 00:00:00",
+    "pair": "GOLDPETAL@2026-04-30 vs GOLDTEN@2026-04-28",
+    "leg_a": "GOLDPETAL@2026-04-30",
+    "leg_b": "GOLDTEN@2026-04-28",
+    "z_score": 20.514647706492198,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437648+00:00",
+    "trade_date": "2026-08-28 00:00:00",
+    "pair": "GOLDM@2026-05-05 vs GOLDTEN@2026-04-28",
+    "leg_a": "GOLDM@2026-05-05",
+    "leg_b": "GOLDTEN@2026-04-28",
+    "z_score": 2.483547825761967,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437655+00:00",
+    "trade_date": "2026-08-31 00:00:00",
+    "pair": "GOLDGUINEA@2026-04-29 vs GOLDPETAL@2026-04-30",
+    "leg_a": "GOLDGUINEA@2026-04-29",
+    "leg_b": "GOLDPETAL@2026-04-30",
+    "z_score": 2.3169707190188285,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437662+00:00",
+    "trade_date": "2026-09-10 00:00:00",
+    "pair": "GOLDGUINEA@2026-04-29 vs GOLDPETAL@2026-04-30",
+    "leg_a": "GOLDGUINEA@2026-04-29",
+    "leg_b": "GOLDPETAL@2026-04-30",
+    "z_score": 2.2879488319013372,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  },
+  {
+    "timestamp_utc": "2026-10-09T15:04:29.437669+00:00",
+    "trade_date": "2026-09-22 00:00:00",
+    "pair": "GOLDM@2026-05-05 vs GOLDTEN@2026-04-28",
+    "leg_a": "GOLDM@2026-05-05",
+    "leg_b": "GOLDTEN@2026-04-28",
+    "z_score": 2.0911810568156586,
+    "threshold": 2.0,
+    "config_hash": "2432bb86bece"
+  }
+]

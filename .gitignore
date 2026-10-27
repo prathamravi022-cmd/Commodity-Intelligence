@@ -1,0 +1,32 @@
+# Secrets - never commit
+.env
+.streamlit/secrets.toml
+
+# Data caches
+data/raw/*
+!data/raw/.gitkeep
+data/clean/*
+!data/clean/.gitkeep
+data/analytics/*
+!data/analytics/.gitkeep
+data/results/*
+!data/results/.gitkeep
+fixtures/*.csv
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.pytest_cache/
+
+# Logs
+*.log
+
+# Photo originals (re-downloadable with tools/build_photos.py)
+tools/_photo_sources/
+
+# Local render/probe scratch (not part of the shipped project)
+.probe/
+.probe_hero/
+.probe_fresh.py

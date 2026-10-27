@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="bgglow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#D8382F" stop-opacity="0.12"/>
+      <stop offset="0.6" stop-color="#D8382F" stop-opacity="0.05"/>
+      <stop offset="1" stop-color="#D8382F" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bggold" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#E3B341" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#E3B341" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bgbar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E3B341" stop-opacity="0.11"/>
+      <stop offset="1" stop-color="#8A5A12" stop-opacity="0.03"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Two quiet light pools: red upper right, gold lower left. -->
+  <circle cx="1290" cy="170" r="520" fill="url(#bgglow)"/>
+  <circle cx="250" cy="760" r="470" fill="url(#bggold)"/>
+
+  <!-- Rising settlement-candle silhouette. -->
+  <g opacity="0.5" stroke-linecap="round">
+    <path d="M980 520v70" stroke="#D8382F" stroke-opacity="0.10" stroke-width="2"/>
+    <rect x="970" y="536" width="20" height="42" fill="none" stroke="#D8382F" stroke-opacity="0.11" stroke-width="2"/>
+    <path d="M1040 470v96" stroke="#E3B341" stroke-opacity="0.11" stroke-width="2"/>
+    <rect x="1030" y="486" width="20" height="64" fill="none" stroke="#E3B341" stroke-opacity="0.2" stroke-width="2"/>
+    <path d="M1100 404v92" stroke="#E3B341" stroke-opacity="0.2" stroke-width="2"/>
+    <rect x="1090" y="420" width="20" height="58" fill="none" stroke="#E3B341" stroke-opacity="0.14" stroke-width="2"/>
+    <path d="M1160 336v86" stroke="#D8382F" stroke-opacity="0.10" stroke-width="2"/>
+    <rect x="1150" y="352" width="20" height="52" fill="none" stroke="#D8382F" stroke-opacity="0.11" stroke-width="2"/>
+    <path d="M1220 268v84" stroke="#E3B341" stroke-opacity="0.14" stroke-width="2"/>
+    <rect x="1210" y="284" width="20" height="50" fill="none" stroke="#E3B341" stroke-opacity="0.15" stroke-width="2"/>
+    <path d="M1280 206v76" stroke="#E3B341" stroke-opacity="0.15" stroke-width="2"/>
+    <rect x="1270" y="222" width="20" height="44" fill="none" stroke="#E3B341" stroke-opacity="0.16" stroke-width="2"/>
+  </g>
+  <path d="M940 640L1320 150" stroke="#E3B341" stroke-opacity="0.05" stroke-width="2" stroke-dasharray="10 10" fill="none"/>
+
+  <!-- Bullion stack, bottom right. -->
+  <g stroke="#E3B341" stroke-opacity="0.2" stroke-linejoin="round" stroke-width="2">
+    <path d="M1260 700H1480L1508 760H1232z" fill="url(#bgbar)"/>
+    <path d="M1284 646H1456L1480 700H1260z" fill="url(#bgbar)"/>
+    <path d="M1306 598H1434L1456 646H1284z" fill="url(#bgbar)"/>
+  </g>
+
+  <!-- Vault door outline, lower left. -->
+  <g stroke="#D8382F" stroke-opacity="0.07" stroke-width="3" fill="none">
+    <circle cx="230" cy="700" r="150"/>
+    <circle cx="230" cy="700" r="82"/>
+    <path d="M230 550v50M230 800v50M80 700h50M330 700h50"/>
+  </g>
+</svg>

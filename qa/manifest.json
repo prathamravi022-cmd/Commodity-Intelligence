@@ -1,0 +1,2210 @@
+{
+  "generated_at": "2026-10-26 15:32:43",
+  "base_url": "http://127.0.0.1:8601",
+  "color_scheme": "dark",
+  "pages": [
+    {
+      "slug": "/",
+      "name": "Overview"
+    },
+    {
+      "slug": "gold-contracts",
+      "name": "Gold Contracts"
+    },
+    {
+      "slug": "price-comparison",
+      "name": "Price Comparison"
+    },
+    {
+      "slug": "spread-analytics",
+      "name": "Spread Analytics"
+    },
+    {
+      "slug": "signal-explorer",
+      "name": "Signal Explorer"
+    },
+    {
+      "slug": "backtesting",
+      "name": "Backtesting"
+    },
+    {
+      "slug": "data-quality",
+      "name": "Data Quality"
+    },
+    {
+      "slug": "methodology",
+      "name": "Methodology"
+    },
+    {
+      "slug": "settings",
+      "name": "Settings"
+    }
+  ],
+  "viewports": {
+    "mobile": [
+      390,
+      844
+    ],
+    "tablet": [
+      768,
+      1024
+    ],
+    "desktop": [
+      1440,
+      900
+    ]
+  },
+  "results": [
+    {
+      "view": "mobile",
+      "page": "Overview",
+      "slug": "/",
+      "url": "http://127.0.0.1:8601/",
+      "width": 390,
+      "height": 844,
+      "heading": "Overview",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "insights\n\nOverview"
+        ],
+        "sidebar_visible": false
+      },
+      "charts": 2,
+      "chart_labels": true,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": null,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-overview.svg",
+              "http://127.0.0.1:8601/app/static/photos/backdrop-hero-1600.webp"
+            ]
+          },
+          {
+            "surface": ".hero-band",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/backdrop-hero-960.webp"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-overview.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/backdrop-hero-1600.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/backdrop-hero-960.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "mobile-01-overview.png",
+      "full_file": "mobile-01-overview-full.png",
+      "full_height": 3239,
+      "full_clipped": false,
+      "content_height": 3239,
+      "console_errors": [],
+      "page_errors": [],
+      "bad_responses": [],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "mobile",
+      "page": "Gold Contracts",
+      "slug": "gold-contracts",
+      "url": "http://127.0.0.1:8601/gold-contracts",
+      "width": 390,
+      "height": 844,
+      "heading": "Gold Contracts",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "workspaces\n\nGold Contracts"
+        ],
+        "sidebar_visible": false
+      },
+      "charts": 3,
+      "chart_labels": true,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-contracts.svg",
+              "http://127.0.0.1:8601/app/static/photos/contracts-banner-1600.webp"
+            ]
+          },
+          {
+            "surface": ".spec-card",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/contract-goldm-640.webp"
+            ]
+          },
+          {
+            "surface": ".spec-card:nth1",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/contract-goldten-640.webp"
+            ]
+          },
+          {
+            "surface": ".spec-card:nth2",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/contract-goldguinea-640.webp"
+            ]
+          },
+          {
+            "surface": ".spec-card:nth3",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/contract-goldpetal-640.webp"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-contracts.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/contracts-banner-1600.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/contract-goldm-640.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/contract-goldten-640.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/contract-goldguinea-640.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/contract-goldpetal-640.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "mobile-02-gold-contracts.png",
+      "full_file": "mobile-02-gold-contracts-full.png",
+      "full_height": 2693,
+      "full_clipped": false,
+      "content_height": 2693,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/gold-contracts/_stcore/health",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/gold-contracts/_stcore/host-config",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "mobile",
+      "page": "Price Comparison",
+      "slug": "price-comparison",
+      "url": "http://127.0.0.1:8601/price-comparison",
+      "width": 390,
+      "height": 844,
+      "heading": "Price Comparison",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "candlestick_chart\n\nPrice Comparison"
+        ],
+        "sidebar_visible": false
+      },
+      "charts": 1,
+      "chart_labels": true,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-prices.svg"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-prices.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "mobile-03-price-comparison.png",
+      "full_file": "mobile-03-price-comparison-full.png",
+      "full_height": 2743,
+      "full_clipped": false,
+      "content_height": 2743,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/price-comparison/_stcore/host-config",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/price-comparison/_stcore/health",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "mobile",
+      "page": "Spread Analytics",
+      "slug": "spread-analytics",
+      "url": "http://127.0.0.1:8601/spread-analytics",
+      "width": 390,
+      "height": 844,
+      "heading": "Spread Analytics",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "swap_horiz\n\nSpread Analytics"
+        ],
+        "sidebar_visible": false
+      },
+      "charts": 2,
+      "chart_labels": true,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-spreads.svg"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-spreads.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "mobile-04-spread-analytics.png",
+      "full_file": "mobile-04-spread-analytics-full.png",
+      "full_height": 2707,
+      "full_clipped": false,
+      "content_height": 2707,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/spread-analytics/_stcore/host-config",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/spread-analytics/_stcore/health",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "mobile",
+      "page": "Signal Explorer",
+      "slug": "signal-explorer",
+      "url": "http://127.0.0.1:8601/signal-explorer",
+      "width": 390,
+      "height": 844,
+      "heading": "Signal Explorer",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "notifications_active\n\nSignal Explorer"
+        ],
+        "sidebar_visible": false
+      },
+      "charts": 4,
+      "chart_labels": true,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-signals.svg"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-signals.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "mobile-05-signal-explorer.png",
+      "full_file": "mobile-05-signal-explorer-full.png",
+      "full_height": 6006,
+      "full_clipped": false,
+      "content_height": 6006,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/signal-explorer/_stcore/health",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/signal-explorer/_stcore/host-config",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "mobile",
+      "page": "Backtesting",
+      "slug": "backtesting",
+      "url": "http://127.0.0.1:8601/backtesting",
+      "width": 390,
+      "height": 844,
+      "heading": "Backtesting",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "calculate\n\nBacktesting"
+        ],
+        "sidebar_visible": false
+      },
+      "charts": 3,
+      "chart_labels": true,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-backtest.svg"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-backtest.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "mobile-06-backtesting.png",
+      "full_file": "mobile-06-backtesting-full.png",
+      "full_height": 4330,
+      "full_clipped": false,
+      "content_height": 4330,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/backtesting/_stcore/health",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/backtesting/_stcore/host-config",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "mobile",
+      "page": "Data Quality",
+      "slug": "data-quality",
+      "url": "http://127.0.0.1:8601/data-quality",
+      "width": 390,
+      "height": 844,
+      "heading": "Data Quality",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "verified\n\nData Quality"
+        ],
+        "sidebar_visible": false
+      },
+      "charts": 2,
+      "chart_labels": true,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-quality.svg",
+              "http://127.0.0.1:8601/app/static/photos/quality-assay-1280.webp"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-quality.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/quality-assay-1280.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "mobile-07-data-quality.png",
+      "full_file": "mobile-07-data-quality-full.png",
+      "full_height": 3348,
+      "full_clipped": false,
+      "content_height": 3348,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/data-quality/_stcore/host-config",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/data-quality/_stcore/health",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "mobile",
+      "page": "Methodology",
+      "slug": "methodology",
+      "url": "http://127.0.0.1:8601/methodology",
+      "width": 390,
+      "height": 844,
+      "heading": "Methodology",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "menu_book\n\nMethodology"
+        ],
+        "sidebar_visible": false
+      },
+      "charts": 0,
+      "chart_labels": null,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-methodology.svg",
+              "http://127.0.0.1:8601/app/static/photos/method-museum-1600.webp"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-methodology.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/method-museum-1600.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "mobile-08-methodology.png",
+      "full_file": "mobile-08-methodology-full.png",
+      "full_height": 6012,
+      "full_clipped": false,
+      "content_height": 6012,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/methodology/_stcore/host-config",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/methodology/_stcore/health",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "mobile",
+      "page": "Settings",
+      "slug": "settings",
+      "url": "http://127.0.0.1:8601/settings",
+      "width": 390,
+      "height": 844,
+      "heading": "Settings",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "tune\n\nSettings"
+        ],
+        "sidebar_visible": false
+      },
+      "charts": 0,
+      "chart_labels": null,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-settings.svg"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-settings.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "mobile-09-settings.png",
+      "full_file": "mobile-09-settings-full.png",
+      "full_height": 2427,
+      "full_clipped": false,
+      "content_height": 2427,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/settings/_stcore/health",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/settings/_stcore/host-config",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "tablet",
+      "page": "Overview",
+      "slug": "/",
+      "url": "http://127.0.0.1:8601/",
+      "width": 768,
+      "height": 1024,
+      "heading": "Overview",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "insights\n\nOverview"
+        ],
+        "sidebar_visible": false
+      },
+      "charts": 2,
+      "chart_labels": true,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": null,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-overview.svg",
+              "http://127.0.0.1:8601/app/static/photos/backdrop-hero-1600.webp"
+            ]
+          },
+          {
+            "surface": ".hero-band",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/backdrop-hero-1600.webp"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-overview.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/backdrop-hero-1600.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "tablet-01-overview.png",
+      "full_file": "tablet-01-overview-full.png",
+      "full_height": 2790,
+      "full_clipped": false,
+      "content_height": 2790,
+      "console_errors": [],
+      "page_errors": [],
+      "bad_responses": [],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "tablet",
+      "page": "Gold Contracts",
+      "slug": "gold-contracts",
+      "url": "http://127.0.0.1:8601/gold-contracts",
+      "width": 768,
+      "height": 1024,
+      "heading": "Gold Contracts",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "workspaces\n\nGold Contracts"
+        ],
+        "sidebar_visible": false
+      },
+      "charts": 3,
+      "chart_labels": true,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-contracts.svg",
+              "http://127.0.0.1:8601/app/static/photos/contracts-banner-1600.webp"
+            ]
+          },
+          {
+            "surface": ".spec-card",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/contract-goldm-640.webp"
+            ]
+          },
+          {
+            "surface": ".spec-card:nth1",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/contract-goldten-640.webp"
+            ]
+          },
+          {
+            "surface": ".spec-card:nth2",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/contract-goldguinea-640.webp"
+            ]
+          },
+          {
+            "surface": ".spec-card:nth3",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/contract-goldpetal-640.webp"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-contracts.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/contracts-banner-1600.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/contract-goldm-640.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/contract-goldten-640.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/contract-goldguinea-640.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/contract-goldpetal-640.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "tablet-02-gold-contracts.png",
+      "full_file": "tablet-02-gold-contracts-full.png",
+      "full_height": 1966,
+      "full_clipped": false,
+      "content_height": 1966,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/gold-contracts/_stcore/health",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/gold-contracts/_stcore/host-config",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "tablet",
+      "page": "Price Comparison",
+      "slug": "price-comparison",
+      "url": "http://127.0.0.1:8601/price-comparison",
+      "width": 768,
+      "height": 1024,
+      "heading": "Price Comparison",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "candlestick_chart\n\nPrice Comparison"
+        ],
+        "sidebar_visible": false
+      },
+      "charts": 1,
+      "chart_labels": true,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-prices.svg"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-prices.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "tablet-03-price-comparison.png",
+      "full_file": "tablet-03-price-comparison-full.png",
+      "full_height": 2339,
+      "full_clipped": false,
+      "content_height": 2339,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/price-comparison/_stcore/health",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/price-comparison/_stcore/host-config",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "tablet",
+      "page": "Spread Analytics",
+      "slug": "spread-analytics",
+      "url": "http://127.0.0.1:8601/spread-analytics",
+      "width": 768,
+      "height": 1024,
+      "heading": "Spread Analytics",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "swap_horiz\n\nSpread Analytics"
+        ],
+        "sidebar_visible": false
+      },
+      "charts": 2,
+      "chart_labels": true,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-spreads.svg"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-spreads.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "tablet-04-spread-analytics.png",
+      "full_file": "tablet-04-spread-analytics-full.png",
+      "full_height": 2107,
+      "full_clipped": false,
+      "content_height": 2107,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/spread-analytics/_stcore/health",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/spread-analytics/_stcore/host-config",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "tablet",
+      "page": "Signal Explorer",
+      "slug": "signal-explorer",
+      "url": "http://127.0.0.1:8601/signal-explorer",
+      "width": 768,
+      "height": 1024,
+      "heading": "Signal Explorer",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "notifications_active\n\nSignal Explorer"
+        ],
+        "sidebar_visible": false
+      },
+      "charts": 4,
+      "chart_labels": true,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-signals.svg"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-signals.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "tablet-05-signal-explorer.png",
+      "full_file": "tablet-05-signal-explorer-full.png",
+      "full_height": 5086,
+      "full_clipped": false,
+      "content_height": 5086,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/signal-explorer/_stcore/health",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/signal-explorer/_stcore/host-config",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "tablet",
+      "page": "Backtesting",
+      "slug": "backtesting",
+      "url": "http://127.0.0.1:8601/backtesting",
+      "width": 768,
+      "height": 1024,
+      "heading": "Backtesting",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "calculate\n\nBacktesting"
+        ],
+        "sidebar_visible": false
+      },
+      "charts": 3,
+      "chart_labels": true,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-backtest.svg"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-backtest.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "tablet-06-backtesting.png",
+      "full_file": "tablet-06-backtesting-full.png",
+      "full_height": 3810,
+      "full_clipped": false,
+      "content_height": 3810,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/backtesting/_stcore/health",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/backtesting/_stcore/host-config",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "tablet",
+      "page": "Data Quality",
+      "slug": "data-quality",
+      "url": "http://127.0.0.1:8601/data-quality",
+      "width": 768,
+      "height": 1024,
+      "heading": "Data Quality",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "verified\n\nData Quality"
+        ],
+        "sidebar_visible": false
+      },
+      "charts": 2,
+      "chart_labels": true,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-quality.svg",
+              "http://127.0.0.1:8601/app/static/photos/quality-assay-1280.webp"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-quality.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/quality-assay-1280.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "tablet-07-data-quality.png",
+      "full_file": "tablet-07-data-quality-full.png",
+      "full_height": 2719,
+      "full_clipped": false,
+      "content_height": 2719,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/data-quality/_stcore/host-config",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/data-quality/_stcore/health",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "tablet",
+      "page": "Methodology",
+      "slug": "methodology",
+      "url": "http://127.0.0.1:8601/methodology",
+      "width": 768,
+      "height": 1024,
+      "heading": "Methodology",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "menu_book\n\nMethodology"
+        ],
+        "sidebar_visible": false
+      },
+      "charts": 0,
+      "chart_labels": null,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-methodology.svg",
+              "http://127.0.0.1:8601/app/static/photos/method-museum-1600.webp"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-methodology.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/method-museum-1600.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "tablet-08-methodology.png",
+      "full_file": "tablet-08-methodology-full.png",
+      "full_height": 4245,
+      "full_clipped": false,
+      "content_height": 4245,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/methodology/_stcore/health",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/methodology/_stcore/host-config",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "tablet",
+      "page": "Settings",
+      "slug": "settings",
+      "url": "http://127.0.0.1:8601/settings",
+      "width": 768,
+      "height": 1024,
+      "heading": "Settings",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "tune\n\nSettings"
+        ],
+        "sidebar_visible": false
+      },
+      "charts": 0,
+      "chart_labels": null,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-settings.svg"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-settings.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "tablet-09-settings.png",
+      "full_file": "tablet-09-settings-full.png",
+      "full_height": 2060,
+      "full_clipped": false,
+      "content_height": 2060,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/settings/_stcore/host-config",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/settings/_stcore/health",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "desktop",
+      "page": "Overview",
+      "slug": "/",
+      "url": "http://127.0.0.1:8601/",
+      "width": 1440,
+      "height": 900,
+      "heading": "Overview",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "insights\n\nOverview"
+        ],
+        "sidebar_visible": true
+      },
+      "charts": 2,
+      "chart_labels": true,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": null,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-overview.svg",
+              "http://127.0.0.1:8601/app/static/photos/backdrop-hero-1600.webp"
+            ]
+          },
+          {
+            "surface": ".hero-band",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/backdrop-hero-1600.webp"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-overview.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/backdrop-hero-1600.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "desktop-01-overview.png",
+      "full_file": "desktop-01-overview-full.png",
+      "full_height": 2665,
+      "full_clipped": false,
+      "content_height": 2665,
+      "console_errors": [],
+      "page_errors": [],
+      "bad_responses": [],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "desktop",
+      "page": "Gold Contracts",
+      "slug": "gold-contracts",
+      "url": "http://127.0.0.1:8601/gold-contracts",
+      "width": 1440,
+      "height": 900,
+      "heading": "Gold Contracts",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "workspaces\n\nGold Contracts"
+        ],
+        "sidebar_visible": true
+      },
+      "charts": 3,
+      "chart_labels": true,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-contracts.svg",
+              "http://127.0.0.1:8601/app/static/photos/contracts-banner-1600.webp"
+            ]
+          },
+          {
+            "surface": ".spec-card",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/contract-goldm-640.webp"
+            ]
+          },
+          {
+            "surface": ".spec-card:nth1",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/contract-goldten-640.webp"
+            ]
+          },
+          {
+            "surface": ".spec-card:nth2",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/contract-goldguinea-640.webp"
+            ]
+          },
+          {
+            "surface": ".spec-card:nth3",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/contract-goldpetal-640.webp"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-contracts.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/contracts-banner-1600.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/contract-goldm-640.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/contract-goldten-640.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/contract-goldguinea-640.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/contract-goldpetal-640.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "desktop-02-gold-contracts.png",
+      "full_file": "desktop-02-gold-contracts-full.png",
+      "full_height": 1677,
+      "full_clipped": false,
+      "content_height": 1677,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/gold-contracts/_stcore/host-config",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/gold-contracts/_stcore/health",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "desktop",
+      "page": "Price Comparison",
+      "slug": "price-comparison",
+      "url": "http://127.0.0.1:8601/price-comparison",
+      "width": 1440,
+      "height": 900,
+      "heading": "Price Comparison",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "candlestick_chart\n\nPrice Comparison"
+        ],
+        "sidebar_visible": true
+      },
+      "charts": 1,
+      "chart_labels": true,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-prices.svg"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-prices.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "desktop-03-price-comparison.png",
+      "full_file": "desktop-03-price-comparison-full.png",
+      "full_height": 2264,
+      "full_clipped": false,
+      "content_height": 2264,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/price-comparison/_stcore/host-config",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/price-comparison/_stcore/health",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "desktop",
+      "page": "Spread Analytics",
+      "slug": "spread-analytics",
+      "url": "http://127.0.0.1:8601/spread-analytics",
+      "width": 1440,
+      "height": 900,
+      "heading": "Spread Analytics",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "swap_horiz\n\nSpread Analytics"
+        ],
+        "sidebar_visible": true
+      },
+      "charts": 2,
+      "chart_labels": true,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-spreads.svg"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-spreads.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "desktop-04-spread-analytics.png",
+      "full_file": "desktop-04-spread-analytics-full.png",
+      "full_height": 1941,
+      "full_clipped": false,
+      "content_height": 1941,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/spread-analytics/_stcore/health",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/spread-analytics/_stcore/host-config",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "desktop",
+      "page": "Signal Explorer",
+      "slug": "signal-explorer",
+      "url": "http://127.0.0.1:8601/signal-explorer",
+      "width": 1440,
+      "height": 900,
+      "heading": "Signal Explorer",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "notifications_active\n\nSignal Explorer"
+        ],
+        "sidebar_visible": true
+      },
+      "charts": 4,
+      "chart_labels": true,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-signals.svg"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-signals.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "desktop-05-signal-explorer.png",
+      "full_file": "desktop-05-signal-explorer-full.png",
+      "full_height": 4307,
+      "full_clipped": false,
+      "content_height": 4307,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/signal-explorer/_stcore/host-config",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/signal-explorer/_stcore/health",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "desktop",
+      "page": "Backtesting",
+      "slug": "backtesting",
+      "url": "http://127.0.0.1:8601/backtesting",
+      "width": 1440,
+      "height": 900,
+      "heading": "Backtesting",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "calculate\n\nBacktesting"
+        ],
+        "sidebar_visible": true
+      },
+      "charts": 3,
+      "chart_labels": true,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-backtest.svg"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-backtest.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "desktop-06-backtesting.png",
+      "full_file": "desktop-06-backtesting-full.png",
+      "full_height": 3460,
+      "full_clipped": false,
+      "content_height": 3460,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/backtesting/_stcore/host-config",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/backtesting/_stcore/health",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "desktop",
+      "page": "Data Quality",
+      "slug": "data-quality",
+      "url": "http://127.0.0.1:8601/data-quality",
+      "width": 1440,
+      "height": 900,
+      "heading": "Data Quality",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "verified\n\nData Quality"
+        ],
+        "sidebar_visible": true
+      },
+      "charts": 2,
+      "chart_labels": true,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-quality.svg",
+              "http://127.0.0.1:8601/app/static/photos/quality-assay-1280.webp"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-quality.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/quality-assay-1280.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "desktop-07-data-quality.png",
+      "full_file": "desktop-07-data-quality-full.png",
+      "full_height": 2508,
+      "full_clipped": false,
+      "content_height": 2508,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/data-quality/_stcore/host-config",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/data-quality/_stcore/health",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "desktop",
+      "page": "Methodology",
+      "slug": "methodology",
+      "url": "http://127.0.0.1:8601/methodology",
+      "width": 1440,
+      "height": 900,
+      "heading": "Methodology",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "menu_book\n\nMethodology"
+        ],
+        "sidebar_visible": true
+      },
+      "charts": 0,
+      "chart_labels": null,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-methodology.svg",
+              "http://127.0.0.1:8601/app/static/photos/method-museum-1600.webp"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-methodology.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/method-museum-1600.webp": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "desktop-08-methodology.png",
+      "full_file": "desktop-08-methodology-full.png",
+      "full_height": 3567,
+      "full_clipped": false,
+      "content_height": 3567,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/methodology/_stcore/health",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/methodology/_stcore/host-config",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    },
+    {
+      "view": "desktop",
+      "page": "Settings",
+      "slug": "settings",
+      "url": "http://127.0.0.1:8601/settings",
+      "width": 1440,
+      "height": 900,
+      "heading": "Settings",
+      "exceptions": [],
+      "rail": {
+        "items": 9,
+        "active": [
+          "tune\n\nSettings"
+        ],
+        "sidebar_visible": true
+      },
+      "charts": 0,
+      "chart_labels": null,
+      "overflow_px": 0,
+      "palette": [],
+      "artwork_loaded": true,
+      "backgrounds": {
+        "layers": [
+          {
+            "surface": ".stApp",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/backgrounds/bg-settings.svg"
+            ]
+          },
+          {
+            "surface": ".disclaimer",
+            "urls": [
+              "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp"
+            ]
+          }
+        ],
+        "inline_photos": [],
+        "attachment": "fixed, fixed, fixed, fixed",
+        "statuses": {
+          "http://127.0.0.1:8601/app/static/backgrounds/bg-settings.svg": 200,
+          "http://127.0.0.1:8601/app/static/photos/tile-gold-512.webp": 200
+        }
+      },
+      "file": "desktop-09-settings.png",
+      "full_file": "desktop-09-settings-full.png",
+      "full_height": 1936,
+      "full_clipped": false,
+      "content_height": 1936,
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "page_errors": [],
+      "bad_responses": [
+        {
+          "url": "http://127.0.0.1:8601/settings/_stcore/health",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:8601/settings/_stcore/host-config",
+          "status": 404
+        }
+      ],
+      "checks": {
+        "heading": true,
+        "no_exception": true,
+        "no_page_error": true,
+        "no_http_error": true,
+        "no_overflow": true,
+        "palette": true,
+        "rail_active": true,
+        "artwork": true,
+        "chart_labels": true,
+        "backgrounds": true
+      },
+      "ok": true
+    }
+  ],
+  "summary": {
+    "captures": 27,
+    "ok": 27,
+    "failed": []
+  }
+}

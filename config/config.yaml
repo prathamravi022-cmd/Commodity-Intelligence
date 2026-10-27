@@ -1,0 +1,90 @@
+# ============================================================
+# Commodity Derivatives Intelligence - Master Configuration
+# Every assumption lives here. Nothing hard-coded in source.
+# Replace placeholder values with documented fee schedules
+# and state the source in the README before the final run.
+# ============================================================
+
+project:
+  name: Commodity Derivatives Intelligence
+  version: "1.0"
+  disclaimer: >-
+    This dashboard is a research prototype. It uses exchange settlement
+    prices, which are not executable fill prices. Nothing here is
+    investment advice. Past backtest results do not predict future
+    performance.
+
+contracts:
+  GOLDM:
+    trading_unit_g: 100
+    quoted_unit_g: 10
+    purity: 0.995
+    expiry_window: [3, 5]
+    first_year: 2020
+  GOLDTEN:
+    trading_unit_g: 10
+    quoted_unit_g: 10
+    purity: 0.999
+    expiry_window: [27, 31]
+    first_year: 2025
+  GOLDGUINEA:
+    trading_unit_g: 8
+    quoted_unit_g: 8
+    purity: 0.999
+    expiry_window: [27, 31]
+    first_year: 2020
+  GOLDPETAL:
+    trading_unit_g: 1
+    quoted_unit_g: 1
+    purity: 0.999
+    expiry_window: [27, 31]
+    first_year: 2020
+
+# first_year for GOLDM, GOLDGUINEA, GOLDPETAL is a placeholder.
+# Confirm against actual data before the run.
+
+signal:
+  window_days: 60
+  entry_z: 2.0
+  exit_z: 0.5
+  watch_z: 1.5
+
+carry:
+  method: simple
+  annual_carry_rate: 0.0   # set and document; see RV-003
+
+costs:
+  scenarios:
+    low:
+      exchange_fee_bps: 1
+      brokerage_bps: 1
+      statutory_bps: 1
+      slippage_bps: 2
+    base:
+      exchange_fee_bps: 2
+      brokerage_bps: 3
+      statutory_bps: 2
+      slippage_bps: 5
+    high:
+      exchange_fee_bps: 3
+      brokerage_bps: 5
+      statutory_bps: 3
+      slippage_bps: 10
+  # Values are illustrative placeholders. Replace with actual fee schedules.
+
+validation:
+  date_request_format: "%d/%m/%Y"
+  date_response_format: "%m/%d/%Y"
+  expiry_format: "%d%b%Y"
+  max_price_jump_pct: 10   # flag, do not delete
+  rate_limit_seconds: 1.0
+
+backtest:
+  train_fraction: 0.6
+  walk_forward_step_days: 20
+  cooldown_days: 5
+  min_out_of_sample_trades: 30
+
+alerts:
+  cooldown_days: 5
+  enabled: true

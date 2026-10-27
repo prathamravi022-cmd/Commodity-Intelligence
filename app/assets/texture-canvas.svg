@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480">
+  <!-- Light workspace texture: a trading-terminal grid at single-digit opacity.
+       Tiled behind the page at 480px so it reads as paper grain, never as a chart.
+       Only gold and navy appear, and only below 6% alpha. -->
+  <g stroke="#A67C00" stroke-opacity="0.05" stroke-width="1" fill="none">
+    <path d="M0 120H480M0 240H480M0 360H480"/>
+    <path d="M120 0V480M240 0V480M360 0V480"/>
+  </g>
+  <g stroke="#23406B" stroke-opacity="0.035" stroke-width="1" fill="none">
+    <path d="M0 60H480M0 300H480"/>
+    <path d="M60 0V480M420 0V480"/>
+  </g>
+  <g stroke="#A67C00" stroke-opacity="0.06" stroke-width="1" fill="none">
+    <path d="M118 232h4M118 236v8M118 244h4M358 112h4M358 116v8M358 124h4"/>
+    <path d="M232 116h16M232 120h8M232 124h16"/>
+  </g>
+</svg>

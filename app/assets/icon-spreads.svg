@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none" stroke-linecap="round">
+  <!-- Two contract legs diverging around a dashed mean: the spread itself. -->
+  <path d="M12 46C26 46 34 20 52 20" stroke="#E3B341" stroke-width="2.8"/>
+  <path d="M12 20C26 20 34 46 52 46" stroke="#E4574A" stroke-width="2.8"/>
+  <path d="M12 33h40" stroke="#A6958C" stroke-width="2" stroke-dasharray="5 5"/>
+</svg>

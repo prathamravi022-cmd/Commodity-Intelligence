@@ -1,0 +1,24 @@
+# Streamlit configuration.
+#
+# The product is a dark research workspace: frosted glass over a midnight navy
+# canvas, with a navy rail and champagne-gold accent (styled in app/theme.py).
+# Pinning the dark base theme keeps native widgets — inputs, dataframes, menus,
+# the dataframe grid's own canvas — on the same dark glass as the custom chrome,
+# regardless of the visitor's OS `prefers-color-scheme`.
+
+[server]
+# Photography in app/static/photos/ is served from /app/static/... so the
+# browser can cache it, instead of base64-inlining a few hundred KB into every
+# rerun. Only that folder is exposed; nothing is fetched from the network.
+enableStaticServing = true
+
+[theme]
+base = "dark"
+primaryColor = "#E8CD8A"              # app.theme.GOLD
+backgroundColor = "#070B14"           # app.theme.CANVAS
+secondaryBackgroundColor = "#0C1422"  # app.theme.SURFACE_SOLID
+textColor = "#F2F6FC"                 # app.theme.TEXT
+font = "sans serif"
+
+[client]
+toolbarMode = "minimal"
