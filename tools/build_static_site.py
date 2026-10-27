@@ -229,6 +229,7 @@ def shell(slug: str, title: str, subtitle: str, body: str, charts: ChartSink, fo
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title} · Commodity Intelligence</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="stylesheet" href="assets/site.css">
 <script src="assets/plotly.min.js" charset="utf-8"></script>
 </head>
@@ -708,6 +709,9 @@ def main() -> int:
 
     (target / "assets" / "site.css").write_text(CSS, encoding="utf-8")
     (target / "assets" / "plotly.min.js").write_text(get_plotlyjs(), encoding="utf-8")
+    favicon = ROOT / "app" / "assets" / "favicon.png"
+    if favicon.exists():
+        (target / "assets" / "favicon.png").write_bytes(favicon.read_bytes())
     for name, html in pages.items():
         (target / name).write_text(html, encoding="utf-8")
     for stale in target.glob("*.html"):
