@@ -16,6 +16,7 @@ The Streamlit app stays the interactive original; this is its read-only export.
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import sys
 from pathlib import Path
@@ -55,15 +56,23 @@ UP = "#35D08A"
 DOWN = "#FF6B6B"
 SERIES = ["#E8CD8A", "#6EA8FE", "#4FD1A5", "#C79BFF", "#FFB86B", "#FF9BC1"]
 
-PAGES = [
-    ("index.html", "Overview"),
-    ("contracts.html", "Contracts"),
-    ("spreads.html", "Spreads & Z-score"),
-    ("signals.html", "Signals"),
-    ("backtest.html", "Backtesting"),
-    ("quality.html", "Data quality"),
-    ("methodology.html", "Methodology"),
+#: The rail, in the app's order and section grouping (``app.components.NAV_PAGES``):
+#: ``(file, label, section, icon)``. Every page the Streamlit app serves has an
+#: entry here, so the static site never has fewer screens than the app.
+PAGES: list[tuple[str, str, str, str]] = [
+    ("index.html", "Overview", "Workspace", "icon-overview.svg"),
+    ("contracts.html", "Gold Contracts", "Workspace", "icon-curve.svg"),
+    ("prices.html", "Price Comparison", "Workspace", "icon-prices.svg"),
+    ("spreads.html", "Spread Analytics", "Workspace", "icon-spreads.svg"),
+    ("signals.html", "Signal Explorer", "Workspace", "icon-alerts.svg"),
+    ("backtest.html", "Backtesting", "Research", "icon-backtest.svg"),
+    ("quality.html", "Data Quality", "Research", "icon-quality.svg"),
+    ("methodology.html", "Methodology", "Research", "icon-methodology.svg"),
+    ("settings.html", "Settings", "Preferences", "icon-settings.svg"),
 ]
+
+#: Latest session in the data, stamped in the rail. Set once by ``main``.
+AS_OF = ""
 
 RUN_RECORDS = ("pipeline.json", "run.json")
 
@@ -82,6 +91,11 @@ PAGE_CANVAS: dict[str, dict] = {
         "key": "gold-contracts", "scene": "bg-contracts.svg", "photo": "contracts-banner",
         "focal": "center 28%", "position": "62% 42%",
         "glow": ("72%", "-14%"), "alpha": 0.20, "scrim": 0.90,
+    },
+    "prices.html": {
+        "key": "price-comparison", "scene": "bg-prices.svg", "photo": "",
+        "focal": "center", "position": "50% 50%",
+        "glow": ("12%", "-8%"), "alpha": 0.13, "scrim": 0.56,
     },
     "spreads.html": {
         "key": "spread-analytics", "scene": "bg-spreads.svg", "photo": "",
@@ -108,6 +122,11 @@ PAGE_CANVAS: dict[str, dict] = {
         "focal": "center 22%", "position": "58% 44%",
         "glow": ("80%", "-8%"), "alpha": 0.15, "scrim": 0.88,
     },
+    "settings.html": {
+        "key": "settings", "scene": "bg-settings.svg", "photo": "",
+        "focal": "center", "position": "50% 50%",
+        "glow": ("30%", "-10%"), "alpha": 0.10, "scrim": 0.74,
+    },
 }
 
 
@@ -122,6 +141,16 @@ def photo_file(stem: str) -> Path | None:
             return path
     candidates = sorted(PHOTOS.glob(f"{stem}-*.webp"))
     return candidates[-1] if candidates else None
+
+
+def contract_specs() -> dict[str, dict]:
+    """``config/config.yaml`` contract geometry, so a table can show size/purity."""
+    try:
+        import yaml  # noqa: PLC0415 - optional: only the comparison table needs it
+        raw = yaml.safe_load((ROOT / "config" / "config.yaml").read_text(encoding="utf-8"))
+        return (raw or {}).get("contracts", {}) or {}
+    except Exception:
+        return {}
 
 
 def _scrim(alpha: float) -> str:
@@ -354,11 +383,48 @@ def _head(slug: str, title: str, subtitle: str) -> str:
 </div>"""
 
 
+def _rail(slug: str) -> str:
+    """The app's sidebar rail: brand, sectioned page links, data stamp.
+
+    Every page carries the full rail, so navigation is always one click and the
+    export has the same nine screens in the same order as the Streamlit app.
+    """
+    groups: dict[str, list[tuple[str, str, str]]] = {}
+    for href, label, section, icon in PAGES:
+        groups.setdefault(section, []).append((href, label, icon))
+
+    blocks = []
+    for section, items in groups.items():
+        links = "".join(
+            f'<a href="{href}"'
+            f'{" class=\"active\" aria-current=\"page\"" if href == slug else ""}>'
+            f'<img src="assets/icons/{icon}" alt="" width="16" height="16">{label}</a>'
+            for href, label, icon in items
+        )
+        blocks.append(f'<p class="rail-section">{section}</p>{links}')
+
+    stamp = f'<span class="rail-stamp">Data as of <b>{AS_OF}</b></span>' if AS_OF else ""
+    return f"""<aside class="rail">
+  <a class="rail-brand" href="index.html">
+    <img class="rail-logo" src="assets/icons/logo-bullion.svg" alt="" width="34" height="34">
+    <span><strong>Commodity Intelligence</strong><em>Team Starway</em></span>
+  </a>
+  <nav class="rail-nav" aria-label="Pages">{''.join(blocks)}</nav>
+  <div class="rail-foot">{stamp}<span class="rail-note">Static export · research prototype</span></div>
+</aside>
+<script>
+/* On narrow screens the rail is a horizontal strip: bring the current page's
+   link into view so the reader can see where they are without hunting. */
+(function () {{
+  var rail = document.querySelector('.rail'), link = rail && rail.querySelector('a.active');
+  if (!rail || !link || rail.scrollWidth <= rail.clientWidth) return;
+  var box = link.getBoundingClientRect(), edge = rail.getBoundingClientRect();
+  rail.scrollLeft += box.left - edge.left - (rail.clientWidth - box.width) / 2;
+}})();
+</script>"""
+
+
 def shell(slug: str, title: str, subtitle: str, body: str, charts: ChartSink, footer: str) -> str:
-    nav = "".join(
-        f'<a href="{href}"{" class=\"active\"" if href == slug else ""}>{label}</a>'
-        for href, label in PAGES
-    )
     key = PAGE_CANVAS.get(slug, {}).get("key", "")
     return f"""<!doctype html>
 <html lang="en">
@@ -371,22 +437,21 @@ def shell(slug: str, title: str, subtitle: str, body: str, charts: ChartSink, fo
 <script src="assets/plotly.min.js" charset="utf-8"></script>
 </head>
 <body data-bg="{key}">
-<header class="topbar">
-  <a class="brand" href="index.html"><span class="mark">CI</span> Commodity Intelligence</a>
-  <nav>{nav}</nav>
-</header>
-<main>
-  {_head(slug, title, subtitle)}
-  {body}
-  {footer}
-</main>
-<footer class="site-foot">
-  <p><strong>Research prototype — not investment advice.</strong> Settlement prices are
-  not executable fills; past backtest results do not predict future performance.
-  Signals are research outputs, not trade recommendations.</p>
-  <p class="fine">Static export of the Streamlit dashboard, rendered from the committed
-  pipeline artifacts.</p>
-</footer>
+{_rail(slug)}
+<div class="shell">
+  <main>
+    {_head(slug, title, subtitle)}
+    {body}
+    {footer}
+  </main>
+  <footer class="site-foot">
+    <p><strong>Research prototype — not investment advice.</strong> Settlement prices are
+    not executable fills; past backtest results do not predict future performance.
+    Signals are research outputs, not trade recommendations.</p>
+    <p class="fine">Static export of the Streamlit dashboard, rendered from the committed
+    pipeline artifacts.</p>
+  </footer>
+</div>
 {charts.scripts()}
 </body>
 </html>
@@ -406,29 +471,53 @@ body {{
     radial-gradient(1100px 520px at 12% -10%, rgba(232,205,138,.10), transparent 65%),
     radial-gradient(900px 480px at 92% 0%, rgba(110,168,254,.08), transparent 60%);
   background-repeat: no-repeat;
+  /* Rail + content: the app's sidebar on the left, pages to its right. */
+  display: grid; grid-template-columns: 268px minmax(0, 1fr);
+  min-height: 100vh; align-items: start;
 }}
 a {{ color: var(--gold); text-decoration: none; }}
 a:hover {{ color: #fff; }}
-.topbar {{
-  position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: wrap; gap: 14px;
-  align-items: center; justify-content: space-between; padding: 14px 26px;
-  border-bottom: 1px solid var(--line);
-  background: rgba(7,11,20,.82); backdrop-filter: blur(14px);
+/* ---------------- Rail ---------------- */
+.rail {{
+  position: sticky; top: 0; z-index: 20; height: 100vh; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 18px;
+  padding: 18px 14px 16px; border-right: 1px solid var(--line);
+  background: rgba(7,11,20,.78); backdrop-filter: blur(16px);
 }}
-.brand {{ display: inline-flex; align-items: center; gap: 10px; color: var(--text); font-weight: 600; letter-spacing: .01em; }}
-.mark {{
-  display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 8px;
-  border: 1px solid rgba(232,205,138,.5); color: var(--gold); font-size: 11px; font-weight: 700;
-  background: rgba(232,205,138,.10);
+.rail-brand {{
+  display: flex; align-items: center; gap: 10px; padding: 6px 8px 14px;
+  border-bottom: 1px solid var(--line); color: var(--text);
 }}
-nav {{ display: flex; flex-wrap: wrap; gap: 4px; }}
-nav a {{
-  padding: 6px 11px; border-radius: 999px; color: var(--muted); font-size: 13px;
-  border: 1px solid transparent;
+.rail-brand strong {{ display: block; font-size: 14px; font-weight: 650; letter-spacing: .01em; }}
+.rail-brand em {{ display: block; font-style: normal; color: var(--muted); font-size: 11px;
+                  letter-spacing: .10em; text-transform: uppercase; margin-top: 2px; }}
+.rail-logo {{ flex: 0 0 auto; }}
+.rail-nav {{ display: flex; flex-direction: column; gap: 2px; }}
+.rail-section {{
+  margin: 14px 8px 4px; color: var(--muted); font-size: 10px; letter-spacing: .16em;
+  text-transform: uppercase; opacity: .75;
 }}
-nav a:hover {{ color: var(--text); background: rgba(255,255,255,.05); }}
-nav a.active {{ color: var(--canvas); background: var(--gold); font-weight: 600; }}
-main {{ max-width: 1180px; margin: 0 auto; padding: 34px 24px 64px; }}
+.rail-section:first-child {{ margin-top: 0; }}
+.rail-nav a {{
+  display: flex; align-items: center; gap: 9px; padding: 8px 10px; border-radius: 10px;
+  color: var(--muted); font-size: 13.5px; border: 1px solid transparent;
+}}
+.rail-nav a img {{ opacity: .78; flex: 0 0 auto; }}
+.rail-nav a:hover {{ color: var(--text); background: rgba(255,255,255,.05); }}
+.rail-nav a:hover img {{ opacity: 1; }}
+.rail-nav a.active {{
+  color: var(--gold); font-weight: 600;
+  background: rgba(232,205,138,.10); border-color: rgba(232,205,138,.38);
+}}
+.rail-nav a.active img {{ opacity: 1; }}
+.rail-foot {{
+  margin-top: auto; padding: 12px 8px 0; border-top: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: 5px; color: var(--muted); font-size: 11px;
+}}
+.rail-stamp b {{ color: var(--gold); font-weight: 600; }}
+.rail-note {{ opacity: .7; }}
+.shell {{ min-width: 0; }}
+main {{ max-width: 1120px; margin: 0 auto; padding: 28px 26px 56px; }}
 /* Frosted strip: the scene moves behind it, the headline never sits on raw art. */
 .page-head {{
   margin: 0 0 26px; padding: 20px 24px 22px; border-radius: 18px;
@@ -498,6 +587,22 @@ tbody tr:hover td {{ background: rgba(255,255,255,.03); }}
 .down {{ color: var(--down); }}
 .badge {{ display: inline-block; padding: 1px 9px; border-radius: 999px; font-size: 11px;
           border: 1px solid rgba(232,205,138,.45); color: var(--gold); }}
+.keys {{ display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 16px; }}
+.key {{
+  display: inline-flex; align-items: baseline; gap: 8px; padding: 8px 12px;
+  border: 1px solid var(--line); border-radius: 12px;
+  background: rgba(12,20,34,.60); font-size: 12px;
+}}
+.key i {{ width: 9px; height: 9px; border-radius: 3px; display: inline-block; }}
+.key b {{ font-weight: 600; color: var(--text); }}
+.key em {{ font-style: normal; color: var(--muted); }}
+.key .val {{ color: var(--gold); font-variant-numeric: tabular-nums; }}
+pre.code {{
+  margin: 0; padding: 14px 16px; border-radius: 12px; overflow-x: auto;
+  border: 1px solid var(--line); background: rgba(5,8,15,.72);
+  font-family: ui-monospace, "Cascadia Mono", monospace; font-size: 12px;
+  line-height: 1.55; color: #D8E3F2;
+}}
 ul.plain {{ margin: 0; padding-left: 18px; color: var(--muted); }}
 ul.plain li {{ margin: 4px 0; }}
 code {{ font-family: ui-monospace, "Cascadia Mono", monospace; font-size: 12px;
@@ -506,9 +611,24 @@ code {{ font-family: ui-monospace, "Cascadia Mono", monospace; font-size: 12px;
               color: var(--muted); font-size: 12px; }}
 .site-foot strong {{ color: var(--gold); font-weight: 600; }}
 .site-foot .fine {{ margin-top: 8px; opacity: .75; }}
+/* Below this width the rail becomes a strip on top; every page stays one click
+   away by scrolling it horizontally. */
+@media (max-width: 940px) {{
+  body {{ grid-template-columns: 1fr; }}
+  .rail {{
+    height: auto; flex-direction: row; align-items: center; gap: 10px;
+    padding: 8px 12px; overflow-x: auto; overflow-y: hidden;
+    border-right: 0; border-bottom: 1px solid var(--line);
+  }}
+  .rail-brand {{ flex: 0 0 auto; padding: 0 8px 0 0; border-bottom: 0; }}
+  .rail-brand strong {{ font-size: 12px; white-space: nowrap; }}
+  .rail-brand em {{ display: none; }}
+  .rail-nav {{ flex-direction: row; gap: 4px; }}
+  .rail-section, .rail-foot {{ display: none; }}
+  .rail-nav a {{ white-space: nowrap; padding: 7px 10px; }}
+}}
 @media (max-width: 620px) {{
-  main {{ padding: 24px 14px 48px; }}
-  .topbar {{ padding: 12px 14px; }}
+  main {{ padding: 20px 14px 48px; }}
   .card .value {{ font-size: 22px; }}
   .page-head {{ padding: 16px 16px 18px; }}
   .hero-band {{ padding: 10px; }}
@@ -628,9 +748,88 @@ def build(norm: pd.DataFrame, spreads: pd.DataFrame, signals: pd.DataFrame,
                                      marker_color=SERIES[i % len(SERIES)], opacity=.85))
             fig.update_layout(barmode="stack")
             body += panel("Daily volume by contract", charts.add(fig, 320))
-    out["contracts.html"] = shell("contracts.html", "Contracts",
+    out["contracts.html"] = shell("contracts.html", "Gold Contracts",
                                   "Four gold contracts, one basis — settlement prices, volume and open interest.",
                                   body, charts, "")
+
+    # ---------------- Price comparison ----------------
+    charts = ChartSink()
+    body = ""
+    specs = contract_specs()
+    if norm.empty:
+        body = panel("Price comparison", '<p class="empty">No normalized data committed.</p>')
+    else:
+        last_day = norm["trade_date"].max()
+        # Key above the chart: colour, contract geometry and the last price, so a
+        # reader can map a line to a specification without a second table.
+        keys = []
+        for i, symbol in enumerate(symbols):
+            block = norm[(norm.symbol == symbol) & (norm.trade_date == last_day)]
+            if block.empty:
+                continue
+            spec = specs.get(symbol, {}) or {}
+            bits = []
+            if spec.get("trading_unit_g") is not None:
+                bits.append(f"{float(spec['trading_unit_g']):g} g")
+            if spec.get("purity") is not None:
+                bits.append(f"{float(spec['purity']):g} fine")
+            spec_txt = " · ".join(bits) or "contract size in config"
+            keys.append(
+                f'<span class="key"><i style="background:{SERIES[i % len(SERIES)]}"></i>'
+                f'<b>{symbol}</b><em>{spec_txt}</em>'
+                f'<span class="val">₹{num(block["inr_per_g_fine"].iloc[0], 2)}/g</span></span>')
+        body += f'<div class="keys">{"".join(keys)}</div>'
+
+        fig = go.Figure()
+        for i, symbol in enumerate(symbols):
+            block = norm[norm.symbol == symbol].sort_values("trade_date")
+            fig.add_trace(go.Scatter(
+                x=block["trade_date"], y=block["inr_per_g_fine"], mode="lines", name=symbol,
+                line=dict(width=1.8, color=SERIES[i % len(SERIES)]),
+                customdata=block["close_raw"],
+                hovertemplate=("%{x|%d %b %Y}<br>raw ₹%{customdata:,.2f}<br>"
+                               "₹%{y:,.2f}/g fine<extra>" + symbol + "</extra>"),
+            ))
+        fig.update_layout(hovermode="x unified", yaxis_title="INR / g (fine)")
+        body += panel("Normalized settlement price", charts.add(fig, 440),
+                      "Every contract restated to one basis before comparison; hover also "
+                      "shows the quoted price the normalized line was derived from.")
+
+        # Latest comparison against the previous session. Two sessions is enough
+        # for a change figure; a longer window belongs on Spread Analytics.
+        days = sorted(norm["trade_date"].unique())
+        latest = norm[norm.trade_date == days[-1]]
+        prev = norm[norm.trade_date == days[-2]] if len(days) > 1 else norm.iloc[0:0]
+        rows = []
+        for symbol in symbols:
+            row = latest[latest.symbol == symbol]
+            if row.empty:
+                continue
+            price = float(row["inr_per_g_fine"].iloc[0])
+            before = prev[prev.symbol == symbol]
+            change = (price / float(before["inr_per_g_fine"].iloc[0]) - 1) if not before.empty else None
+            spec = specs.get(symbol, {}) or {}
+            rows.append([
+                symbol, f"₹{num(price, 2)}",
+                signed(change * 100, 3) if change is not None else "—",
+                num(spec.get("trading_unit_g")), num(spec.get("purity"), 3),
+                day(row["expiry_date"].iloc[0]), num(row["days_to_expiry"].iloc[0]),
+            ])
+        body += panel("Latest comparison — versus the previous session", table(
+            ["Contract", "INR/g fine", "Change %", "Contract size (g)", "Purity", "Expiry",
+             "Days to expiry"], rows),
+            "Contract size and purity come from config/config.yaml, the same file the pipeline reads.")
+
+        body += panel("Row data",
+                      '<p class="note">Every settlement in the series is committed as parquet: '
+                      '<code>data/analytics/normalized.parquet</code> '
+                      '(<code>symbol</code>, <code>trade_date</code>, <code>close_raw</code>, '
+                      '<code>inr_per_g_fine</code>, volume, open interest, days to expiry). '
+                      'The interactive app on Streamlit Cloud serves it as a CSV download; '
+                      'this export is read-only.</p>')
+    out["prices.html"] = shell("prices.html", "Price Comparison",
+                               "Settlement prices restated to fine-gold INR per gram — the only comparable basis.",
+                               body, charts, "")
 
     # ---------------- Spreads ----------------
     charts = ChartSink()
@@ -664,7 +863,7 @@ def build(norm: pd.DataFrame, spreads: pd.DataFrame, signals: pd.DataFrame,
         ]
         body = panel("Latest spread per pair",
                      table(["Pair", "Spread ₹/g", "Spread %", "Leg A ₹/g", "Leg B ₹/g", "DTE A", "DTE B"], rows)) + body
-    out["spreads.html"] = shell("spreads.html", "Spreads & Z-score",
+    out["spreads.html"] = shell("spreads.html", "Spread Analytics",
                                 "Pairwise spreads after restating each leg to fine gold, with the carry adjustment applied.",
                                 body, charts, "")
 
@@ -704,7 +903,7 @@ def build(norm: pd.DataFrame, spreads: pd.DataFrame, signals: pd.DataFrame,
         ]
         body += panel("Latest state per pair",
                       table(["Session", "Pair", "Spread ₹/g", "Residual after carry", "Z-score", "State"], rows))
-    out["signals.html"] = shell("signals.html", "Signals",
+    out["signals.html"] = shell("signals.html", "Signal Explorer",
                                 "The signal state machine over each pair: Neutral → Watch → Entered → Exited.",
                                 body, charts, "")
 
@@ -810,7 +1009,7 @@ def build(norm: pd.DataFrame, spreads: pd.DataFrame, signals: pd.DataFrame,
                   "nothing reaches <code>data/raw</code> that has not already passed.</li>"
                   "<li>Re-running <code>python -m src.pipeline</code> rebuilds analytics; an import alone "
                   "never rewrites results.</li></ul>")
-    out["quality.html"] = shell("quality.html", "Data quality",
+    out["quality.html"] = shell("quality.html", "Data Quality",
                                 "What the pipeline accepted, what it rejected, and where the record has holes.",
                                 body, charts, "")
 
@@ -853,6 +1052,57 @@ rather than ranked.</li>
     out["methodology.html"] = shell("methodology.html", "Methodology",
                                     "Assumptions, formulas and limitations behind every number in this dashboard.",
                                     body, ChartSink(), "")
+
+    # ---------------- Settings ----------------
+    # The app's Settings page is interactive; the export documents the same facts
+    # read-only: what is loaded, which run produced the results, and the exact
+    # configuration the pipeline was given.
+    body = ""
+    cfg_path = ROOT / "config" / "config.yaml"
+    cfg_text = cfg_path.read_text(encoding="utf-8") if cfg_path.is_file() else ""
+    run_id = record.get("run_id") or (run_dir.name if run_dir else "—")
+
+    def coverage(frame: pd.DataFrame) -> str:
+        if frame.empty or "trade_date" not in frame.columns:
+            return "—"
+        dates = pd.to_datetime(frame["trade_date"])
+        return f"{day(dates.min())} → {day(dates.max())}"
+
+    started = record.get("started_utc")
+    run_label = "—"
+    if started:
+        try:
+            run_label = day(pd.Timestamp(started))
+        except (TypeError, ValueError):
+            run_label = "—"
+    body += cards([
+        {"label": "Contracts", "value": num(len(symbols)) if not norm.empty else "—", "sub": "in configuration"},
+        {"label": "Sessions", "value": num(total_dates), "sub": "trading days loaded"},
+        {"label": "Last pipeline run", "value": run_label, "sub": "results directory in data/results"},
+        {"label": "Config", "value": "Read-only", "sub": "config/config.yaml"},
+    ])
+    body += panel("Loaded datasets", table(
+        ["Dataset", "Rows", "Coverage"], [
+            ["Normalized prices", num(len(norm)), coverage(norm)],
+            ["Spread / z-score history", num(len(signals)), coverage(signals)],
+            ["Clean bhavcopy", num(len(clean)), coverage(clean)],
+            ["Rejected rows", num(len(rejections)), "reason-tagged"],
+        ]),
+        "The export reads these files directly; nothing is downloaded at page load.")
+    body += panel("Configuration in force",
+                  f'<pre class="code">{html.escape(cfg_text)}</pre>',
+                  f"Read-only here — edits belong in config/config.yaml, which both the "
+                  f"pipeline and this export read. The figures on every other page come "
+                  f"from run <code>{html.escape(str(run_id))}</code>.")
+    body += panel("Regenerate",
+                  '<pre class="code">python -X utf8 tests/fixtures.py\n'
+                  'python -X utf8 -m src.pipeline\n'
+                  'python -X utf8 tools/build_static_site.py</pre>',
+                  "The first writes sample data only when none is present; the last rebuilds "
+                  "these pages from the committed artifacts.")
+    out["settings.html"] = shell("settings.html", "Settings",
+                                 "Defaults, loaded data and the configuration in force — read-only in this export.",
+                                 body, ChartSink(), "")
     return out
 
 
@@ -884,6 +1134,16 @@ def publish_artwork(target: Path) -> int:
     if texture.is_file():
         (target / "assets" / "textures" / texture.name).write_bytes(texture.read_bytes())
         copied += 1
+
+    # Rail artwork: the page icons the app shows beside each link, plus the brand
+    # mark. Same files, so the export's rail reads like the app's rail.
+    (target / "assets" / "icons").mkdir(parents=True, exist_ok=True)
+    icons = [icon for _, _, _, icon in PAGES] + ["logo-bullion.svg"]
+    for name in icons:
+        source = TEXTURES / name
+        if source.is_file():
+            (target / "assets" / "icons" / name).write_bytes(source.read_bytes())
+            copied += 1
     return copied
 
 
@@ -898,7 +1158,11 @@ def main() -> int:
     # here needs a fresh tree.
     (target / "assets").mkdir(parents=True, exist_ok=True)
 
+    global AS_OF
     norm = read_parquet("normalized.parquet")
+    # The rail stamps the session the numbers are from, like the app's freshness bar.
+    if not norm.empty and "trade_date" in norm.columns:
+        AS_OF = day(pd.to_datetime(norm["trade_date"]).max())
     spreads = read_parquet("spreads.parquet")
     signals = read_parquet("signals.parquet")
 

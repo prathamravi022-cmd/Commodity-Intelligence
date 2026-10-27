@@ -11,29 +11,53 @@ body {
     radial-gradient(1100px 520px at 12% -10%, rgba(232,205,138,.10), transparent 65%),
     radial-gradient(900px 480px at 92% 0%, rgba(110,168,254,.08), transparent 60%);
   background-repeat: no-repeat;
+  /* Rail + content: the app's sidebar on the left, pages to its right. */
+  display: grid; grid-template-columns: 268px minmax(0, 1fr);
+  min-height: 100vh; align-items: start;
 }
 a { color: var(--gold); text-decoration: none; }
 a:hover { color: #fff; }
-.topbar {
-  position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: wrap; gap: 14px;
-  align-items: center; justify-content: space-between; padding: 14px 26px;
-  border-bottom: 1px solid var(--line);
-  background: rgba(7,11,20,.82); backdrop-filter: blur(14px);
+/* ---------------- Rail ---------------- */
+.rail {
+  position: sticky; top: 0; z-index: 20; height: 100vh; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 18px;
+  padding: 18px 14px 16px; border-right: 1px solid var(--line);
+  background: rgba(7,11,20,.78); backdrop-filter: blur(16px);
 }
-.brand { display: inline-flex; align-items: center; gap: 10px; color: var(--text); font-weight: 600; letter-spacing: .01em; }
-.mark {
-  display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 8px;
-  border: 1px solid rgba(232,205,138,.5); color: var(--gold); font-size: 11px; font-weight: 700;
-  background: rgba(232,205,138,.10);
+.rail-brand {
+  display: flex; align-items: center; gap: 10px; padding: 6px 8px 14px;
+  border-bottom: 1px solid var(--line); color: var(--text);
 }
-nav { display: flex; flex-wrap: wrap; gap: 4px; }
-nav a {
-  padding: 6px 11px; border-radius: 999px; color: var(--muted); font-size: 13px;
-  border: 1px solid transparent;
+.rail-brand strong { display: block; font-size: 14px; font-weight: 650; letter-spacing: .01em; }
+.rail-brand em { display: block; font-style: normal; color: var(--muted); font-size: 11px;
+                  letter-spacing: .10em; text-transform: uppercase; margin-top: 2px; }
+.rail-logo { flex: 0 0 auto; }
+.rail-nav { display: flex; flex-direction: column; gap: 2px; }
+.rail-section {
+  margin: 14px 8px 4px; color: var(--muted); font-size: 10px; letter-spacing: .16em;
+  text-transform: uppercase; opacity: .75;
 }
-nav a:hover { color: var(--text); background: rgba(255,255,255,.05); }
-nav a.active { color: var(--canvas); background: var(--gold); font-weight: 600; }
-main { max-width: 1180px; margin: 0 auto; padding: 34px 24px 64px; }
+.rail-section:first-child { margin-top: 0; }
+.rail-nav a {
+  display: flex; align-items: center; gap: 9px; padding: 8px 10px; border-radius: 10px;
+  color: var(--muted); font-size: 13.5px; border: 1px solid transparent;
+}
+.rail-nav a img { opacity: .78; flex: 0 0 auto; }
+.rail-nav a:hover { color: var(--text); background: rgba(255,255,255,.05); }
+.rail-nav a:hover img { opacity: 1; }
+.rail-nav a.active {
+  color: var(--gold); font-weight: 600;
+  background: rgba(232,205,138,.10); border-color: rgba(232,205,138,.38);
+}
+.rail-nav a.active img { opacity: 1; }
+.rail-foot {
+  margin-top: auto; padding: 12px 8px 0; border-top: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: 5px; color: var(--muted); font-size: 11px;
+}
+.rail-stamp b { color: var(--gold); font-weight: 600; }
+.rail-note { opacity: .7; }
+.shell { min-width: 0; }
+main { max-width: 1120px; margin: 0 auto; padding: 28px 26px 56px; }
 /* Frosted strip: the scene moves behind it, the headline never sits on raw art. */
 .page-head {
   margin: 0 0 26px; padding: 20px 24px 22px; border-radius: 18px;
@@ -103,6 +127,22 @@ tbody tr:hover td { background: rgba(255,255,255,.03); }
 .down { color: var(--down); }
 .badge { display: inline-block; padding: 1px 9px; border-radius: 999px; font-size: 11px;
           border: 1px solid rgba(232,205,138,.45); color: var(--gold); }
+.keys { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 16px; }
+.key {
+  display: inline-flex; align-items: baseline; gap: 8px; padding: 8px 12px;
+  border: 1px solid var(--line); border-radius: 12px;
+  background: rgba(12,20,34,.60); font-size: 12px;
+}
+.key i { width: 9px; height: 9px; border-radius: 3px; display: inline-block; }
+.key b { font-weight: 600; color: var(--text); }
+.key em { font-style: normal; color: var(--muted); }
+.key .val { color: var(--gold); font-variant-numeric: tabular-nums; }
+pre.code {
+  margin: 0; padding: 14px 16px; border-radius: 12px; overflow-x: auto;
+  border: 1px solid var(--line); background: rgba(5,8,15,.72);
+  font-family: ui-monospace, "Cascadia Mono", monospace; font-size: 12px;
+  line-height: 1.55; color: #D8E3F2;
+}
 ul.plain { margin: 0; padding-left: 18px; color: var(--muted); }
 ul.plain li { margin: 4px 0; }
 code { font-family: ui-monospace, "Cascadia Mono", monospace; font-size: 12px;
@@ -111,9 +151,24 @@ code { font-family: ui-monospace, "Cascadia Mono", monospace; font-size: 12px;
               color: var(--muted); font-size: 12px; }
 .site-foot strong { color: var(--gold); font-weight: 600; }
 .site-foot .fine { margin-top: 8px; opacity: .75; }
+/* Below this width the rail becomes a strip on top; every page stays one click
+   away by scrolling it horizontally. */
+@media (max-width: 940px) {
+  body { grid-template-columns: 1fr; }
+  .rail {
+    height: auto; flex-direction: row; align-items: center; gap: 10px;
+    padding: 8px 12px; overflow-x: auto; overflow-y: hidden;
+    border-right: 0; border-bottom: 1px solid var(--line);
+  }
+  .rail-brand { flex: 0 0 auto; padding: 0 8px 0 0; border-bottom: 0; }
+  .rail-brand strong { font-size: 12px; white-space: nowrap; }
+  .rail-brand em { display: none; }
+  .rail-nav { flex-direction: row; gap: 4px; }
+  .rail-section, .rail-foot { display: none; }
+  .rail-nav a { white-space: nowrap; padding: 7px 10px; }
+}
 @media (max-width: 620px) {
-  main { padding: 24px 14px 48px; }
-  .topbar { padding: 12px 14px; }
+  main { padding: 20px 14px 48px; }
   .card .value { font-size: 22px; }
   .page-head { padding: 16px 16px 18px; }
   .hero-band { padding: 10px; }
@@ -139,6 +194,13 @@ body[data-bg="gold-contracts"] {
   background-position: 72% -14%, 2% 106%, 62% 42%, center top, center 28%;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
   background-attachment: fixed, fixed, fixed, fixed, fixed;
+}
+body[data-bg="price-comparison"] {
+  background-image: radial-gradient(120% 80% at 12% -8%, rgba(232,205,138,0.13), rgba(232,205,138,0) 60%), radial-gradient(90% 64% at 2% 106%, rgba(143,184,236,0.09), rgba(143,184,236,0) 62%), url(backgrounds/bg-prices.svg), linear-gradient(180deg, rgba(7,11,20,0.56) 0%, rgba(7,11,20,0.60) 45%, rgba(5,8,15,0.63) 100%);
+  background-size: cover, cover, cover, cover;
+  background-position: 12% -8%, 2% 106%, 50% 50%, center top;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-attachment: fixed, fixed, fixed, fixed;
 }
 body[data-bg="spread-analytics"] {
   background-image: radial-gradient(120% 80% at 88% 6%, rgba(232,205,138,0.14), rgba(232,205,138,0) 60%), radial-gradient(90% 64% at 2% 106%, rgba(143,184,236,0.09), rgba(143,184,236,0) 62%), url(backgrounds/bg-spreads.svg), linear-gradient(180deg, rgba(7,11,20,0.58) 0%, rgba(7,11,20,0.62) 45%, rgba(5,8,15,0.65) 100%);
@@ -174,4 +236,11 @@ body[data-bg="methodology"] {
   background-position: 80% -8%, 2% 106%, 58% 44%, center top, center 22%;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
   background-attachment: fixed, fixed, fixed, fixed, fixed;
+}
+body[data-bg="settings"] {
+  background-image: radial-gradient(120% 80% at 30% -10%, rgba(232,205,138,0.10), rgba(232,205,138,0) 60%), radial-gradient(90% 64% at 2% 106%, rgba(143,184,236,0.09), rgba(143,184,236,0) 62%), url(backgrounds/bg-settings.svg), linear-gradient(180deg, rgba(7,11,20,0.74) 0%, rgba(7,11,20,0.78) 45%, rgba(5,8,15,0.81) 100%);
+  background-size: cover, cover, cover, cover;
+  background-position: 30% -10%, 2% 106%, 50% 50%, center top;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-attachment: fixed, fixed, fixed, fixed;
 }

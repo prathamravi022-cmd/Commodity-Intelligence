@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Alert bell with a live signal dot. -->
+  <path d="M32 12c-7.2 0-11.4 4.8-11.4 11.6V32L17 39h30l-3.6-7v-8.4C43.4 16.8 39.2 12 32 12z"
+        fill="rgba(212,175,55,0.12)" stroke="#E3B341" stroke-width="2.6" stroke-linejoin="round"/>
+  <path d="M27 44a5 5 0 0010 0" fill="none" stroke="#E3B341" stroke-width="2.6" stroke-linecap="round"/>
+  <circle cx="45" cy="16" r="5" fill="#E06C5F"/>
+</svg>

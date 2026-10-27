@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Open spec book: method, caveats and sources. -->
+  <path d="M32 16c-6-4-13-4-20 0v32c7-4 14-4 20 0c6-4 13-4 20 0V16c-7-4-14-4-20 0z"
+        fill="rgba(212,175,55,0.10)" stroke="#E3B341" stroke-width="2.6" stroke-linejoin="round"/>
+  <path d="M32 16v32" stroke="#E3B341" stroke-width="2.2"/>
+  <path d="M18 24h8M38 24h8M18 32h8M38 32h8" stroke="#A6958C" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg>

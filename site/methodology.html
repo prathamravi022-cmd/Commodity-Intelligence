@@ -9,17 +9,32 @@
 <script src="assets/plotly.min.js" charset="utf-8"></script>
 </head>
 <body data-bg="methodology">
-<header class="topbar">
-  <a class="brand" href="index.html"><span class="mark">CI</span> Commodity Intelligence</a>
-  <nav><a href="index.html">Overview</a><a href="contracts.html">Contracts</a><a href="spreads.html">Spreads & Z-score</a><a href="signals.html">Signals</a><a href="backtest.html">Backtesting</a><a href="quality.html">Data quality</a><a href="methodology.html" class="active">Methodology</a></nav>
-</header>
-<main>
-  <div class="page-head">
+<aside class="rail">
+  <a class="rail-brand" href="index.html">
+    <img class="rail-logo" src="assets/icons/logo-bullion.svg" alt="" width="34" height="34">
+    <span><strong>Commodity Intelligence</strong><em>Team Starway</em></span>
+  </a>
+  <nav class="rail-nav" aria-label="Pages"><p class="rail-section">Workspace</p><a href="index.html"><img src="assets/icons/icon-overview.svg" alt="" width="16" height="16">Overview</a><a href="contracts.html"><img src="assets/icons/icon-curve.svg" alt="" width="16" height="16">Gold Contracts</a><a href="prices.html"><img src="assets/icons/icon-prices.svg" alt="" width="16" height="16">Price Comparison</a><a href="spreads.html"><img src="assets/icons/icon-spreads.svg" alt="" width="16" height="16">Spread Analytics</a><a href="signals.html"><img src="assets/icons/icon-alerts.svg" alt="" width="16" height="16">Signal Explorer</a><p class="rail-section">Research</p><a href="backtest.html"><img src="assets/icons/icon-backtest.svg" alt="" width="16" height="16">Backtesting</a><a href="quality.html"><img src="assets/icons/icon-quality.svg" alt="" width="16" height="16">Data Quality</a><a href="methodology.html" class="active" aria-current="page"><img src="assets/icons/icon-methodology.svg" alt="" width="16" height="16">Methodology</a><p class="rail-section">Preferences</p><a href="settings.html"><img src="assets/icons/icon-settings.svg" alt="" width="16" height="16">Settings</a></nav>
+  <div class="rail-foot"><span class="rail-stamp">Data as of <b>30 Sep 2026</b></span><span class="rail-note">Static export · research prototype</span></div>
+</aside>
+<script>
+/* On narrow screens the rail is a horizontal strip: bring the current page's
+   link into view so the reader can see where they are without hunting. */
+(function () {
+  var rail = document.querySelector('.rail'), link = rail && rail.querySelector('a.active');
+  if (!rail || !link || rail.scrollWidth <= rail.clientWidth) return;
+  var box = link.getBoundingClientRect(), edge = rail.getBoundingClientRect();
+  rail.scrollLeft += box.left - edge.left - (rail.clientWidth - box.width) / 2;
+})();
+</script>
+<div class="shell">
+  <main>
+    <div class="page-head">
   <p class="eyebrow">MCX gold · relative value research</p>
   <h1>Methodology</h1>
   <p class="lede">Assumptions, formulas and limitations behind every number in this dashboard.</p>
 </div>
-  
+    
 <section class="panel"><h2>Normalisation</h2><p>Every contract is restated to one basis before any comparison:</p>
 <p><code>INR per gram fine = price × (trading unit ÷ quoted unit) ÷ purity</code></p>
 <p>GOLDM (10 g, 0.995), GOLDTEN (100 g, 0.995), GOLDGUINEA (10 g, 0.916) and GOLDPETAL (1 g, 0.995)
@@ -54,15 +69,16 @@ rather than ranked.</li>
 <p>This static site is generated from the same committed artifacts and is what a static host serves:</p>
 <p><code>python -X utf8 tools/build_static_site.py</code></p></section>
 
-  
-</main>
-<footer class="site-foot">
-  <p><strong>Research prototype — not investment advice.</strong> Settlement prices are
-  not executable fills; past backtest results do not predict future performance.
-  Signals are research outputs, not trade recommendations.</p>
-  <p class="fine">Static export of the Streamlit dashboard, rendered from the committed
-  pipeline artifacts.</p>
-</footer>
+    
+  </main>
+  <footer class="site-foot">
+    <p><strong>Research prototype — not investment advice.</strong> Settlement prices are
+    not executable fills; past backtest results do not predict future performance.
+    Signals are research outputs, not trade recommendations.</p>
+    <p class="fine">Static export of the Streamlit dashboard, rendered from the committed
+    pipeline artifacts.</p>
+  </footer>
+</div>
 
 </body>
 </html>

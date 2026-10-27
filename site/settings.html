@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Settings · Commodity Intelligence</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/plotly.min.js" charset="utf-8"></script>
+</head>
+<body data-bg="settings">
+<aside class="rail">
+  <a class="rail-brand" href="index.html">
+    <img class="rail-logo" src="assets/icons/logo-bullion.svg" alt="" width="34" height="34">
+    <span><strong>Commodity Intelligence</strong><em>Team Starway</em></span>
+  </a>
+  <nav class="rail-nav" aria-label="Pages"><p class="rail-section">Workspace</p><a href="index.html"><img src="assets/icons/icon-overview.svg" alt="" width="16" height="16">Overview</a><a href="contracts.html"><img src="assets/icons/icon-curve.svg" alt="" width="16" height="16">Gold Contracts</a><a href="prices.html"><img src="assets/icons/icon-prices.svg" alt="" width="16" height="16">Price Comparison</a><a href="spreads.html"><img src="assets/icons/icon-spreads.svg" alt="" width="16" height="16">Spread Analytics</a><a href="signals.html"><img src="assets/icons/icon-alerts.svg" alt="" width="16" height="16">Signal Explorer</a><p class="rail-section">Research</p><a href="backtest.html"><img src="assets/icons/icon-backtest.svg" alt="" width="16" height="16">Backtesting</a><a href="quality.html"><img src="assets/icons/icon-quality.svg" alt="" width="16" height="16">Data Quality</a><a href="methodology.html"><img src="assets/icons/icon-methodology.svg" alt="" width="16" height="16">Methodology</a><p class="rail-section">Preferences</p><a href="settings.html" class="active" aria-current="page"><img src="assets/icons/icon-settings.svg" alt="" width="16" height="16">Settings</a></nav>
+  <div class="rail-foot"><span class="rail-stamp">Data as of <b>30 Sep 2026</b></span><span class="rail-note">Static export · research prototype</span></div>
+</aside>
+<script>
+/* On narrow screens the rail is a horizontal strip: bring the current page's
+   link into view so the reader can see where they are without hunting. */
+(function () {
+  var rail = document.querySelector('.rail'), link = rail && rail.querySelector('a.active');
+  if (!rail || !link || rail.scrollWidth <= rail.clientWidth) return;
+  var box = link.getBoundingClientRect(), edge = rail.getBoundingClientRect();
+  rail.scrollLeft += box.left - edge.left - (rail.clientWidth - box.width) / 2;
+})();
+</script>
+<div class="shell">
+  <main>
+    <div class="page-head">
+  <p class="eyebrow">MCX gold · relative value research</p>
+  <h1>Settings</h1>
+  <p class="lede">Defaults, loaded data and the configuration in force — read-only in this export.</p>
+</div>
+    <div class="cards"><div class="card"><p class="label">Contracts</p><p class="value">4</p><p class="sub">in configuration</p></div><div class="card"><p class="label">Sessions</p><p class="value">273</p><p class="sub">trading days loaded</p></div><div class="card"><p class="label">Last pipeline run</p><p class="value">27 Oct 2026</p><p class="sub">results directory in data/results</p></div><div class="card"><p class="label">Config</p><p class="value">Read-only</p><p class="sub">config/config.yaml</p></div></div><section class="panel"><h2>Loaded datasets</h2><div class="scroll"><table><thead><tr><th>Dataset</th><th>Rows</th><th>Coverage</th></tr></thead><tbody><tr><td>Normalized prices</td><td>1,092</td><td>15 Sep 2025 → 30 Sep 2026</td></tr><tr><td>Spread / z-score history</td><td>1,638</td><td>15 Sep 2025 → 30 Sep 2026</td></tr><tr><td>Clean bhavcopy</td><td>1,092</td><td>15 Sep 2025 → 30 Sep 2026</td></tr><tr><td>Rejected rows</td><td>0</td><td>reason-tagged</td></tr></tbody></table></div><p class="note">The export reads these files directly; nothing is downloaded at page load.</p></section><section class="panel"><h2>Configuration in force</h2><pre class="code"># ============================================================
+# Commodity Derivatives Intelligence - Master Configuration
+# Every assumption lives here. Nothing hard-coded in source.
+# Replace placeholder values with documented fee schedules
+# and state the source in the README before the final run.
+# ============================================================
+
+project:
+  name: Commodity Derivatives Intelligence
+  version: &quot;1.0&quot;
+  disclaimer: &gt;-
+    This dashboard is a research prototype. It uses exchange settlement
+    prices, which are not executable fill prices. Nothing here is
+    investment advice. Past backtest results do not predict future
+    performance.
+
+contracts:
+  GOLDM:
+    trading_unit_g: 100
+    quoted_unit_g: 10
+    purity: 0.995
+    expiry_window: [3, 5]
+    first_year: 2020
+  GOLDTEN:
+    trading_unit_g: 10
+    quoted_unit_g: 10
+    purity: 0.999
+    expiry_window: [27, 31]
+    first_year: 2025
+  GOLDGUINEA:
+    trading_unit_g: 8
+    quoted_unit_g: 8
+    purity: 0.999
+    expiry_window: [27, 31]
+    first_year: 2020
+  GOLDPETAL:
+    trading_unit_g: 1
+    quoted_unit_g: 1
+    purity: 0.999
+    expiry_window: [27, 31]
+    first_year: 2020
+
+# first_year for GOLDM, GOLDGUINEA, GOLDPETAL is a placeholder.
+# Confirm against actual data before the run.
+
+signal:
+  window_days: 60
+  entry_z: 2.0
+  exit_z: 0.5
+  watch_z: 1.5
+
+carry:
+  method: simple
+  annual_carry_rate: 0.0   # set and document; see RV-003
+
+costs:
+  scenarios:
+    low:
+      exchange_fee_bps: 1
+      brokerage_bps: 1
+      statutory_bps: 1
+      slippage_bps: 2
+    base:
+      exchange_fee_bps: 2
+      brokerage_bps: 3
+      statutory_bps: 2
+      slippage_bps: 5
+    high:
+      exchange_fee_bps: 3
+      brokerage_bps: 5
+      statutory_bps: 3
+      slippage_bps: 10
+  # Values are illustrative placeholders. Replace with actual fee schedules.
+
+validation:
+  date_request_format: &quot;%d/%m/%Y&quot;
+  date_response_format: &quot;%m/%d/%Y&quot;
+  expiry_format: &quot;%d%b%Y&quot;
+  max_price_jump_pct: 10   # flag, do not delete
+  rate_limit_seconds: 1.0
+
+backtest:
+  train_fraction: 0.6
+  walk_forward_step_days: 20
+  cooldown_days: 5
+  min_out_of_sample_trades: 30
+
+alerts:
+  cooldown_days: 5
+  enabled: true
+</pre><p class="note">Read-only here — edits belong in config/config.yaml, which both the pipeline and this export read. The figures on every other page come from run <code>20261027T161202Z_2432bb86</code>.</p></section><section class="panel"><h2>Regenerate</h2><pre class="code">python -X utf8 tests/fixtures.py
+python -X utf8 -m src.pipeline
+python -X utf8 tools/build_static_site.py</pre><p class="note">The first writes sample data only when none is present; the last rebuilds these pages from the committed artifacts.</p></section>
+    
+  </main>
+  <footer class="site-foot">
+    <p><strong>Research prototype — not investment advice.</strong> Settlement prices are
+    not executable fills; past backtest results do not predict future performance.
+    Signals are research outputs, not trade recommendations.</p>
+    <p class="fine">Static export of the Streamlit dashboard, rendered from the committed
+    pipeline artifacts.</p>
+  </footer>
+</div>
+
+</body>
+</html>

@@ -47,15 +47,20 @@ static files.
 python -X utf8 tools/build_static_site.py     # regenerate site/ after a pipeline run
 ```
 
+The export keeps the app's **sidebar rail**, in the app's order and section
+groups, so every screen is one click away exactly as it is in Streamlit:
+
 | Page | File |
 |---|---|
-| Overview — coverage, validation, prices, strongest pairs | `site/index.html` |
-| Contracts — summary, quoted prices, volume | `site/contracts.html` |
-| Spreads & Z-score — top pair histories, latest spreads | `site/spreads.html` |
-| Signals — state counts, z-score bands, latest state | `site/signals.html` |
-| Backtesting — KPIs, equity curve, per-pair, trade log | `site/backtest.html` |
-| Data quality — coverage, presence ribbon, rejections | `site/quality.html` |
-| Methodology — formulas, design, limitations | `site/methodology.html` |
+| Workspace — Overview: coverage, validation, prices, strongest pairs | `site/index.html` |
+| Workspace — Gold Contracts: summary, quoted prices, volume | `site/contracts.html` |
+| Workspace — Price Comparison: one normalized basis, latest comparison | `site/prices.html` |
+| Workspace — Spread Analytics: top pair histories, latest spreads | `site/spreads.html` |
+| Workspace — Signal Explorer: state counts, z-score bands, latest state | `site/signals.html` |
+| Research — Backtesting: KPIs, equity curve, per-pair, trade log | `site/backtest.html` |
+| Research — Data Quality: coverage, presence ribbon, rejections | `site/quality.html` |
+| Research — Methodology: formulas, design, limitations | `site/methodology.html` |
+| Preferences — Settings: loaded datasets, run, configuration (read-only) | `site/settings.html` |
 
 The export keeps the app's artwork: each page carries its own vector scene and
 (where the app has one) its registered photograph, copied into

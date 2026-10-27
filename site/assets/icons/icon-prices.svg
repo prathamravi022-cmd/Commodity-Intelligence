@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none" stroke-linecap="round">
+  <!-- Daily settlement candles against a price/time frame. -->
+  <path d="M10 54h44M10 10v44" stroke="#A6958C" stroke-width="2.4"/>
+  <g stroke="#E3B341" stroke-width="2.2">
+    <path d="M21 24v22"/>
+    <path d="M34 18v30"/>
+    <path d="M47 30v16"/>
+  </g>
+  <g fill="rgba(212,175,55,0.22)" stroke="#E3B341" stroke-width="2.2" stroke-linejoin="round">
+    <rect x="17" y="30" width="8" height="12" rx="1.5"/>
+    <rect x="30" y="24" width="8" height="16" rx="1.5"/>
+    <rect x="43" y="34" width="8" height="10" rx="1.5"/>
+  </g>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Three poured 1 kg MCX gold bars, widest at the base. -->
+  <g fill="rgba(212,175,55,0.14)" stroke="#E3B341" stroke-width="2.6" stroke-linejoin="round">
+    <path d="M14 40h36l6 12H8z"/>
+    <path d="M20 28h24l6 12H14z"/>
+    <path d="M26 16h12l6 12H20z"/>
+  </g>
+  <path d="M22 34h20" stroke="#F0D98A" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <!-- Brand mark: bullion bars inside a market ring, with a trend spark. -->
+  <circle cx="32" cy="32" r="27" stroke="#E3B341" stroke-width="2.4" opacity=".5"/>
+  <g fill="rgba(212,175,55,0.18)" stroke="#E3B341" stroke-width="2.4" stroke-linejoin="round">
+    <path d="M18 38h28l4 9H14z"/>
+    <path d="M22 27h20l4 11H18z"/>
+  </g>
+  <path d="M19 19l8-5 7 6 8-9" stroke="#E3B341" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
