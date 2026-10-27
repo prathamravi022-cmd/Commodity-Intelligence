@@ -26,6 +26,21 @@ from plotly.offline import get_plotlyjs
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
+SCENES = ROOT / "app" / "static" / "backgrounds"
+PHOTOS = ROOT / "app" / "static" / "photos"
+TEXTURES = ROOT / "app" / "assets"
+
+# The app's artwork module imports nothing but the standard library, so the
+# export can read the same photograph registry (author, licence, Commons page)
+# instead of keeping a second copy of the credits that could drift.
+sys.path.insert(0, str(ROOT))
+try:                                  # pragma: no cover - artwork is always present
+    from app import artwork as _artwork
+    _PHOTO_META = _artwork.PHOTOS
+    _photo_credit = _artwork.photo_credit
+except Exception:                     # a stripped checkout still renders the pages
+    _PHOTO_META: dict = {}
+    _photo_credit = lambda stem: ""    # noqa: E731
 
 # ---- palette -------------------------------------------------------------
 # Mirrors .streamlit/config.toml and app/theme.py so the export and the app
@@ -51,6 +66,107 @@ PAGES = [
 ]
 
 RUN_RECORDS = ("pipeline.json", "run.json")
+
+#: One canvas per exported page: the same composition the Streamlit app paints
+#: (``app/backgrounds.py``), re-keyed to the output file. ``scene`` is the vector
+#: scene, ``photo`` a registered photograph underneath it, ``focal`` the crop the
+#: picture is held at, ``glow`` the gold light source and ``scrim`` the navy wash
+#: that keeps figures readable on top.
+PAGE_CANVAS: dict[str, dict] = {
+    "index.html": {
+        "key": "overview", "scene": "bg-overview.svg", "photo": "backdrop-hero",
+        "focal": "58% 30%", "position": "50% 46%",
+        "glow": ("84%", "-10%"), "alpha": 0.16, "scrim": 0.88,
+    },
+    "contracts.html": {
+        "key": "gold-contracts", "scene": "bg-contracts.svg", "photo": "contracts-banner",
+        "focal": "center 28%", "position": "62% 42%",
+        "glow": ("72%", "-14%"), "alpha": 0.20, "scrim": 0.90,
+    },
+    "spreads.html": {
+        "key": "spread-analytics", "scene": "bg-spreads.svg", "photo": "",
+        "focal": "center", "position": "50% 50%",
+        "glow": ("88%", "6%"), "alpha": 0.14, "scrim": 0.58,
+    },
+    "signals.html": {
+        "key": "signal-explorer", "scene": "bg-signals.svg", "photo": "",
+        "focal": "center", "position": "50% 46%",
+        "glow": ("76%", "4%"), "alpha": 0.15, "scrim": 0.60,
+    },
+    "backtest.html": {
+        "key": "backtesting", "scene": "bg-backtest.svg", "photo": "",
+        "focal": "center", "position": "50% 54%",
+        "glow": ("18%", "-6%"), "alpha": 0.12, "scrim": 0.58,
+    },
+    "quality.html": {
+        "key": "data-quality", "scene": "bg-quality.svg", "photo": "quality-assay",
+        "focal": "center 24%", "position": "50% 52%",
+        "glow": ("66%", "-12%"), "alpha": 0.16, "scrim": 0.88,
+    },
+    "methodology.html": {
+        "key": "methodology", "scene": "bg-methodology.svg", "photo": "method-museum",
+        "focal": "center 22%", "position": "58% 44%",
+        "glow": ("80%", "-8%"), "alpha": 0.15, "scrim": 0.88,
+    },
+}
+
+
+def photo_file(stem: str) -> Path | None:
+    """Largest published file for a registered photograph (or ``None``)."""
+    if not stem:
+        return None
+    meta = _PHOTO_META.get(stem)
+    if meta:
+        path = PHOTOS / f"{stem}-{meta['widths'][0]}.webp"
+        if path.is_file():
+            return path
+    candidates = sorted(PHOTOS.glob(f"{stem}-*.webp"))
+    return candidates[-1] if candidates else None
+
+
+def _scrim(alpha: float) -> str:
+    """Navy wash that holds the picture down to atmosphere at this page's depth."""
+    top = min(alpha, 0.99)
+    middle = min(alpha + 0.04, 0.995)
+    bottom = min(alpha + 0.07, 0.998)
+    return (f"linear-gradient(180deg, rgba(7,11,20,{top:.2f}) 0%, "
+            f"rgba(7,11,20,{middle:.2f}) 45%, "
+            f"rgba(5,8,15,{bottom:.2f}) 100%)")
+
+
+def canvas_rules() -> str:
+    """One ``body[data-bg]`` rule per page, layer for layer the app's canvas.
+
+    Order matches ``app.backgrounds.layers`` — gold light, cool counter-light,
+    vector scene, navy scrim, photograph — so the export is lit the same way.
+    """
+    blocks = []
+    for cfg in PAGE_CANVAS.values():
+        glow_x, glow_y = cfg["glow"]
+        images = [
+            (f"radial-gradient(120% 80% at {glow_x} {glow_y}, "
+             f"rgba(232,205,138,{cfg['alpha']:.2f}), rgba(232,205,138,0) 60%)"),
+            "radial-gradient(90% 64% at 2% 106%, rgba(143,184,236,0.09), "
+            "rgba(143,184,236,0) 62%)",
+            # relative to site.css itself (which lives in assets/), not the page
+            f"url(backgrounds/{cfg['scene']})",
+            _scrim(cfg["scrim"]),
+        ]
+        positions = [f"{glow_x} {glow_y}", "2% 106%", cfg["position"], "center top"]
+        photo = photo_file(cfg["photo"])
+        if photo is not None:
+            images.append(f"url(photos/{photo.name})")
+            positions.append(cfg["focal"])
+        blocks.append(
+            f'body[data-bg="{cfg["key"]}"] {{\n'
+            f"  background-image: {', '.join(images)};\n"
+            f"  background-size: {', '.join(['cover'] * len(images))};\n"
+            f"  background-position: {', '.join(positions)};\n"
+            f"  background-repeat: {', '.join(['no-repeat'] * len(images))};\n"
+            f"  background-attachment: {', '.join(['fixed'] * len(images))};\n"
+            f"}}"
+        )
+    return "\n".join(blocks)
 
 
 # ---- formatting ----------------------------------------------------------
@@ -218,11 +334,32 @@ document.querySelectorAll('script[type="application/json"][id^="spec-"]').forEac
 
 
 # ---- page shell ----------------------------------------------------------
+def _head(slug: str, title: str, subtitle: str) -> str:
+    """Cinematic hero band on the Overview, frosted strip on every other page."""
+    eyebrow = "MCX gold · relative value research"
+    if slug == "index.html":
+        credit = _photo_credit("backdrop-hero")
+        return f"""<section class="hero-band" aria-label="{title}">
+  <div class="hero-glass">
+    <p class="eyebrow">{eyebrow}</p>
+    <h1>{title}</h1>
+    <p class="hero-sub">{subtitle}</p>
+  </div>
+  {f'<div class="hero-credit">{credit}</div>' if credit else ''}
+</section>"""
+    return f"""<div class="page-head">
+  <p class="eyebrow">{eyebrow}</p>
+  <h1>{title}</h1>
+  <p class="lede">{subtitle}</p>
+</div>"""
+
+
 def shell(slug: str, title: str, subtitle: str, body: str, charts: ChartSink, footer: str) -> str:
     nav = "".join(
         f'<a href="{href}"{" class=\"active\"" if href == slug else ""}>{label}</a>'
         for href, label in PAGES
     )
+    key = PAGE_CANVAS.get(slug, {}).get("key", "")
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -233,17 +370,13 @@ def shell(slug: str, title: str, subtitle: str, body: str, charts: ChartSink, fo
 <link rel="stylesheet" href="assets/site.css">
 <script src="assets/plotly.min.js" charset="utf-8"></script>
 </head>
-<body>
+<body data-bg="{key}">
 <header class="topbar">
   <a class="brand" href="index.html"><span class="mark">CI</span> Commodity Intelligence</a>
   <nav>{nav}</nav>
 </header>
 <main>
-  <div class="page-head">
-    <p class="eyebrow">MCX gold · relative value research</p>
-    <h1>{title}</h1>
-    <p class="lede">{subtitle}</p>
-  </div>
+  {_head(slug, title, subtitle)}
   {body}
   {footer}
 </main>
@@ -296,7 +429,46 @@ nav a {{
 nav a:hover {{ color: var(--text); background: rgba(255,255,255,.05); }}
 nav a.active {{ color: var(--canvas); background: var(--gold); font-weight: 600; }}
 main {{ max-width: 1180px; margin: 0 auto; padding: 34px 24px 64px; }}
-.page-head {{ margin-bottom: 26px; }}
+/* Frosted strip: the scene moves behind it, the headline never sits on raw art. */
+.page-head {{
+  margin: 0 0 26px; padding: 20px 24px 22px; border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(9,15,26,.56); backdrop-filter: blur(14px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 26px 50px -40px #000;
+}}
+/* Cinematic hero band — the app's Overview header: bullion photograph, navy
+   wash, gold light and a tiled terminal texture, headline on frosted glass. */
+.hero-band {{
+  position: relative; overflow: hidden; margin: 0 0 24px; padding: 14px;
+  border-radius: 22px; border: 1px solid rgba(255,255,255,.10);
+  background-color: #05080F;
+  background-image:
+    linear-gradient(112deg, rgba(6,10,18,.92) 0%, rgba(6,10,18,.74) 42%,
+                    rgba(6,10,18,.38) 72%, rgba(6,10,18,.30) 100%),
+    linear-gradient(180deg, rgba(6,10,18,.55) 0%, rgba(6,10,18,.08) 46%,
+                    rgba(6,10,18,.72) 100%),
+    radial-gradient(60% 80% at 88% 0%, rgba(232,205,138,.22), rgba(232,205,138,0) 62%),
+    url(textures/texture-terminal.svg),
+    url(photos/backdrop-hero-1600.webp);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 520px 520px, cover;
+  background-position: 0 0, 0 0, 0 0, 0 0, 58% 30%;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat, no-repeat;
+  box-shadow: 0 40px 80px -48px #000;
+}}
+.hero-band::after {{
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: linear-gradient(90deg, #F4DFA5, rgba(232,205,138,.12) 68%, transparent);
+}}
+.hero-glass {{
+  position: relative; z-index: 1; padding: 20px 22px 22px; border-radius: 16px;
+  background: rgba(9,15,26,.56); border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(14px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 26px 50px -40px #000;
+}}
+.hero-band h1 {{ color: #fff; }}
+.hero-sub {{ margin: 8px 0 0; max-width: 62ch; color: #CFD9E8; font-size: 14px; line-height: 1.6; }}
+.hero-credit {{ position: relative; z-index: 1; margin: 8px 6px 0; font-size: 10px; color: rgba(255,255,255,.42); }}
+.hero-credit a {{ color: rgba(255,255,255,.52); }}
 .eyebrow {{ margin: 0 0 6px; color: var(--gold-deep); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; }}
 h1 {{ margin: 0 0 8px; font-size: clamp(26px, 4vw, 38px); line-height: 1.15; letter-spacing: -.01em; }}
 .lede {{ margin: 0; max-width: 74ch; color: var(--muted); }}
@@ -338,7 +510,18 @@ code {{ font-family: ui-monospace, "Cascadia Mono", monospace; font-size: 12px;
   main {{ padding: 24px 14px 48px; }}
   .topbar {{ padding: 12px 14px; }}
   .card .value {{ font-size: 22px; }}
+  .page-head {{ padding: 16px 16px 18px; }}
+  .hero-band {{ padding: 10px; }}
+  .hero-glass {{ padding: 16px 15px 17px; }}
 }}
+/* The canvas is fixed on desktop so the scene holds still while figures scroll.
+   On touch devices fixed backgrounds repaint on every scroll, so it scrolls. */
+@media (max-width: 820px), (hover: none) {{
+  body {{ background-attachment: scroll !important; }}
+}}
+
+/* ---- per-page canvases (app/backgrounds.py) ---- */
+{canvas_rules()}
 """
 
 
@@ -673,6 +856,37 @@ rather than ranked.</li>
     return out
 
 
+def publish_artwork(target: Path) -> int:
+    """Copy the app's scenes, photographs and texture next to the pages.
+
+    The pages reference these by relative path, so the export needs no network
+    and no Streamlit static server: ``assets/backgrounds/`` for the vector
+    scenes, ``assets/photos/`` for the registered photographs, and
+    ``assets/textures/`` for the tiled hero texture.
+    """
+    copied = 0
+    for folder in ("backgrounds", "photos", "textures"):
+        (target / "assets" / folder).mkdir(parents=True, exist_ok=True)
+
+    for cfg in PAGE_CANVAS.values():
+        scene = SCENES / cfg["scene"]
+        if scene.is_file():
+            (target / "assets" / "backgrounds" / scene.name).write_bytes(scene.read_bytes())
+            copied += 1
+
+    for stem in sorted({cfg["photo"] for cfg in PAGE_CANVAS.values() if cfg["photo"]}):
+        photo = photo_file(stem)
+        if photo is not None:
+            (target / "assets" / "photos" / photo.name).write_bytes(photo.read_bytes())
+            copied += 1
+
+    texture = TEXTURES / "texture-terminal.svg"
+    if texture.is_file():
+        (target / "assets" / "textures" / texture.name).write_bytes(texture.read_bytes())
+        copied += 1
+    return copied
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", default="site", help="output directory (default: site)")
@@ -712,6 +926,7 @@ def main() -> int:
     favicon = ROOT / "app" / "assets" / "favicon.png"
     if favicon.exists():
         (target / "assets" / "favicon.png").write_bytes(favicon.read_bytes())
+    published = publish_artwork(target)
     for name, html in pages.items():
         (target / name).write_text(html, encoding="utf-8")
     for stale in target.glob("*.html"):
@@ -719,7 +934,8 @@ def main() -> int:
             stale.unlink()
 
     size = sum(f.stat().st_size for f in target.rglob("*") if f.is_file())
-    print(f"wrote {len(pages)} pages to {target} ({size / 1024 / 1024:.1f} MB)")
+    print(f"wrote {len(pages)} pages to {target} ({size / 1024 / 1024:.1f} MB), "
+          f"{published} artwork files")
     for name in sorted(pages):
         print(f"  {name:<18} {(target / name).stat().st_size / 1024:>6.0f} KB")
     if norm.empty:

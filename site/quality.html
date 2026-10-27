@@ -8,17 +8,17 @@
 <link rel="stylesheet" href="assets/site.css">
 <script src="assets/plotly.min.js" charset="utf-8"></script>
 </head>
-<body>
+<body data-bg="data-quality">
 <header class="topbar">
   <a class="brand" href="index.html"><span class="mark">CI</span> Commodity Intelligence</a>
   <nav><a href="index.html">Overview</a><a href="contracts.html">Contracts</a><a href="spreads.html">Spreads & Z-score</a><a href="signals.html">Signals</a><a href="backtest.html">Backtesting</a><a href="quality.html" class="active">Data quality</a><a href="methodology.html">Methodology</a></nav>
 </header>
 <main>
   <div class="page-head">
-    <p class="eyebrow">MCX gold · relative value research</p>
-    <h1>Data quality</h1>
-    <p class="lede">What the pipeline accepted, what it rejected, and where the record has holes.</p>
-  </div>
+  <p class="eyebrow">MCX gold · relative value research</p>
+  <h1>Data quality</h1>
+  <p class="lede">What the pipeline accepted, what it rejected, and where the record has holes.</p>
+</div>
   <div class="cards"><div class="card"><p class="label">Raw files</p><p class="value">273</p><p class="sub">one per requested date</p></div><div class="card"><p class="label">Clean rows</p><p class="value">1,092</p><p class="sub">parsed and accepted</p></div><div class="card"><p class="label">Rejected rows</p><p class="value">0</p><p class="sub">reason-tagged</p></div><div class="card"><p class="label">Sessions</p><p class="value">273</p><p class="sub">to 30 Sep 2026</p></div></div><section class="panel"><h2>Coverage per contract</h2><div class="scroll"><table><thead><tr><th>Contract</th><th>Sessions present</th><th>First</th><th>Last</th><th>Share of window</th></tr></thead><tbody><tr><td>GOLDGUINEA</td><td>273</td><td>15 Sep 2025</td><td>30 Sep 2026</td><td>100.0%</td></tr><tr><td>GOLDM</td><td>273</td><td>15 Sep 2025</td><td>30 Sep 2026</td><td>100.0%</td></tr><tr><td>GOLDPETAL</td><td>273</td><td>15 Sep 2025</td><td>30 Sep 2026</td><td>100.0%</td></tr><tr><td>GOLDTEN</td><td>273</td><td>15 Sep 2025</td><td>30 Sep 2026</td><td>100.0%</td></tr></tbody></table></div></section><section class="panel"><h2>Settlement presence</h2><div class="chart" id="chart-0"></div><p class="note">A break in the ribbon is a missing settlement, not a flat price.</p></section><section class="panel"><h2>Rejections</h2><p class="empty">No rejected rows — every parsed row passed schema, range, date and duplicate checks.</p></section><section class="panel"><h2>How imports are treated</h2><ul class="plain"><li>An uploaded CSV faces the same validation as a downloaded one — nothing reaches <code>data/raw</code> that has not already passed.</li><li>Re-running <code>python -m src.pipeline</code> rebuilds analytics; an import alone never rewrites results.</li></ul></section>
   
 </main>

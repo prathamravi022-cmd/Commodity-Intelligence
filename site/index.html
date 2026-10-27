@@ -8,17 +8,20 @@
 <link rel="stylesheet" href="assets/site.css">
 <script src="assets/plotly.min.js" charset="utf-8"></script>
 </head>
-<body>
+<body data-bg="overview">
 <header class="topbar">
   <a class="brand" href="index.html"><span class="mark">CI</span> Commodity Intelligence</a>
   <nav><a href="index.html" class="active">Overview</a><a href="contracts.html">Contracts</a><a href="spreads.html">Spreads & Z-score</a><a href="signals.html">Signals</a><a href="backtest.html">Backtesting</a><a href="quality.html">Data quality</a><a href="methodology.html">Methodology</a></nav>
 </header>
 <main>
-  <div class="page-head">
+  <section class="hero-band" aria-label="Overview">
+  <div class="hero-glass">
     <p class="eyebrow">MCX gold · relative value research</p>
     <h1>Overview</h1>
-    <p class="lede">Current state of the research pipeline: coverage, validation, spreads and the last backtest.</p>
+    <p class="hero-sub">Current state of the research pipeline: coverage, validation, spreads and the last backtest.</p>
   </div>
+  <div class="hero-credit">Photo: Stevebidmead · <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener">CC0 1.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Gold_bullion_bars.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div>
+</section>
   <div class="cards"><div class="card"><p class="label">Contracts</p><p class="value">4</p><p class="sub">restated to INR/g fine</p></div><div class="card"><p class="label">Trading days</p><p class="value">273</p><p class="sub">to 30 Sep 2026</p></div><div class="card"><p class="label">Validation</p><p class="value">All rows pass</p><p class="sub">1,092 clean rows</p></div><div class="card"><p class="label">Pairs tracked</p><p class="value">6</p><p class="sub">pairwise spreads</p></div></div><section class="panel"><h2>Fine-gold price history — INR per gram</h2><div class="chart" id="chart-0"></div><p class="note">Every contract restated to one basis: price × (trading unit ÷ quoted unit) ÷ purity.</p></section><section class="panel"><h2>Latest settlement per contract</h2><div class="scroll"><table><thead><tr><th>Contract</th><th>Expiry</th><th>Quoted close</th><th>INR/g fine</th><th>Volume</th><th>Open interest</th><th>Days to expiry</th></tr></thead><tbody><tr><td>GOLDTEN</td><td>28 Apr 2026</td><td>₹72,760.37</td><td>₹7,283.32</td><td>570</td><td>14,821</td><td>-155</td></tr><tr><td>GOLDGUINEA</td><td>29 Apr 2026</td><td>₹58,192.89</td><td>₹7,281.39</td><td>16,336</td><td>14,046</td><td>-154</td></tr><tr><td>GOLDPETAL</td><td>30 Apr 2026</td><td>₹7,273.90</td><td>₹7,281.18</td><td>9,212</td><td>19,569</td><td>-153</td></tr><tr><td>GOLDM</td><td>05 May 2026</td><td>₹72,445.85</td><td>₹7,280.99</td><td>7,878</td><td>67,334</td><td>-148</td></tr></tbody></table></div></section><section class="panel"><h2>Strongest pairs on the last session</h2><div class="scroll"><table><thead><tr><th>Pair</th><th>Spread ₹/g</th><th>Spread %</th><th>Z-score</th><th>State</th></tr></thead><tbody><tr><td>GOLDM / GOLDTEN</td><td><span class="down">-2.33</span></td><td>-3.200%</td><td><span class="down">-0.74</span></td><td><span class="badge">Neutral</span></td></tr><tr><td>GOLDPETAL / GOLDTEN</td><td><span class="down">-2.14</span></td><td>-2.937%</td><td><span class="down">-0.68</span></td><td><span class="badge">Neutral</span></td></tr><tr><td>GOLDGUINEA / GOLDPETAL</td><td><span class="up">+0.21</span></td><td>0.290%</td><td><span class="up">+0.64</span></td><td><span class="badge">Neutral</span></td></tr><tr><td>GOLDM / GOLDPETAL</td><td><span class="down">-0.19</span></td><td>-0.263%</td><td><span class="up">+0.25</span></td><td><span class="badge">Neutral</span></td></tr><tr><td>GOLDGUINEA / GOLDTEN</td><td><span class="down">-1.93</span></td><td>-2.647%</td><td><span class="down">-0.23</span></td><td><span class="badge">Neutral</span></td></tr><tr><td>GOLDGUINEA / GOLDM</td><td><span class="up">+0.40</span></td><td>0.553%</td><td><span class="up">+0.15</span></td><td><span class="badge">Neutral</span></td></tr></tbody></table></div><p class="note">Z-scores are blank until the rolling window has enough history.</p></section>
   
 </main>

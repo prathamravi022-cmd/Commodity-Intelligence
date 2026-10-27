@@ -8,17 +8,17 @@
 <link rel="stylesheet" href="assets/site.css">
 <script src="assets/plotly.min.js" charset="utf-8"></script>
 </head>
-<body>
+<body data-bg="spread-analytics">
 <header class="topbar">
   <a class="brand" href="index.html"><span class="mark">CI</span> Commodity Intelligence</a>
   <nav><a href="index.html">Overview</a><a href="contracts.html">Contracts</a><a href="spreads.html" class="active">Spreads & Z-score</a><a href="signals.html">Signals</a><a href="backtest.html">Backtesting</a><a href="quality.html">Data quality</a><a href="methodology.html">Methodology</a></nav>
 </header>
 <main>
   <div class="page-head">
-    <p class="eyebrow">MCX gold · relative value research</p>
-    <h1>Spreads & Z-score</h1>
-    <p class="lede">Pairwise spreads after restating each leg to fine gold, with the carry adjustment applied.</p>
-  </div>
+  <p class="eyebrow">MCX gold · relative value research</p>
+  <h1>Spreads & Z-score</h1>
+  <p class="lede">Pairwise spreads after restating each leg to fine gold, with the carry adjustment applied.</p>
+</div>
   <section class="panel"><h2>Latest spread per pair</h2><div class="scroll"><table><thead><tr><th>Pair</th><th>Spread ₹/g</th><th>Spread %</th><th>Leg A ₹/g</th><th>Leg B ₹/g</th><th>DTE A</th><th>DTE B</th></tr></thead><tbody><tr><td>GOLDM / GOLDTEN</td><td><span class="down">-2.33</span></td><td>-3.200%</td><td>₹7,280.99</td><td>₹7,283.32</td><td>-148</td><td>-155</td></tr><tr><td>GOLDPETAL / GOLDTEN</td><td><span class="down">-2.14</span></td><td>-2.937%</td><td>₹7,281.18</td><td>₹7,283.32</td><td>-153</td><td>-155</td></tr><tr><td>GOLDGUINEA / GOLDTEN</td><td><span class="down">-1.93</span></td><td>-2.647%</td><td>₹7,281.39</td><td>₹7,283.32</td><td>-154</td><td>-155</td></tr><tr><td>GOLDGUINEA / GOLDM</td><td><span class="up">+0.40</span></td><td>0.553%</td><td>₹7,281.39</td><td>₹7,280.99</td><td>-154</td><td>-148</td></tr><tr><td>GOLDGUINEA / GOLDPETAL</td><td><span class="up">+0.21</span></td><td>0.290%</td><td>₹7,281.39</td><td>₹7,281.18</td><td>-154</td><td>-153</td></tr><tr><td>GOLDM / GOLDPETAL</td><td><span class="down">-0.19</span></td><td>-0.263%</td><td>₹7,280.99</td><td>₹7,281.18</td><td>-148</td><td>-153</td></tr></tbody></table></div></section><section class="panel"><h2>GOLDGUINEA / GOLDM — spread, ₹/g</h2><div class="chart" id="chart-0"></div></section><section class="panel"><h2>GOLDGUINEA / GOLDPETAL — spread, ₹/g</h2><div class="chart" id="chart-1"></div></section><section class="panel"><h2>GOLDGUINEA / GOLDTEN — spread, ₹/g</h2><div class="chart" id="chart-2"></div></section>
   
 </main>

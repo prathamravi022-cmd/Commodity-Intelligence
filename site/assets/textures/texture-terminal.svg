@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480">
+  <!-- Dark-surface texture: a terminal grid with a price ruler and a few tick
+       marks. No plotted series — a decorative grid must never look like data.
+       Tiled at 480px behind the hero band and footer, under the headline. -->
+  <g stroke="#FFFFFF" stroke-opacity="0.045" stroke-width="1" fill="none">
+    <path d="M0 96H480M0 192H480M0 288H480M0 384H480"/>
+    <path d="M96 0V480M192 0V480M288 0V480M384 0V480"/>
+  </g>
+  <g stroke="#C9A227" stroke-opacity="0.10" stroke-width="1" fill="none">
+    <path d="M0 48H480"/>
+    <path d="M24 42v12M120 44v8M216 42v12M312 44v8M408 42v12"/>
+  </g>
+  <g stroke="#C9A227" stroke-opacity="0.07" stroke-width="1" fill="none">
+    <path d="M0 240H480" stroke-dasharray="4 8"/>
+    <path d="M0 432H480" stroke-dasharray="4 8"/>
+  </g>
+</svg>

@@ -57,6 +57,15 @@ python -X utf8 tools/build_static_site.py     # regenerate site/ after a pipelin
 | Data quality — coverage, presence ribbon, rejections | `site/quality.html` |
 | Methodology — formulas, design, limitations | `site/methodology.html` |
 
+The export keeps the app's artwork: each page carries its own vector scene and
+(where the app has one) its registered photograph, copied into
+`site/assets/backgrounds` and `site/assets/photos`, with the Overview opening on
+the same photographic band. The layer order — gold light, cool counter-light,
+scene, navy scrim, photograph — is the one in [app/backgrounds.py](app/backgrounds.py),
+so the hosted pages are lit like the running app. Credits travel with the
+pictures: the band prints its author and licence, and no scene or photograph is
+fetched from the network.
+
 **Vercel.** [vercel.json](vercel.json) sets `outputDirectory` to `site`, blanks
 the install and build steps, and disables framework auto-detection — so a
 deployment serves the committed static pages instead of trying to compile them.

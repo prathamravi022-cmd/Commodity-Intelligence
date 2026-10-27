@@ -8,17 +8,17 @@
 <link rel="stylesheet" href="assets/site.css">
 <script src="assets/plotly.min.js" charset="utf-8"></script>
 </head>
-<body>
+<body data-bg="signal-explorer">
 <header class="topbar">
   <a class="brand" href="index.html"><span class="mark">CI</span> Commodity Intelligence</a>
   <nav><a href="index.html">Overview</a><a href="contracts.html">Contracts</a><a href="spreads.html">Spreads & Z-score</a><a href="signals.html" class="active">Signals</a><a href="backtest.html">Backtesting</a><a href="quality.html">Data quality</a><a href="methodology.html">Methodology</a></nav>
 </header>
 <main>
   <div class="page-head">
-    <p class="eyebrow">MCX gold · relative value research</p>
-    <h1>Signals</h1>
-    <p class="lede">The signal state machine over each pair: Neutral → Watch → Entered → Exited.</p>
-  </div>
+  <p class="eyebrow">MCX gold · relative value research</p>
+  <h1>Signals</h1>
+  <p class="lede">The signal state machine over each pair: Neutral → Watch → Entered → Exited.</p>
+</div>
   <div class="cards"><div class="card"><p class="label">Neutral</p><p class="value">1,126</p><p class="sub">rows</p></div><div class="card"><p class="label">Unvalidated</p><p class="value">360</p><p class="sub">rows</p></div><div class="card"><p class="label">Watch</p><p class="value">83</p><p class="sub">rows</p></div><div class="card"><p class="label">Signal</p><p class="value">69</p><p class="sub">rows</p></div></div><section class="panel"><h2>GOLDGUINEA / GOLDM — rolling z-score</h2><div class="chart" id="chart-0"></div><p class="note">Entry band at ±2σ; the window is 60 sessions (config/config.yaml).</p></section><section class="panel"><h2>GOLDGUINEA / GOLDPETAL — rolling z-score</h2><div class="chart" id="chart-1"></div><p class="note">Entry band at ±2σ; the window is 60 sessions (config/config.yaml).</p></section><section class="panel"><h2>GOLDGUINEA / GOLDTEN — rolling z-score</h2><div class="chart" id="chart-2"></div><p class="note">Entry band at ±2σ; the window is 60 sessions (config/config.yaml).</p></section><section class="panel"><h2>Latest state per pair</h2><div class="scroll"><table><thead><tr><th>Session</th><th>Pair</th><th>Spread ₹/g</th><th>Residual after carry</th><th>Z-score</th><th>State</th></tr></thead><tbody><tr><td>30 Sep 2026</td><td>GOLDM / GOLDTEN</td><td><span class="down">-2.33</span></td><td><span class="down">-2.33</span></td><td><span class="down">-0.74</span></td><td><span class="badge">Neutral</span></td></tr><tr><td>30 Sep 2026</td><td>GOLDGUINEA / GOLDM</td><td><span class="up">+0.40</span></td><td><span class="up">+0.40</span></td><td><span class="up">+0.15</span></td><td><span class="badge">Neutral</span></td></tr><tr><td>30 Sep 2026</td><td>GOLDGUINEA / GOLDPETAL</td><td><span class="up">+0.21</span></td><td><span class="up">+0.21</span></td><td><span class="up">+0.64</span></td><td><span class="badge">Neutral</span></td></tr><tr><td>30 Sep 2026</td><td>GOLDGUINEA / GOLDTEN</td><td><span class="down">-1.93</span></td><td><span class="down">-1.93</span></td><td><span class="down">-0.23</span></td><td><span class="badge">Neutral</span></td></tr><tr><td>30 Sep 2026</td><td>GOLDM / GOLDPETAL</td><td><span class="down">-0.19</span></td><td><span class="down">-0.19</span></td><td><span class="up">+0.25</span></td><td><span class="badge">Neutral</span></td></tr><tr><td>30 Sep 2026</td><td>GOLDPETAL / GOLDTEN</td><td><span class="down">-2.14</span></td><td><span class="down">-2.14</span></td><td><span class="down">-0.68</span></td><td><span class="badge">Neutral</span></td></tr></tbody></table></div></section>
   
 </main>
