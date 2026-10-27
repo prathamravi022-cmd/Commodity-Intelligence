@@ -13,6 +13,19 @@ data/results/*
 !data/results/.gitkeep
 fixtures/*.csv
 
+# Deployment seed — the exception to the rules above.
+# Every page is read-only over these artifacts (no page recomputes the pipeline
+# at load time), so a fresh clone or a hosted deploy has nothing to render
+# without them: the dashboard comes up on empty-state placeholders. They are
+# produced by `python -X utf8 tests/fixtures.py` followed by
+# `python -X utf8 -m src.pipeline`, and the synthetic fixture set needs no
+# network. Regenerate them rather than hand-editing.
+!data/raw/*.csv
+!data/clean/bhavcopy.parquet
+!data/clean/rejections.csv
+!data/analytics/*.parquet
+!data/results/*/
+
 # Python
 __pycache__/
 *.py[cod]
@@ -30,3 +43,4 @@ tools/_photo_sources/
 .probe/
 .probe_hero/
 .probe_fresh.py
+/screenshots/

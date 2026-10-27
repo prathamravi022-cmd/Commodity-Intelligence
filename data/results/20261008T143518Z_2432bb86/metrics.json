@@ -1,0 +1,473 @@
+{
+  "pairs": {
+    "GOLDGUINEA@2026-03-28 vs GOLDM@2026-04-04": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-03-28 vs GOLDM@2026-04-04"
+    },
+    "GOLDGUINEA@2026-03-28 vs GOLDPETAL@2026-03-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-03-28 vs GOLDPETAL@2026-03-28"
+    },
+    "GOLDGUINEA@2026-03-28 vs GOLDTEN@2026-03-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-03-28 vs GOLDTEN@2026-03-28"
+    },
+    "GOLDGUINEA@2026-04-29 vs GOLDM@2026-05-05": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-04-29 vs GOLDM@2026-05-05"
+    },
+    "GOLDGUINEA@2026-04-29 vs GOLDPETAL@2026-04-29": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-04-29 vs GOLDPETAL@2026-04-29"
+    },
+    "GOLDGUINEA@2026-04-29 vs GOLDTEN@2026-04-29": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-04-29 vs GOLDTEN@2026-04-29"
+    },
+    "GOLDGUINEA@2026-05-30 vs GOLDM@2026-06-04": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-05-30 vs GOLDM@2026-06-04"
+    },
+    "GOLDGUINEA@2026-05-30 vs GOLDPETAL@2026-05-30": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-05-30 vs GOLDPETAL@2026-05-30"
+    },
+    "GOLDGUINEA@2026-05-30 vs GOLDTEN@2026-05-30": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-05-30 vs GOLDTEN@2026-05-30"
+    },
+    "GOLDGUINEA@2026-06-28 vs GOLDM@2026-07-05": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-06-28 vs GOLDM@2026-07-05"
+    },
+    "GOLDGUINEA@2026-06-28 vs GOLDPETAL@2026-06-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-06-28 vs GOLDPETAL@2026-06-28"
+    },
+    "GOLDGUINEA@2026-06-28 vs GOLDTEN@2026-06-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-06-28 vs GOLDTEN@2026-06-28"
+    },
+    "GOLDGUINEA@2026-07-29 vs GOLDM@2026-08-04": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-07-29 vs GOLDM@2026-08-04"
+    },
+    "GOLDGUINEA@2026-07-29 vs GOLDPETAL@2026-07-29": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-07-29 vs GOLDPETAL@2026-07-29"
+    },
+    "GOLDGUINEA@2026-07-29 vs GOLDTEN@2026-07-29": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-07-29 vs GOLDTEN@2026-07-29"
+    },
+    "GOLDGUINEA@2026-08-30 vs GOLDM@2026-09-05": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-08-30 vs GOLDM@2026-09-05"
+    },
+    "GOLDGUINEA@2026-08-30 vs GOLDPETAL@2026-08-30": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-08-30 vs GOLDPETAL@2026-08-30"
+    },
+    "GOLDGUINEA@2026-08-30 vs GOLDTEN@2026-08-30": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-08-30 vs GOLDTEN@2026-08-30"
+    },
+    "GOLDGUINEA@2026-09-28 vs GOLDM@2026-10-04": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-09-28 vs GOLDM@2026-10-04"
+    },
+    "GOLDGUINEA@2026-09-28 vs GOLDPETAL@2026-09-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-09-28 vs GOLDPETAL@2026-09-28"
+    },
+    "GOLDGUINEA@2026-09-28 vs GOLDTEN@2026-09-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-09-28 vs GOLDTEN@2026-09-28"
+    },
+    "GOLDGUINEA@2026-10-29 vs GOLDM@2026-11-05": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-10-29 vs GOLDM@2026-11-05"
+    },
+    "GOLDGUINEA@2026-10-29 vs GOLDPETAL@2026-10-29": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-10-29 vs GOLDPETAL@2026-10-29"
+    },
+    "GOLDGUINEA@2026-10-29 vs GOLDTEN@2026-10-29": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-10-29 vs GOLDTEN@2026-10-29"
+    },
+    "GOLDGUINEA@2026-11-30 vs GOLDM@2026-12-04": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-11-30 vs GOLDM@2026-12-04"
+    },
+    "GOLDGUINEA@2026-11-30 vs GOLDPETAL@2026-11-30": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-11-30 vs GOLDPETAL@2026-11-30"
+    },
+    "GOLDGUINEA@2026-11-30 vs GOLDTEN@2026-11-30": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-11-30 vs GOLDTEN@2026-11-30"
+    },
+    "GOLDGUINEA@2026-12-28 vs GOLDM@2027-01-05": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-12-28 vs GOLDM@2027-01-05"
+    },
+    "GOLDGUINEA@2026-12-28 vs GOLDPETAL@2026-12-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-12-28 vs GOLDPETAL@2026-12-28"
+    },
+    "GOLDGUINEA@2026-12-28 vs GOLDTEN@2026-12-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2026-12-28 vs GOLDTEN@2026-12-28"
+    },
+    "GOLDGUINEA@2027-01-29 vs GOLDM@2027-02-04": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2027-01-29 vs GOLDM@2027-02-04"
+    },
+    "GOLDGUINEA@2027-01-29 vs GOLDPETAL@2027-01-29": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2027-01-29 vs GOLDPETAL@2027-01-29"
+    },
+    "GOLDGUINEA@2027-01-29 vs GOLDTEN@2027-01-29": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2027-01-29 vs GOLDTEN@2027-01-29"
+    },
+    "GOLDGUINEA@2027-02-28 vs GOLDM@2027-03-05": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2027-02-28 vs GOLDM@2027-03-05"
+    },
+    "GOLDGUINEA@2027-02-28 vs GOLDPETAL@2027-02-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2027-02-28 vs GOLDPETAL@2027-02-28"
+    },
+    "GOLDGUINEA@2027-02-28 vs GOLDTEN@2027-02-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2027-02-28 vs GOLDTEN@2027-02-28"
+    },
+    "GOLDGUINEA@2027-03-28 vs GOLDM@2027-04-04": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2027-03-28 vs GOLDM@2027-04-04"
+    },
+    "GOLDGUINEA@2027-03-28 vs GOLDPETAL@2027-03-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2027-03-28 vs GOLDPETAL@2027-03-28"
+    },
+    "GOLDGUINEA@2027-03-28 vs GOLDTEN@2027-03-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDGUINEA@2027-03-28 vs GOLDTEN@2027-03-28"
+    },
+    "GOLDM@2026-04-04 vs GOLDPETAL@2026-03-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2026-04-04 vs GOLDPETAL@2026-03-28"
+    },
+    "GOLDM@2026-04-04 vs GOLDTEN@2026-03-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2026-04-04 vs GOLDTEN@2026-03-28"
+    },
+    "GOLDM@2026-05-05 vs GOLDPETAL@2026-04-29": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2026-05-05 vs GOLDPETAL@2026-04-29"
+    },
+    "GOLDM@2026-05-05 vs GOLDTEN@2026-04-29": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2026-05-05 vs GOLDTEN@2026-04-29"
+    },
+    "GOLDM@2026-06-04 vs GOLDPETAL@2026-05-30": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2026-06-04 vs GOLDPETAL@2026-05-30"
+    },
+    "GOLDM@2026-06-04 vs GOLDTEN@2026-05-30": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2026-06-04 vs GOLDTEN@2026-05-30"
+    },
+    "GOLDM@2026-07-05 vs GOLDPETAL@2026-06-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2026-07-05 vs GOLDPETAL@2026-06-28"
+    },
+    "GOLDM@2026-07-05 vs GOLDTEN@2026-06-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2026-07-05 vs GOLDTEN@2026-06-28"
+    },
+    "GOLDM@2026-08-04 vs GOLDPETAL@2026-07-29": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2026-08-04 vs GOLDPETAL@2026-07-29"
+    },
+    "GOLDM@2026-08-04 vs GOLDTEN@2026-07-29": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2026-08-04 vs GOLDTEN@2026-07-29"
+    },
+    "GOLDM@2026-09-05 vs GOLDPETAL@2026-08-30": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2026-09-05 vs GOLDPETAL@2026-08-30"
+    },
+    "GOLDM@2026-09-05 vs GOLDTEN@2026-08-30": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2026-09-05 vs GOLDTEN@2026-08-30"
+    },
+    "GOLDM@2026-10-04 vs GOLDPETAL@2026-09-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2026-10-04 vs GOLDPETAL@2026-09-28"
+    },
+    "GOLDM@2026-10-04 vs GOLDTEN@2026-09-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2026-10-04 vs GOLDTEN@2026-09-28"
+    },
+    "GOLDM@2026-11-05 vs GOLDPETAL@2026-10-29": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2026-11-05 vs GOLDPETAL@2026-10-29"
+    },
+    "GOLDM@2026-11-05 vs GOLDTEN@2026-10-29": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2026-11-05 vs GOLDTEN@2026-10-29"
+    },
+    "GOLDM@2026-12-04 vs GOLDPETAL@2026-11-30": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2026-12-04 vs GOLDPETAL@2026-11-30"
+    },
+    "GOLDM@2026-12-04 vs GOLDTEN@2026-11-30": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2026-12-04 vs GOLDTEN@2026-11-30"
+    },
+    "GOLDM@2027-01-05 vs GOLDPETAL@2026-12-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2027-01-05 vs GOLDPETAL@2026-12-28"
+    },
+    "GOLDM@2027-01-05 vs GOLDTEN@2026-12-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2027-01-05 vs GOLDTEN@2026-12-28"
+    },
+    "GOLDM@2027-02-04 vs GOLDPETAL@2027-01-29": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2027-02-04 vs GOLDPETAL@2027-01-29"
+    },
+    "GOLDM@2027-02-04 vs GOLDTEN@2027-01-29": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2027-02-04 vs GOLDTEN@2027-01-29"
+    },
+    "GOLDM@2027-03-05 vs GOLDPETAL@2027-02-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2027-03-05 vs GOLDPETAL@2027-02-28"
+    },
+    "GOLDM@2027-03-05 vs GOLDTEN@2027-02-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2027-03-05 vs GOLDTEN@2027-02-28"
+    },
+    "GOLDM@2027-04-04 vs GOLDPETAL@2027-03-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2027-04-04 vs GOLDPETAL@2027-03-28"
+    },
+    "GOLDM@2027-04-04 vs GOLDTEN@2027-03-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDM@2027-04-04 vs GOLDTEN@2027-03-28"
+    },
+    "GOLDPETAL@2026-03-28 vs GOLDTEN@2026-03-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDPETAL@2026-03-28 vs GOLDTEN@2026-03-28"
+    },
+    "GOLDPETAL@2026-04-29 vs GOLDTEN@2026-04-29": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDPETAL@2026-04-29 vs GOLDTEN@2026-04-29"
+    },
+    "GOLDPETAL@2026-05-30 vs GOLDTEN@2026-05-30": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDPETAL@2026-05-30 vs GOLDTEN@2026-05-30"
+    },
+    "GOLDPETAL@2026-06-28 vs GOLDTEN@2026-06-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDPETAL@2026-06-28 vs GOLDTEN@2026-06-28"
+    },
+    "GOLDPETAL@2026-07-29 vs GOLDTEN@2026-07-29": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDPETAL@2026-07-29 vs GOLDTEN@2026-07-29"
+    },
+    "GOLDPETAL@2026-08-30 vs GOLDTEN@2026-08-30": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDPETAL@2026-08-30 vs GOLDTEN@2026-08-30"
+    },
+    "GOLDPETAL@2026-09-28 vs GOLDTEN@2026-09-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDPETAL@2026-09-28 vs GOLDTEN@2026-09-28"
+    },
+    "GOLDPETAL@2026-10-29 vs GOLDTEN@2026-10-29": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDPETAL@2026-10-29 vs GOLDTEN@2026-10-29"
+    },
+    "GOLDPETAL@2026-11-30 vs GOLDTEN@2026-11-30": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDPETAL@2026-11-30 vs GOLDTEN@2026-11-30"
+    },
+    "GOLDPETAL@2026-12-28 vs GOLDTEN@2026-12-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDPETAL@2026-12-28 vs GOLDTEN@2026-12-28"
+    },
+    "GOLDPETAL@2027-01-29 vs GOLDTEN@2027-01-29": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDPETAL@2027-01-29 vs GOLDTEN@2027-01-29"
+    },
+    "GOLDPETAL@2027-02-28 vs GOLDTEN@2027-02-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDPETAL@2027-02-28 vs GOLDTEN@2027-02-28"
+    },
+    "GOLDPETAL@2027-03-28 vs GOLDTEN@2027-03-28": {
+      "scenario": "high",
+      "trade_count": 0,
+      "reason": "no trades",
+      "pair": "GOLDPETAL@2027-03-28 vs GOLDTEN@2027-03-28"
+    }
+  },
+  "min_trades_required": 30
+}

@@ -1,0 +1,83 @@
+{
+  "pairs": {
+    "GOLDGUINEA@2026-04-29 vs GOLDM@2026-05-05": {
+      "scenario": "high",
+      "trade_count": 6,
+      "train_trades": 3,
+      "test_trades": 3,
+      "win_rate": 0.0,
+      "avg_net_per_trade": -104.8552418994371,
+      "total_net_pnl": -629.1314513966227,
+      "max_drawdown": -510.5718120766996,
+      "victory_ratio": 0.1426906656790851,
+      "out_of_sample_net": -315.159450642652,
+      "pair": "GOLDGUINEA@2026-04-29 vs GOLDM@2026-05-05"
+    },
+    "GOLDGUINEA@2026-04-29 vs GOLDPETAL@2026-04-30": {
+      "scenario": "high",
+      "trade_count": 7,
+      "train_trades": 3,
+      "test_trades": 4,
+      "win_rate": 0.0,
+      "avg_net_per_trade": -119.18164560989565,
+      "total_net_pnl": -834.2715192692696,
+      "max_drawdown": -715.7081841841849,
+      "victory_ratio": 0.02543160208097514,
+      "out_of_sample_net": -475.589148398401,
+      "pair": "GOLDGUINEA@2026-04-29 vs GOLDPETAL@2026-04-30"
+    },
+    "GOLDGUINEA@2026-04-29 vs GOLDTEN@2026-04-28": {
+      "scenario": "high",
+      "trade_count": 5,
+      "train_trades": 3,
+      "test_trades": 2,
+      "win_rate": 0.0,
+      "avg_net_per_trade": -108.96878160160205,
+      "total_net_pnl": -544.8439080080102,
+      "max_drawdown": -427.1843374374395,
+      "victory_ratio": 0.10917859177236644,
+      "out_of_sample_net": -214.7542819819814,
+      "pair": "GOLDGUINEA@2026-04-29 vs GOLDTEN@2026-04-28"
+    },
+    "GOLDM@2026-05-05 vs GOLDPETAL@2026-04-30": {
+      "scenario": "high",
+      "trade_count": 6,
+      "train_trades": 3,
+      "test_trades": 3,
+      "win_rate": 0.0,
+      "avg_net_per_trade": -103.39174589175487,
+      "total_net_pnl": -620.3504753505292,
+      "max_drawdown": -502.3906922059773,
+      "victory_ratio": 0.1547819475063341,
+      "out_of_sample_net": -309.06768994663065,
+      "pair": "GOLDM@2026-05-05 vs GOLDPETAL@2026-04-30"
+    },
+    "GOLDM@2026-05-05 vs GOLDTEN@2026-04-28": {
+      "scenario": "high",
+      "trade_count": 9,
+      "train_trades": 4,
+      "test_trades": 5,
+      "win_rate": 0.0,
+      "avg_net_per_trade": -119.32607944632478,
+      "total_net_pnl": -1073.934715016923,
+      "max_drawdown": -954.4047524121063,
+      "victory_ratio": 0.024285426689150954,
+      "out_of_sample_net": -595.6618731614009,
+      "pair": "GOLDM@2026-05-05 vs GOLDTEN@2026-04-28"
+    },
+    "GOLDPETAL@2026-04-30 vs GOLDTEN@2026-04-28": {
+      "scenario": "high",
+      "trade_count": 4,
+      "train_trades": 2,
+      "test_trades": 2,
+      "win_rate": 0.0,
+      "avg_net_per_trade": -95.87892147147119,
+      "total_net_pnl": -383.51568588588475,
+      "max_drawdown": -286.615697497497,
+      "victory_ratio": 0.21631459992279622,
+      "out_of_sample_net": -192.24930470470406,
+      "pair": "GOLDPETAL@2026-04-30 vs GOLDTEN@2026-04-28"
+    }
+  },
+  "min_trades_required": 30
+}

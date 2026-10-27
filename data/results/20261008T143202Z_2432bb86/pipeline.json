@@ -1,0 +1,16 @@
+{
+  "run_id": "20261008T143202Z_2432bb86",
+  "config_hash": "2432bb86bece",
+  "started_utc": "2026-10-08T14:32:04.940378+00:00",
+  "duration_sec": 18.89,
+  "row_counts": {
+    "clean_rows": 1092,
+    "rejected_rows": 0,
+    "signal_rows": 1638,
+    "alert_count": 0,
+    "backtest_trades": 0
+  },
+  "package_versions": {
+    "pandas": "3.0.6"
+  }
+}
