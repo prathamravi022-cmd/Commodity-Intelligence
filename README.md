@@ -71,6 +71,16 @@ so the hosted pages are lit like the running app. Credits travel with the
 pictures: the band prints its author and licence, and no scene or photograph is
 fetched from the network.
 
+What works without a server:
+
+- **Price Comparison** filters: toggle any contract, window the series to 1M / 3M /
+  6M / all, and download the visible rows as CSV — all against the embedded series.
+- **Backtesting** tabs: low, base and high cost scenarios, each with its own KPIs,
+  equity curve, per-pair table and trade log.
+- **Keyboard**: `←` / `→` move between pages, `?` lists the shortcuts, `P` prints.
+- Charts keep Plotly's hover, legend isolation and zoom; tables scroll with a
+  sticky header.
+
 **Vercel.** [vercel.json](vercel.json) sets `outputDirectory` to `site`, blanks
 the install and build steps, and disables framework auto-detection — so a
 deployment serves the committed static pages instead of trying to compile them.

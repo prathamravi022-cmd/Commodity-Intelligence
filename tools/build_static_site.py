@@ -93,24 +93,24 @@ PAGE_CANVAS: dict[str, dict] = {
         "glow": ("72%", "-14%"), "alpha": 0.20, "scrim": 0.90,
     },
     "prices.html": {
-        "key": "price-comparison", "scene": "bg-prices.svg", "photo": "",
-        "focal": "center", "position": "50% 50%",
-        "glow": ("12%", "-8%"), "alpha": 0.13, "scrim": 0.56,
+        "key": "price-comparison", "scene": "bg-prices.svg", "photo": "contracts-banner",
+        "focal": "center 46%", "position": "30% 40%",
+        "glow": ("12%", "-8%"), "alpha": 0.13, "scrim": 0.87,
     },
     "spreads.html": {
-        "key": "spread-analytics", "scene": "bg-spreads.svg", "photo": "",
-        "focal": "center", "position": "50% 50%",
-        "glow": ("88%", "6%"), "alpha": 0.14, "scrim": 0.58,
+        "key": "spread-analytics", "scene": "bg-spreads.svg", "photo": "backdrop-hero",
+        "focal": "72% 62%", "position": "50% 50%",
+        "glow": ("88%", "6%"), "alpha": 0.14, "scrim": 0.86,
     },
     "signals.html": {
-        "key": "signal-explorer", "scene": "bg-signals.svg", "photo": "",
-        "focal": "center", "position": "50% 46%",
-        "glow": ("76%", "4%"), "alpha": 0.15, "scrim": 0.60,
+        "key": "signal-explorer", "scene": "bg-signals.svg", "photo": "backdrop-hero",
+        "focal": "24% 34%", "position": "50% 46%",
+        "glow": ("76%", "4%"), "alpha": 0.15, "scrim": 0.86,
     },
     "backtest.html": {
-        "key": "backtesting", "scene": "bg-backtest.svg", "photo": "",
-        "focal": "center", "position": "50% 54%",
-        "glow": ("18%", "-6%"), "alpha": 0.12, "scrim": 0.58,
+        "key": "backtesting", "scene": "bg-backtest.svg", "photo": "contracts-banner",
+        "focal": "72% 70%", "position": "50% 54%",
+        "glow": ("18%", "-6%"), "alpha": 0.12, "scrim": 0.87,
     },
     "quality.html": {
         "key": "data-quality", "scene": "bg-quality.svg", "photo": "quality-assay",
@@ -123,9 +123,12 @@ PAGE_CANVAS: dict[str, dict] = {
         "glow": ("80%", "-8%"), "alpha": 0.15, "scrim": 0.88,
     },
     "settings.html": {
-        "key": "settings", "scene": "bg-settings.svg", "photo": "",
-        "focal": "center", "position": "50% 50%",
-        "glow": ("30%", "-10%"), "alpha": 0.10, "scrim": 0.74,
+        # The calmest canvas stays a texture rather than a picture: a gold bar
+        # crop repeated at tile size, far under the plane of the content.
+        "key": "settings", "scene": "bg-settings.svg", "photo": "tile-gold",
+        "focal": "50% 50%", "position": "50% 50%",
+        "photo_size": "420px 420px", "photo_repeat": "repeat",
+        "glow": ("30%", "-10%"), "alpha": 0.10, "scrim": 0.90,
     },
 }
 
@@ -172,27 +175,28 @@ def canvas_rules() -> str:
     blocks = []
     for cfg in PAGE_CANVAS.values():
         glow_x, glow_y = cfg["glow"]
-        images = [
+        # (image, size, position, repeat) - first layer is topmost, as in CSS.
+        layers: list[tuple[str, str, str, str]] = [
             (f"radial-gradient(120% 80% at {glow_x} {glow_y}, "
-             f"rgba(232,205,138,{cfg['alpha']:.2f}), rgba(232,205,138,0) 60%)"),
-            "radial-gradient(90% 64% at 2% 106%, rgba(143,184,236,0.09), "
-            "rgba(143,184,236,0) 62%)",
+             f"rgba(232,205,138,{cfg['alpha']:.2f}), rgba(232,205,138,0) 60%)",
+             "cover", f"{glow_x} {glow_y}", "no-repeat"),
+            ("radial-gradient(90% 64% at 2% 106%, rgba(143,184,236,0.09), "
+             "rgba(143,184,236,0) 62%)", "cover", "2% 106%", "no-repeat"),
             # relative to site.css itself (which lives in assets/), not the page
-            f"url(backgrounds/{cfg['scene']})",
-            _scrim(cfg["scrim"]),
+            (f"url(backgrounds/{cfg['scene']})", "cover", cfg["position"], "no-repeat"),
+            (_scrim(cfg["scrim"]), "cover", "center top", "no-repeat"),
         ]
-        positions = [f"{glow_x} {glow_y}", "2% 106%", cfg["position"], "center top"]
         photo = photo_file(cfg["photo"])
         if photo is not None:
-            images.append(f"url(photos/{photo.name})")
-            positions.append(cfg["focal"])
+            layers.append((f"url(photos/{photo.name})", cfg.get("photo_size", "cover"),
+                           cfg["focal"], cfg.get("photo_repeat", "no-repeat")))
         blocks.append(
             f'body[data-bg="{cfg["key"]}"] {{\n'
-            f"  background-image: {', '.join(images)};\n"
-            f"  background-size: {', '.join(['cover'] * len(images))};\n"
-            f"  background-position: {', '.join(positions)};\n"
-            f"  background-repeat: {', '.join(['no-repeat'] * len(images))};\n"
-            f"  background-attachment: {', '.join(['fixed'] * len(images))};\n"
+            f"  background-image: {', '.join(layer[0] for layer in layers)};\n"
+            f"  background-size: {', '.join(layer[1] for layer in layers)};\n"
+            f"  background-position: {', '.join(layer[2] for layer in layers)};\n"
+            f"  background-repeat: {', '.join(layer[3] for layer in layers)};\n"
+            f"  background-attachment: {', '.join(['fixed'] * len(layers))};\n"
             f"}}"
         )
     return "\n".join(blocks)
@@ -325,7 +329,8 @@ class ChartSink:
     def __init__(self) -> None:
         self.items: list[tuple[str, str]] = []
 
-    def add(self, fig: go.Figure, height: int = 360) -> str:
+    def add(self, fig: go.Figure, height: int = 360, lazy: bool = False) -> str:
+        """Register a figure; ``lazy`` lets the page plot it when its tab opens."""
         cid = f"chart-{len(self.items)}"
         fig.update_layout(
             height=height,
@@ -340,18 +345,23 @@ class ChartSink:
         )
         fig.update_xaxes(gridcolor="rgba(143,163,191,0.14)", zeroline=False, linecolor="rgba(143,163,191,0.2)")
         fig.update_yaxes(gridcolor="rgba(143,163,191,0.14)", zeroline=False, linecolor="rgba(143,163,191,0.2)")
-        self.items.append((cid, fig.to_json()))
+        self.items.append((cid, fig.to_json(), lazy))
         return f'<div class="chart" id="{cid}"></div>'
 
     def scripts(self) -> str:
         payload = "".join(
-            f'<script type="application/json" id="spec-{cid}">{spec}</script>' for cid, spec in self.items
+            f'<script type="application/json" id="spec-{cid}"'
+            f'{" data-lazy=\"1\"" if lazy else ""}>{spec}</script>'
+            for cid, spec, lazy in self.items
         )
         if not self.items:
             return ""
         init = """
 <script>
+/* Lazy specs are plotted by whichever control owns them (the scenario tabs),
+   so a hidden pane never draws at zero width. */
 document.querySelectorAll('script[type="application/json"][id^="spec-"]').forEach(function (node) {
+  if (node.dataset.lazy === '1') return;
   var spec = JSON.parse(node.textContent);
   var id = node.id.replace('spec-', '');
   Plotly.newPlot(id, spec.data, spec.layout, {
@@ -436,7 +446,7 @@ def shell(slug: str, title: str, subtitle: str, body: str, charts: ChartSink, fo
 <link rel="stylesheet" href="assets/site.css">
 <script src="assets/plotly.min.js" charset="utf-8"></script>
 </head>
-<body data-bg="{key}">
+<body data-bg="{key}" data-page="{slug}">
 {_rail(slug)}
 <div class="shell">
   <main>
@@ -452,6 +462,22 @@ def shell(slug: str, title: str, subtitle: str, body: str, charts: ChartSink, fo
     pipeline artifacts.</p>
   </footer>
 </div>
+<div class="palette" id="palette" role="dialog" aria-label="Keyboard shortcuts">
+  <div class="palette-scrim"></div>
+  <div class="palette-card">
+    <h2>Keyboard shortcuts</h2>
+    <dl>
+      <dt><kbd>←</kbd> <kbd>→</kbd></dt><dd>Previous / next page</dd>
+      <dt><kbd>?</kbd></dt><dd>Toggle this panel</dd>
+      <dt><kbd>Esc</kbd></dt><dd>Close</dd>
+      <dt><kbd>P</kbd></dt><dd>Print or save as PDF</dd>
+    </dl>
+    <p class="note">Each page is a static file: the rail, the arrows and every
+    chart work without a server.</p>
+  </div>
+</div>
+<script type="application/json" id="page-order">{"[" + ", ".join(chr(34) + href + chr(34) for href, _, _, _ in PAGES) + "]"}</script>
+<script>{SHORTCUTS_JS}</script>
 {charts.scripts()}
 </body>
 </html>
@@ -611,6 +637,116 @@ code {{ font-family: ui-monospace, "Cascadia Mono", monospace; font-size: 12px;
               color: var(--muted); font-size: 12px; }}
 .site-foot strong {{ color: var(--gold); font-weight: 600; }}
 .site-foot .fine {{ margin-top: 8px; opacity: .75; }}
+/* ---------------- Surface detail ----------------
+   A faint film grain over the canvas: it keeps large navy areas from reading as
+   flat fill on wide screens, and it is a data URI so nothing is fetched. */
+body::after {{
+  content: ''; position: fixed; inset: 0; z-index: 2; pointer-events: none;
+  opacity: .05; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}}
+.card, .panel, .key, .tabpane {{ transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }}
+.card:hover {{
+  transform: translateY(-2px); border-color: rgba(232,205,138,.34);
+  box-shadow: 0 18px 40px -30px #000, inset 0 1px 0 rgba(255,255,255,.08);
+}}
+.panel:hover {{ border-color: rgba(143,163,191,.28); }}
+.key:hover {{ border-color: rgba(232,205,138,.30); }}
+.scroll {{ max-height: 620px; overflow: auto; border-radius: 10px; }}
+.scroll thead th {{
+  position: sticky; top: 0; z-index: 1;
+  background: #0B1320; box-shadow: inset 0 -1px 0 var(--line);
+}}
+.scroll tbody tr:nth-child(even) td {{ background: rgba(255,255,255,.018); }}
+.eyebrow::after {{
+  content: ''; display: block; width: 34px; height: 2px; margin-top: 8px;
+  background: linear-gradient(90deg, var(--gold), rgba(232,205,138,0));
+}}
+::selection {{ background: rgba(232,205,138,.28); color: #fff; }}
+a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible {{
+  outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 8px;
+}}
+.rail::-webkit-scrollbar {{ width: 8px; }}
+.rail::-webkit-scrollbar-thumb {{ background: rgba(143,163,191,.22); border-radius: 8px; }}
+.sr-only {{
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}}
+
+/* ---------------- Controls ----------------
+   Client-side filters for the pages that can be filtered without a server. */
+.controls {{
+  display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center;
+  margin: 0 0 18px; padding: 12px 14px; border-radius: 14px;
+  border: 1px solid var(--line); background: rgba(12,20,34,.62);
+}}
+.controls .group {{ display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }}
+.controls .label {{
+  color: var(--muted); font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  margin-right: 2px;
+}}
+.chip {{
+  font: inherit; font-size: 12px; cursor: pointer; padding: 6px 11px; border-radius: 999px;
+  color: var(--muted); background: rgba(255,255,255,.03);
+  border: 1px solid var(--line); display: inline-flex; align-items: center; gap: 7px;
+}}
+.chip:hover {{ color: var(--text); border-color: rgba(232,205,138,.34); }}
+.chip[aria-pressed="true"] {{
+  color: var(--gold); border-color: rgba(232,205,138,.46); background: rgba(232,205,138,.10);
+}}
+.chip .dot {{
+  width: 8px; height: 8px; border-radius: 50%; background: currentColor; opacity: .85;
+}}
+.chip.sq .dot {{ border-radius: 2px; }}
+.btn {{
+  font: inherit; font-size: 12px; cursor: pointer; padding: 7px 13px; border-radius: 10px;
+  color: var(--canvas); background: var(--gold); border: 1px solid var(--gold); font-weight: 600;
+}}
+.btn.ghost {{ color: var(--gold); background: transparent; border-color: rgba(232,205,138,.42); }}
+.btn:hover {{ filter: brightness(1.06); }}
+.controls .readout {{ margin-left: auto; color: var(--muted); font-size: 12px; }}
+
+/* ---------------- Tabs ----------------
+   Scenario switcher: one panel visible at a time, no reload, no server. */
+.tabs {{ display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 16px; }}
+.tabs button {{
+  font: inherit; font-size: 12.5px; cursor: pointer; padding: 7px 14px; border-radius: 10px;
+  color: var(--muted); background: rgba(12,20,34,.66); border: 1px solid var(--line);
+}}
+.tabs button:hover {{ color: var(--text); border-color: rgba(232,205,138,.34); }}
+.tabs button[aria-selected="true"] {{
+  color: var(--canvas); background: var(--gold); border-color: var(--gold); font-weight: 600;
+}}
+.tabpane[hidden] {{ display: none; }}
+
+/* ---------------- Shortcuts overlay ---------------- */
+.palette {{ position: fixed; inset: 0; z-index: 60; display: none; }}
+.palette[open] {{ display: grid; place-items: center; }}
+.palette-scrim {{ position: absolute; inset: 0; background: rgba(3,6,12,.72); backdrop-filter: blur(4px); }}
+.palette-card {{
+  position: relative; width: min(520px, calc(100vw - 32px)); padding: 20px 22px;
+  border-radius: 16px; border: 1px solid rgba(255,255,255,.14);
+  background: #0B1320; box-shadow: 0 40px 80px -40px #000;
+}}
+.palette-card h2 {{ margin: 0 0 12px; font-size: 14px; letter-spacing: .02em; }}
+.palette-card dl {{ margin: 0; display: grid; grid-template-columns: 108px 1fr; gap: 8px 12px; font-size: 13px; }}
+.palette-card dt {{ color: var(--gold); font-family: ui-monospace, monospace; font-size: 12px; }}
+.palette-card dd {{ margin: 0; color: var(--muted); }}
+kbd {{
+  font-family: ui-monospace, monospace; font-size: 11px; padding: 2px 6px; border-radius: 6px;
+  border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--text);
+}}
+
+@media (prefers-reduced-motion: reduce) {{
+  *, *::before, *::after {{ transition: none !important; animation: none !important; }}
+}}
+@media print {{
+  .rail, .palette, body::after, .site-foot {{ display: none !important; }}
+  body {{ grid-template-columns: 1fr; background: #fff; color: #111; }}
+  .panel, .card {{ border-color: #ccc; background: #fff; break-inside: avoid; }}
+  .panel h2, h1, .eyebrow {{ color: #111; }}
+}}
+
 /* Below this width the rail becomes a strip on top; every page stays one click
    away by scrolling it horizontally. */
 @media (max-width: 940px) {{
@@ -629,6 +765,13 @@ code {{ font-family: ui-monospace, "Cascadia Mono", monospace; font-size: 12px;
 }}
 @media (max-width: 620px) {{
   main {{ padding: 20px 14px 48px; }}
+  /* Filters stay on one scrolling row instead of stacking into a wall. */
+  .controls {{ gap: 8px; padding: 10px 12px; }}
+  .controls .group {{ flex-wrap: nowrap; overflow-x: auto; width: 100%; padding-bottom: 2px; }}
+  .controls .label {{ flex: 0 0 auto; }}
+  .controls .readout {{ margin-left: 0; width: 100%; }}
+  .chip {{ white-space: nowrap; }}
+  .keys {{ flex-wrap: nowrap; overflow-x: auto; }}
   .card .value {{ font-size: 22px; }}
   .page-head {{ padding: 16px 16px 18px; }}
   .hero-band {{ padding: 10px; }}
@@ -643,6 +786,209 @@ code {{ font-family: ui-monospace, "Cascadia Mono", monospace; font-size: 12px;
 /* ---- per-page canvases (app/backgrounds.py) ---- */
 {canvas_rules()}
 """
+
+
+#: Filters, a range window and a CSV download for the Price Comparison page.
+#: Runs against the embedded series, so the hosted page needs no server.
+PRICE_COMPARISON_JS = """(function () {
+  var node = document.getElementById('pc-series');
+  var chart = document.getElementById('pc-chart');
+  if (!node || !chart || !window.Plotly) return;
+  var series = JSON.parse(node.textContent);
+  var controls = document.getElementById('pc-controls');
+  var readout = document.getElementById('pc-readout');
+  var on = {};
+  series.forEach(function (s) { on[s.symbol] = true; });
+  var windowDays = 0;
+
+  var layout = {
+    paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+    height: 460, margin: { l: 58, r: 20, t: 14, b: 42 }, hovermode: 'x unified',
+    showlegend: true,
+    legend: { orientation: 'h', yanchor: 'bottom', y: 1.02, x: 0, font: { size: 11 } },
+    font: { family: 'Inter, system-ui, sans-serif', size: 12, color: '#8FA3BF' },
+    xaxis: { gridcolor: 'rgba(143,163,191,.14)', zeroline: false },
+    yaxis: { gridcolor: 'rgba(143,163,191,.14)', zeroline: false,
+             title: { text: 'INR / g (fine)' } },
+    hoverlabel: { bgcolor: '#0C1422', font: { color: '#F2F6FC' }, bordercolor: '#C7A25C' }
+  };
+  var config = { responsive: true, displayModeBar: false, scrollZoom: false };
+  var fmt = new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+
+  function indices(s) {
+    if (!windowDays) return s.dates.map(function (_, i) { return i; });
+    var end = Date.parse(s.dates[s.dates.length - 1]);
+    var floor = end - windowDays * 864e5;
+    var out = [];
+    for (var i = 0; i < s.dates.length; i++) {
+      if (Date.parse(s.dates[i]) >= floor) out.push(i);
+    }
+    return out;
+  }
+
+  function visible() {
+    var rows = [], lo = null, hi = null;
+    series.forEach(function (s) {
+      if (!on[s.symbol]) return;
+      var idx = indices(s);
+      if (!idx.length) return;
+      var x = idx.map(function (i) { return s.dates[i]; });
+      var y = idx.map(function (i) { return s.fine[i]; });
+      var raw = idx.map(function (i) { return s.raw[i]; });
+      lo = lo === null || x[0] < lo ? x[0] : lo;
+      hi = hi === null || x[x.length - 1] > hi ? x[x.length - 1] : hi;
+      rows.push({ symbol: s.symbol, x: x, y: y, raw: raw, color: s.color, n: x.length });
+    });
+    return { rows: rows, lo: lo, hi: hi };
+  }
+
+  function render() {
+    var v = visible();
+    var traces = v.rows.map(function (r) {
+      return {
+        type: 'scatter', mode: 'lines', name: r.symbol, x: r.x, y: r.y, customdata: r.raw,
+        line: { width: 1.9, color: r.color },
+        hovertemplate: '%{x|%d %b %Y}<br>raw ₹%{customdata:,.2f}<br>' +
+                       '₹%{y:,.2f}/g fine<extra>' + r.symbol + '</extra>'
+      };
+    });
+    if (!traces.length) {
+      readout.textContent = 'No contracts selected';
+    } else {
+      var n = v.rows.reduce(function (a, r) { return a + r.n; }, 0);
+      readout.textContent = n + ' points · ' + fmt.format(new Date(v.lo)) +
+                            ' → ' + fmt.format(new Date(v.hi));
+    }
+    Plotly.react(chart, traces, layout, config);
+  }
+
+  controls.addEventListener('click', function (event) {
+    var chip = event.target.closest('.chip');
+    if (chip && chip.dataset.sym) {
+      var sym = chip.dataset.sym;
+      on[sym] = !on[sym];
+      chip.setAttribute('aria-pressed', on[sym] ? 'true' : 'false');
+      render();
+      return;
+    }
+    if (chip && chip.dataset.range) {
+      windowDays = parseInt(chip.dataset.range, 10) || 0;
+      Array.prototype.forEach.call(controls.querySelectorAll('[data-range]'), function (b) {
+        b.setAttribute('aria-pressed', b === chip ? 'true' : 'false');
+      });
+      render();
+      return;
+    }
+    if (event.target.id === 'pc-csv') {
+      var v = visible();
+      var lines = ['date,symbol,raw_close,inr_per_g_fine'];
+      v.rows.forEach(function (r) {
+        r.x.forEach(function (d, i) {
+          lines.push(d + ',' + r.symbol + ',' + r.raw[i] + ',' + r.y[i]);
+        });
+      });
+      var blob = new Blob([lines.join('\\n')], { type: 'text/csv;charset=utf-8' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'normalized-prices.csv';
+      a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+    }
+  });
+
+  render();
+})();"""
+
+#: Cost-scenario tabs on Backtesting. Charts inside a pane are lazy, so only the
+#: visible scenario is ever drawn at full width.
+SCENARIO_TABS_JS = """(function () {
+  var bar = document.querySelector('[data-tabs]');
+  if (!bar) return;
+  var buttons = Array.prototype.slice.call(bar.querySelectorAll('button[data-pane]'));
+
+  function plot(pane) {
+    if (!window.Plotly) return;
+    document.querySelectorAll('script[type="application/json"][id^="spec-"]').forEach(function (node) {
+      if (node.dataset.plotted === '1') return;
+      var id = node.id.replace('spec-', '');
+      var host = document.getElementById(id);
+      if (!host || !pane.contains(host)) return;
+      var spec = JSON.parse(node.textContent);
+      Plotly.newPlot(id, spec.data, spec.layout,
+                     { responsive: true, displayModeBar: false, scrollZoom: false });
+      node.dataset.plotted = '1';
+    });
+    pane.querySelectorAll('.js-plotly-plot').forEach(function (p) { Plotly.Plots.resize(p); });
+  }
+
+  function show(id) {
+    buttons.forEach(function (b) {
+      b.setAttribute('aria-selected', b.dataset.pane === id ? 'true' : 'false');
+    });
+    document.querySelectorAll('.tabpane').forEach(function (p) { p.hidden = p.id !== id; });
+    var pane = document.getElementById(id);
+    if (pane) { requestAnimationFrame(function () { plot(pane); }); }
+  }
+
+  bar.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-pane]');
+    if (b) show(b.dataset.pane);
+  });
+  bar.addEventListener('keydown', function (e) {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    e.preventDefault();
+    var i = buttons.findIndex(function (b) { return b.getAttribute('aria-selected') === 'true'; });
+    var next = buttons[(i + (e.key === 'ArrowRight' ? 1 : -1) + buttons.length) % buttons.length];
+    next.focus();
+    show(next.dataset.pane);
+  });
+
+  /* The chart specs are emitted after the page body, so the first pane is drawn
+     once parsing has finished rather than mid-parse. */
+  function start() {
+    var initial = bar.querySelector('button[aria-selected="true"]') || buttons[0];
+    if (initial) show(initial.dataset.pane);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
+})();"""
+
+#: Arrow-key page navigation, a shortcuts panel and print. Progressive: with
+#: JavaScript off the rail still navigates and every page still renders.
+SHORTCUTS_JS = """(function () {
+  var holder = document.getElementById('page-order');
+  var order = holder ? JSON.parse(holder.textContent) : [];
+  var here = document.body.getAttribute('data-page') || '';
+  var index = order.indexOf(here);
+  var palette = document.getElementById('palette');
+
+  function go(delta) {
+    if (index < 0 || !order.length) return;
+    window.location.href = order[(index + delta + order.length) % order.length];
+  }
+  function toggle(show) {
+    if (!palette) return;
+    var open = show === undefined ? !palette.hasAttribute('open') : show;
+    if (open) { palette.setAttribute('open', ''); } else { palette.removeAttribute('open'); }
+  }
+  document.addEventListener('keydown', function (e) {
+    var tag = (document.activeElement && document.activeElement.tagName) || '';
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test(tag)) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+    else if (e.key === '?') { e.preventDefault(); toggle(); }
+    else if (e.key === 'Escape') { toggle(false); }
+    else if (e.key === 'p' || e.key === 'P') { e.preventDefault(); window.print(); }
+  });
+  if (palette) {
+    palette.addEventListener('click', function (e) {
+      if (!e.target.closest('.palette-card')) toggle(false);
+    });
+  }
+})();"""
 
 
 # ---- pages ---------------------------------------------------------------
@@ -760,13 +1106,16 @@ def build(norm: pd.DataFrame, spreads: pd.DataFrame, signals: pd.DataFrame,
         body = panel("Price comparison", '<p class="empty">No normalized data committed.</p>')
     else:
         last_day = norm["trade_date"].max()
-        # Key above the chart: colour, contract geometry and the last price, so a
-        # reader can map a line to a specification without a second table.
-        keys = []
+        # A real control surface, not a picture of one: the chips filter the series
+        # and the range buttons window it, both client-side against the embedded
+        # data, so the hosted page behaves like the app's selectors without a
+        # server. The last price rides on each chip, so the key and the legend are
+        # the same object.
+        chips = []
+        series = []
         for i, symbol in enumerate(symbols):
-            block = norm[(norm.symbol == symbol) & (norm.trade_date == last_day)]
-            if block.empty:
-                continue
+            block = norm[norm.symbol == symbol].sort_values("trade_date")
+            last = block[block.trade_date == last_day]
             spec = specs.get(symbol, {}) or {}
             bits = []
             if spec.get("trading_unit_g") is not None:
@@ -774,26 +1123,45 @@ def build(norm: pd.DataFrame, spreads: pd.DataFrame, signals: pd.DataFrame,
             if spec.get("purity") is not None:
                 bits.append(f"{float(spec['purity']):g} fine")
             spec_txt = " · ".join(bits) or "contract size in config"
-            keys.append(
-                f'<span class="key"><i style="background:{SERIES[i % len(SERIES)]}"></i>'
-                f'<b>{symbol}</b><em>{spec_txt}</em>'
-                f'<span class="val">₹{num(block["inr_per_g_fine"].iloc[0], 2)}/g</span></span>')
-        body += f'<div class="keys">{"".join(keys)}</div>'
+            price = num(last["inr_per_g_fine"].iloc[0], 2) if len(last) else "—"
+            color = SERIES[i % len(SERIES)]
+            chips.append(
+                f'<button class="chip sq" data-sym="{symbol}" aria-pressed="true" '
+                f'title="{symbol} · {spec_txt}">'
+                f'<span class="dot" style="background:{color}"></span>{symbol}'
+                f'<span style="opacity:.62">₹{price}</span></button>')
+            series.append({
+                "symbol": symbol, "color": color,
+                "dates": [d.strftime("%Y-%m-%d") for d in block["trade_date"]],
+                "fine": [round(float(v), 4) for v in block["inr_per_g_fine"]],
+                "raw": [round(float(v), 2) for v in block["close_raw"]],
+            })
 
-        fig = go.Figure()
-        for i, symbol in enumerate(symbols):
-            block = norm[norm.symbol == symbol].sort_values("trade_date")
-            fig.add_trace(go.Scatter(
-                x=block["trade_date"], y=block["inr_per_g_fine"], mode="lines", name=symbol,
-                line=dict(width=1.8, color=SERIES[i % len(SERIES)]),
-                customdata=block["close_raw"],
-                hovertemplate=("%{x|%d %b %Y}<br>raw ₹%{customdata:,.2f}<br>"
-                               "₹%{y:,.2f}/g fine<extra>" + symbol + "</extra>"),
-            ))
-        fig.update_layout(hovermode="x unified", yaxis_title="INR / g (fine)")
-        body += panel("Normalized settlement price", charts.add(fig, 440),
-                      "Every contract restated to one basis before comparison; hover also "
-                      "shows the quoted price the normalized line was derived from.")
+        controls = (
+            '<div class="controls" id="pc-controls">'
+            '<div class="group" role="group" aria-label="Contracts">'
+            f'<span class="label">Contracts</span>{"".join(chips)}</div>'
+            '<div class="group" role="group" aria-label="Window">'
+            '<span class="label">Window</span>'
+            '<button class="chip" data-range="30" aria-pressed="false">1M</button>'
+            '<button class="chip" data-range="90" aria-pressed="false">3M</button>'
+            '<button class="chip" data-range="180" aria-pressed="false">6M</button>'
+            '<button class="chip" data-range="0" aria-pressed="true">All</button></div>'
+            '<div class="group"><button class="btn ghost" id="pc-csv">Download CSV</button></div>'
+            '<span class="readout" id="pc-readout"></span>'
+            '</div>'
+        )
+        payload = json.dumps(series, separators=(",", ":"))
+        body += (
+            '<section class="panel"><h2>Normalized settlement price</h2>'
+            f'{controls}<div class="chart" id="pc-chart" style="height:460px"></div>'
+            '<p class="note">Every contract restated to one basis before comparison; hover '
+            'shows the quoted price the normalized line was derived from. Filters and the '
+            'CSV run in the browser against the committed series.</p>'
+            f'<script type="application/json" id="pc-series">{payload}</script>'
+            f'<script>{PRICE_COMPARISON_JS}</script>'
+            '</section>'
+        )
 
         # Latest comparison against the previous session. Two sessions is enough
         # for a change figure; a longer window belongs on Spread Analytics.
@@ -914,57 +1282,80 @@ def build(norm: pd.DataFrame, spreads: pd.DataFrame, signals: pd.DataFrame,
     if trades.empty:
         body = panel("Backtest", '<p class="empty">No backtest run committed.</p>')
     else:
-        scenario = "base" if "base" in set(trades["scenario"]) else sorted(trades["scenario"])[0]
-        t = trades[trades["scenario"] == scenario].sort_values("entry_date")
-        net = t["net_pnl"].to_numpy()
-        eq = net.cumsum()
-        peak = eq.max() if len(eq) else 0.0
-        mdd = float((eq - pd.Series(eq).cummax()).min()) if len(eq) else 0.0
-        oos = t[t["split"] == "test"]
-        body += cards([
-            {"label": "Gross P&L", "value": num(t.gross_pnl.sum()), "sub": f"{scenario} cost scenario"},
-            {"label": "Net P&L", "value": num(net.sum()), "sub": "after all costs"},
-            {"label": "Trades", "value": num(len(t)), "sub": f"{len(oos)} out-of-sample"},
-            {"label": "Win rate", "value": pct((net > 0).mean() if len(net) else float("nan"), 0),
-             "sub": "positive net P&L"},
-            {"label": "Max drawdown", "value": num(mdd), "sub": "on net equity"},
-        ])
-        fig = go.Figure()
-        fig.add_trace(go.Scatter(x=t["exit_date"], y=eq, mode="lines", name="Net equity",
-                                 line=dict(width=2.1, color=GOLD),
-                                 fill="tozeroy", fillcolor="rgba(232,205,138,.10)",
-                                 hovertemplate="%{x|%d %b %Y}<br>%{y:,.1f}<extra></extra>"))
-        fig.add_hline(y=0, line=dict(color="rgba(143,163,191,.45)", width=1, dash="dot"))
-        body += panel("Net equity curve — cumulative trade P&L", charts.add(fig, 340),
-                      f"Chronological walk-forward; the out-of-sample block starts at "
-                      f"{day(oos['entry_date'].min()) if len(oos) else '—'}.")
-
-        per_pair = []
-        for value in (metrics.get("pairs") or {}).values():
-            per_pair.append([
-                str(value.get("pair", "—")), num(value.get("trade_count")),
-                pct(value.get("win_rate")), num(value.get("avg_net_per_trade"), 1),
-                signed(value.get("total_net_pnl"), 1), num(value.get("max_drawdown"), 1),
-                signed(value.get("out_of_sample_net"), 1),
-            ])
-        if per_pair:
-            body += panel("Per-pair outcome", table(
-                ["Pair", "Trades", "Win rate", "Avg net / trade", "Total net", "Max DD", "Out-of-sample net"],
-                per_pair))
-
-        rows = [[str(r.pair), day(r.entry_date), day(r.exit_date), str(r.direction).replace("_", " "),
-                 signed(r.gross_pnl, 2), num(r.cost_total, 2), signed(r.net_pnl, 2), str(r.split)]
-                for r in t.itertuples()]
-        body += panel("Trade log", table(
-            ["Pair", "Entry", "Exit", "Direction", "Gross ₹/g", "Costs", "Net ₹/g", "Split"], rows),
-            f"{scenario} cost scenario · {len(t)} closed trades from run "
-            f"{record.get('run_id', run_dir.name if run_dir else '—')}.")
+        # Three cost scenarios ship in the same run, so the page offers all three
+        # as tabs instead of hard-coding ``base``. Each pane carries its own KPIs,
+        # equity curve and log; charts plot when their tab opens.
+        scenarios = [s for s in ("low", "base", "high") if s in set(trades["scenario"])]
+        scenarios = scenarios or sorted(set(trades["scenario"]))
+        active = "base" if "base" in scenarios else scenarios[0]
         min_trades = metrics.get("min_trades_required")
-        if min_trades and len(oos) < int(min_trades):
-            footer = panel("Evidence note",
-                           f'<p class="empty">{len(oos)} out-of-sample trades against a '
-                           f'{int(min_trades)}-trade minimum. Treat every number on this page as '
-                           f'underpowered, not as validation.</p>')
+        panes: list[tuple[str, str]] = []
+
+        for scenario in scenarios:
+            t = trades[trades["scenario"] == scenario].sort_values("entry_date")
+            net = t["net_pnl"].to_numpy()
+            eq = net.cumsum()
+            mdd = float((eq - pd.Series(eq).cummax()).min()) if len(eq) else 0.0
+            oos = t[t["split"] == "test"]
+
+            pane = cards([
+                {"label": "Gross P&L", "value": num(t.gross_pnl.sum()), "sub": f"{scenario} cost scenario"},
+                {"label": "Net P&L", "value": num(net.sum()), "sub": "after all costs"},
+                {"label": "Trades", "value": num(len(t)), "sub": f"{len(oos)} out-of-sample"},
+                {"label": "Win rate", "value": pct((net > 0).mean() if len(net) else float("nan"), 0),
+                 "sub": "positive net P&L"},
+                {"label": "Max drawdown", "value": num(mdd), "sub": "on net equity"},
+            ])
+            fig = go.Figure()
+            fig.add_trace(go.Scatter(x=t["exit_date"], y=eq, mode="lines", name="Net equity",
+                                     line=dict(width=2.1, color=GOLD),
+                                     fill="tozeroy", fillcolor="rgba(232,205,138,.10)",
+                                     hovertemplate="%{x|%d %b %Y}<br>%{y:,.1f}<extra></extra>"))
+            fig.add_hline(y=0, line=dict(color="rgba(143,163,191,.45)", width=1, dash="dot"))
+            pane += panel("Net equity curve — cumulative trade P&L", charts.add(fig, 340, lazy=True),
+                          f"Chronological walk-forward; the out-of-sample block starts at "
+                          f"{day(oos['entry_date'].min()) if len(oos) else '—'}.")
+
+            per_pair = []
+            for value in (metrics.get("pairs") or {}).values():
+                if value.get("scenario") not in (None, scenario):
+                    continue
+                per_pair.append([
+                    str(value.get("pair", "—")), num(value.get("trade_count")),
+                    pct(value.get("win_rate")), num(value.get("avg_net_per_trade"), 1),
+                    signed(value.get("total_net_pnl"), 1), num(value.get("max_drawdown"), 1),
+                    signed(value.get("out_of_sample_net"), 1),
+                ])
+            if per_pair:
+                pane += panel("Per-pair outcome", table(
+                    ["Pair", "Trades", "Win rate", "Avg net / trade", "Total net", "Max DD",
+                     "Out-of-sample net"], per_pair))
+
+            rows = [[str(r.pair), day(r.entry_date), day(r.exit_date), str(r.direction).replace("_", " "),
+                     signed(r.gross_pnl, 2), num(r.cost_total, 2), signed(r.net_pnl, 2), str(r.split)]
+                    for r in t.itertuples()]
+            pane += panel("Trade log", table(
+                ["Pair", "Entry", "Exit", "Direction", "Gross ₹/g", "Costs", "Net ₹/g", "Split"], rows),
+                f"{scenario} cost scenario · {len(t)} closed trades from run "
+                f"{record.get('run_id', run_dir.name if run_dir else '—')}.")
+            if min_trades and len(oos) < int(min_trades):
+                pane += panel("Evidence note",
+                              f'<p class="empty">{len(oos)} out-of-sample trades against a '
+                              f'{int(min_trades)}-trade minimum. Treat every number on this pane '
+                              f'as underpowered, not as validation.</p>')
+            panes.append((scenario, pane))
+
+        tabs = "".join(
+            f'<button role="tab" aria-selected="{"true" if s == active else "false"}"'
+            f' aria-controls="pane-{s}" data-pane="pane-{s}">{s.title()} cost</button>'
+            for s in scenarios)
+        body = (f'<div class="tabs" role="tablist" aria-label="Cost scenario" data-tabs>{tabs}</div>'
+                + "".join(
+                    f'<section class="tabpane" id="pane-{s}" role="tabpanel"'
+                    f'{" hidden" if s != active else ""}>{pane}</section>'
+                    for s, pane in panes)
+                + f'<script>{SCENARIO_TABS_JS}</script>')
+        footer = ""
     out["backtest.html"] = shell("backtest.html", "Backtesting",
                                  "Walk-forward research on settlement prices with explicit transaction costs.",
                                  body, charts, footer)

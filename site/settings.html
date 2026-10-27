@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="assets/site.css">
 <script src="assets/plotly.min.js" charset="utf-8"></script>
 </head>
-<body data-bg="settings">
+<body data-bg="settings" data-page="settings.html">
 <aside class="rail">
   <a class="rail-brand" href="index.html">
     <img class="rail-logo" src="assets/icons/logo-bullion.svg" alt="" width="34" height="34">
@@ -124,7 +124,7 @@ backtest:
 alerts:
   cooldown_days: 5
   enabled: true
-</pre><p class="note">Read-only here — edits belong in config/config.yaml, which both the pipeline and this export read. The figures on every other page come from run <code>20261027T161202Z_2432bb86</code>.</p></section><section class="panel"><h2>Regenerate</h2><pre class="code">python -X utf8 tests/fixtures.py
+</pre><p class="note">Read-only here — edits belong in config/config.yaml, which both the pipeline and this export read. The figures on every other page come from run <code>20261027T170034Z_2432bb86</code>.</p></section><section class="panel"><h2>Regenerate</h2><pre class="code">python -X utf8 tests/fixtures.py
 python -X utf8 -m src.pipeline
 python -X utf8 tools/build_static_site.py</pre><p class="note">The first writes sample data only when none is present; the last rebuilds these pages from the committed artifacts.</p></section>
     
@@ -137,6 +137,52 @@ python -X utf8 tools/build_static_site.py</pre><p class="note">The first writes 
     pipeline artifacts.</p>
   </footer>
 </div>
+<div class="palette" id="palette" role="dialog" aria-label="Keyboard shortcuts">
+  <div class="palette-scrim"></div>
+  <div class="palette-card">
+    <h2>Keyboard shortcuts</h2>
+    <dl>
+      <dt><kbd>←</kbd> <kbd>→</kbd></dt><dd>Previous / next page</dd>
+      <dt><kbd>?</kbd></dt><dd>Toggle this panel</dd>
+      <dt><kbd>Esc</kbd></dt><dd>Close</dd>
+      <dt><kbd>P</kbd></dt><dd>Print or save as PDF</dd>
+    </dl>
+    <p class="note">Each page is a static file: the rail, the arrows and every
+    chart work without a server.</p>
+  </div>
+</div>
+<script type="application/json" id="page-order">["index.html", "contracts.html", "prices.html", "spreads.html", "signals.html", "backtest.html", "quality.html", "methodology.html", "settings.html"]</script>
+<script>(function () {
+  var holder = document.getElementById('page-order');
+  var order = holder ? JSON.parse(holder.textContent) : [];
+  var here = document.body.getAttribute('data-page') || '';
+  var index = order.indexOf(here);
+  var palette = document.getElementById('palette');
+
+  function go(delta) {
+    if (index < 0 || !order.length) return;
+    window.location.href = order[(index + delta + order.length) % order.length];
+  }
+  function toggle(show) {
+    if (!palette) return;
+    var open = show === undefined ? !palette.hasAttribute('open') : show;
+    if (open) { palette.setAttribute('open', ''); } else { palette.removeAttribute('open'); }
+  }
+  document.addEventListener('keydown', function (e) {
+    var tag = (document.activeElement && document.activeElement.tagName) || '';
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test(tag)) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+    else if (e.key === '?') { e.preventDefault(); toggle(); }
+    else if (e.key === 'Escape') { toggle(false); }
+    else if (e.key === 'p' || e.key === 'P') { e.preventDefault(); window.print(); }
+  });
+  if (palette) {
+    palette.addEventListener('click', function (e) {
+      if (!e.target.closest('.palette-card')) toggle(false);
+    });
+  }
+})();</script>
 
 </body>
 </html>

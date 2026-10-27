@@ -151,6 +151,116 @@ code { font-family: ui-monospace, "Cascadia Mono", monospace; font-size: 12px;
               color: var(--muted); font-size: 12px; }
 .site-foot strong { color: var(--gold); font-weight: 600; }
 .site-foot .fine { margin-top: 8px; opacity: .75; }
+/* ---------------- Surface detail ----------------
+   A faint film grain over the canvas: it keeps large navy areas from reading as
+   flat fill on wide screens, and it is a data URI so nothing is fetched. */
+body::after {
+  content: ''; position: fixed; inset: 0; z-index: 2; pointer-events: none;
+  opacity: .05; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+.card, .panel, .key, .tabpane { transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+.card:hover {
+  transform: translateY(-2px); border-color: rgba(232,205,138,.34);
+  box-shadow: 0 18px 40px -30px #000, inset 0 1px 0 rgba(255,255,255,.08);
+}
+.panel:hover { border-color: rgba(143,163,191,.28); }
+.key:hover { border-color: rgba(232,205,138,.30); }
+.scroll { max-height: 620px; overflow: auto; border-radius: 10px; }
+.scroll thead th {
+  position: sticky; top: 0; z-index: 1;
+  background: #0B1320; box-shadow: inset 0 -1px 0 var(--line);
+}
+.scroll tbody tr:nth-child(even) td { background: rgba(255,255,255,.018); }
+.eyebrow::after {
+  content: ''; display: block; width: 34px; height: 2px; margin-top: 8px;
+  background: linear-gradient(90deg, var(--gold), rgba(232,205,138,0));
+}
+::selection { background: rgba(232,205,138,.28); color: #fff; }
+a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 8px;
+}
+.rail::-webkit-scrollbar { width: 8px; }
+.rail::-webkit-scrollbar-thumb { background: rgba(143,163,191,.22); border-radius: 8px; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ---------------- Controls ----------------
+   Client-side filters for the pages that can be filtered without a server. */
+.controls {
+  display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center;
+  margin: 0 0 18px; padding: 12px 14px; border-radius: 14px;
+  border: 1px solid var(--line); background: rgba(12,20,34,.62);
+}
+.controls .group { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.controls .label {
+  color: var(--muted); font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  margin-right: 2px;
+}
+.chip {
+  font: inherit; font-size: 12px; cursor: pointer; padding: 6px 11px; border-radius: 999px;
+  color: var(--muted); background: rgba(255,255,255,.03);
+  border: 1px solid var(--line); display: inline-flex; align-items: center; gap: 7px;
+}
+.chip:hover { color: var(--text); border-color: rgba(232,205,138,.34); }
+.chip[aria-pressed="true"] {
+  color: var(--gold); border-color: rgba(232,205,138,.46); background: rgba(232,205,138,.10);
+}
+.chip .dot {
+  width: 8px; height: 8px; border-radius: 50%; background: currentColor; opacity: .85;
+}
+.chip.sq .dot { border-radius: 2px; }
+.btn {
+  font: inherit; font-size: 12px; cursor: pointer; padding: 7px 13px; border-radius: 10px;
+  color: var(--canvas); background: var(--gold); border: 1px solid var(--gold); font-weight: 600;
+}
+.btn.ghost { color: var(--gold); background: transparent; border-color: rgba(232,205,138,.42); }
+.btn:hover { filter: brightness(1.06); }
+.controls .readout { margin-left: auto; color: var(--muted); font-size: 12px; }
+
+/* ---------------- Tabs ----------------
+   Scenario switcher: one panel visible at a time, no reload, no server. */
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 16px; }
+.tabs button {
+  font: inherit; font-size: 12.5px; cursor: pointer; padding: 7px 14px; border-radius: 10px;
+  color: var(--muted); background: rgba(12,20,34,.66); border: 1px solid var(--line);
+}
+.tabs button:hover { color: var(--text); border-color: rgba(232,205,138,.34); }
+.tabs button[aria-selected="true"] {
+  color: var(--canvas); background: var(--gold); border-color: var(--gold); font-weight: 600;
+}
+.tabpane[hidden] { display: none; }
+
+/* ---------------- Shortcuts overlay ---------------- */
+.palette { position: fixed; inset: 0; z-index: 60; display: none; }
+.palette[open] { display: grid; place-items: center; }
+.palette-scrim { position: absolute; inset: 0; background: rgba(3,6,12,.72); backdrop-filter: blur(4px); }
+.palette-card {
+  position: relative; width: min(520px, calc(100vw - 32px)); padding: 20px 22px;
+  border-radius: 16px; border: 1px solid rgba(255,255,255,.14);
+  background: #0B1320; box-shadow: 0 40px 80px -40px #000;
+}
+.palette-card h2 { margin: 0 0 12px; font-size: 14px; letter-spacing: .02em; }
+.palette-card dl { margin: 0; display: grid; grid-template-columns: 108px 1fr; gap: 8px 12px; font-size: 13px; }
+.palette-card dt { color: var(--gold); font-family: ui-monospace, monospace; font-size: 12px; }
+.palette-card dd { margin: 0; color: var(--muted); }
+kbd {
+  font-family: ui-monospace, monospace; font-size: 11px; padding: 2px 6px; border-radius: 6px;
+  border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+@media print {
+  .rail, .palette, body::after, .site-foot { display: none !important; }
+  body { grid-template-columns: 1fr; background: #fff; color: #111; }
+  .panel, .card { border-color: #ccc; background: #fff; break-inside: avoid; }
+  .panel h2, h1, .eyebrow { color: #111; }
+}
+
 /* Below this width the rail becomes a strip on top; every page stays one click
    away by scrolling it horizontally. */
 @media (max-width: 940px) {
@@ -169,6 +279,13 @@ code { font-family: ui-monospace, "Cascadia Mono", monospace; font-size: 12px;
 }
 @media (max-width: 620px) {
   main { padding: 20px 14px 48px; }
+  /* Filters stay on one scrolling row instead of stacking into a wall. */
+  .controls { gap: 8px; padding: 10px 12px; }
+  .controls .group { flex-wrap: nowrap; overflow-x: auto; width: 100%; padding-bottom: 2px; }
+  .controls .label { flex: 0 0 auto; }
+  .controls .readout { margin-left: 0; width: 100%; }
+  .chip { white-space: nowrap; }
+  .keys { flex-wrap: nowrap; overflow-x: auto; }
   .card .value { font-size: 22px; }
   .page-head { padding: 16px 16px 18px; }
   .hero-band { padding: 10px; }
@@ -196,32 +313,32 @@ body[data-bg="gold-contracts"] {
   background-attachment: fixed, fixed, fixed, fixed, fixed;
 }
 body[data-bg="price-comparison"] {
-  background-image: radial-gradient(120% 80% at 12% -8%, rgba(232,205,138,0.13), rgba(232,205,138,0) 60%), radial-gradient(90% 64% at 2% 106%, rgba(143,184,236,0.09), rgba(143,184,236,0) 62%), url(backgrounds/bg-prices.svg), linear-gradient(180deg, rgba(7,11,20,0.56) 0%, rgba(7,11,20,0.60) 45%, rgba(5,8,15,0.63) 100%);
-  background-size: cover, cover, cover, cover;
-  background-position: 12% -8%, 2% 106%, 50% 50%, center top;
-  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
-  background-attachment: fixed, fixed, fixed, fixed;
+  background-image: radial-gradient(120% 80% at 12% -8%, rgba(232,205,138,0.13), rgba(232,205,138,0) 60%), radial-gradient(90% 64% at 2% 106%, rgba(143,184,236,0.09), rgba(143,184,236,0) 62%), url(backgrounds/bg-prices.svg), linear-gradient(180deg, rgba(7,11,20,0.87) 0%, rgba(7,11,20,0.91) 45%, rgba(5,8,15,0.94) 100%), url(photos/contracts-banner-1600.webp);
+  background-size: cover, cover, cover, cover, cover;
+  background-position: 12% -8%, 2% 106%, 30% 40%, center top, center 46%;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+  background-attachment: fixed, fixed, fixed, fixed, fixed;
 }
 body[data-bg="spread-analytics"] {
-  background-image: radial-gradient(120% 80% at 88% 6%, rgba(232,205,138,0.14), rgba(232,205,138,0) 60%), radial-gradient(90% 64% at 2% 106%, rgba(143,184,236,0.09), rgba(143,184,236,0) 62%), url(backgrounds/bg-spreads.svg), linear-gradient(180deg, rgba(7,11,20,0.58) 0%, rgba(7,11,20,0.62) 45%, rgba(5,8,15,0.65) 100%);
-  background-size: cover, cover, cover, cover;
-  background-position: 88% 6%, 2% 106%, 50% 50%, center top;
-  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
-  background-attachment: fixed, fixed, fixed, fixed;
+  background-image: radial-gradient(120% 80% at 88% 6%, rgba(232,205,138,0.14), rgba(232,205,138,0) 60%), radial-gradient(90% 64% at 2% 106%, rgba(143,184,236,0.09), rgba(143,184,236,0) 62%), url(backgrounds/bg-spreads.svg), linear-gradient(180deg, rgba(7,11,20,0.86) 0%, rgba(7,11,20,0.90) 45%, rgba(5,8,15,0.93) 100%), url(photos/backdrop-hero-1600.webp);
+  background-size: cover, cover, cover, cover, cover;
+  background-position: 88% 6%, 2% 106%, 50% 50%, center top, 72% 62%;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+  background-attachment: fixed, fixed, fixed, fixed, fixed;
 }
 body[data-bg="signal-explorer"] {
-  background-image: radial-gradient(120% 80% at 76% 4%, rgba(232,205,138,0.15), rgba(232,205,138,0) 60%), radial-gradient(90% 64% at 2% 106%, rgba(143,184,236,0.09), rgba(143,184,236,0) 62%), url(backgrounds/bg-signals.svg), linear-gradient(180deg, rgba(7,11,20,0.60) 0%, rgba(7,11,20,0.64) 45%, rgba(5,8,15,0.67) 100%);
-  background-size: cover, cover, cover, cover;
-  background-position: 76% 4%, 2% 106%, 50% 46%, center top;
-  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
-  background-attachment: fixed, fixed, fixed, fixed;
+  background-image: radial-gradient(120% 80% at 76% 4%, rgba(232,205,138,0.15), rgba(232,205,138,0) 60%), radial-gradient(90% 64% at 2% 106%, rgba(143,184,236,0.09), rgba(143,184,236,0) 62%), url(backgrounds/bg-signals.svg), linear-gradient(180deg, rgba(7,11,20,0.86) 0%, rgba(7,11,20,0.90) 45%, rgba(5,8,15,0.93) 100%), url(photos/backdrop-hero-1600.webp);
+  background-size: cover, cover, cover, cover, cover;
+  background-position: 76% 4%, 2% 106%, 50% 46%, center top, 24% 34%;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+  background-attachment: fixed, fixed, fixed, fixed, fixed;
 }
 body[data-bg="backtesting"] {
-  background-image: radial-gradient(120% 80% at 18% -6%, rgba(232,205,138,0.12), rgba(232,205,138,0) 60%), radial-gradient(90% 64% at 2% 106%, rgba(143,184,236,0.09), rgba(143,184,236,0) 62%), url(backgrounds/bg-backtest.svg), linear-gradient(180deg, rgba(7,11,20,0.58) 0%, rgba(7,11,20,0.62) 45%, rgba(5,8,15,0.65) 100%);
-  background-size: cover, cover, cover, cover;
-  background-position: 18% -6%, 2% 106%, 50% 54%, center top;
-  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
-  background-attachment: fixed, fixed, fixed, fixed;
+  background-image: radial-gradient(120% 80% at 18% -6%, rgba(232,205,138,0.12), rgba(232,205,138,0) 60%), radial-gradient(90% 64% at 2% 106%, rgba(143,184,236,0.09), rgba(143,184,236,0) 62%), url(backgrounds/bg-backtest.svg), linear-gradient(180deg, rgba(7,11,20,0.87) 0%, rgba(7,11,20,0.91) 45%, rgba(5,8,15,0.94) 100%), url(photos/contracts-banner-1600.webp);
+  background-size: cover, cover, cover, cover, cover;
+  background-position: 18% -6%, 2% 106%, 50% 54%, center top, 72% 70%;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+  background-attachment: fixed, fixed, fixed, fixed, fixed;
 }
 body[data-bg="data-quality"] {
   background-image: radial-gradient(120% 80% at 66% -12%, rgba(232,205,138,0.16), rgba(232,205,138,0) 60%), radial-gradient(90% 64% at 2% 106%, rgba(143,184,236,0.09), rgba(143,184,236,0) 62%), url(backgrounds/bg-quality.svg), linear-gradient(180deg, rgba(7,11,20,0.88) 0%, rgba(7,11,20,0.92) 45%, rgba(5,8,15,0.95) 100%), url(photos/quality-assay-1280.webp);
@@ -238,9 +355,9 @@ body[data-bg="methodology"] {
   background-attachment: fixed, fixed, fixed, fixed, fixed;
 }
 body[data-bg="settings"] {
-  background-image: radial-gradient(120% 80% at 30% -10%, rgba(232,205,138,0.10), rgba(232,205,138,0) 60%), radial-gradient(90% 64% at 2% 106%, rgba(143,184,236,0.09), rgba(143,184,236,0) 62%), url(backgrounds/bg-settings.svg), linear-gradient(180deg, rgba(7,11,20,0.74) 0%, rgba(7,11,20,0.78) 45%, rgba(5,8,15,0.81) 100%);
-  background-size: cover, cover, cover, cover;
-  background-position: 30% -10%, 2% 106%, 50% 50%, center top;
-  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
-  background-attachment: fixed, fixed, fixed, fixed;
+  background-image: radial-gradient(120% 80% at 30% -10%, rgba(232,205,138,0.10), rgba(232,205,138,0) 60%), radial-gradient(90% 64% at 2% 106%, rgba(143,184,236,0.09), rgba(143,184,236,0) 62%), url(backgrounds/bg-settings.svg), linear-gradient(180deg, rgba(7,11,20,0.90) 0%, rgba(7,11,20,0.94) 45%, rgba(5,8,15,0.97) 100%), url(photos/tile-gold-512.webp);
+  background-size: cover, cover, cover, cover, 420px 420px;
+  background-position: 30% -10%, 2% 106%, 50% 50%, center top, 50% 50%;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+  background-attachment: fixed, fixed, fixed, fixed, fixed;
 }
