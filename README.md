@@ -32,6 +32,42 @@ Open <http://localhost:8601>. All pipeline assumptions live in
 `.env` only if you intend to download files; the dashboard itself never calls a
 market API.
 
+## Deploying
+
+The Streamlit app is a long-running server with a persistent WebSocket, so it
+needs a host that keeps a process alive (Streamlit Community Cloud, a VM, a
+container). A serverless host such as Vercel cannot run it — there is no setting
+that turns a function into an always-on Streamlit server.
+
+For those hosts the repo also ships a **static export**: the same artifacts
+rendered to plain HTML and Plotly JSON, committed in `site/` and served as
+static files.
+
+```bash
+python -X utf8 tools/build_static_site.py     # regenerate site/ after a pipeline run
+```
+
+| Page | File |
+|---|---|
+| Overview — coverage, validation, prices, strongest pairs | `site/index.html` |
+| Contracts — summary, quoted prices, volume | `site/contracts.html` |
+| Spreads & Z-score — top pair histories, latest spreads | `site/spreads.html` |
+| Signals — state counts, z-score bands, latest state | `site/signals.html` |
+| Backtesting — KPIs, equity curve, per-pair, trade log | `site/backtest.html` |
+| Data quality — coverage, presence ribbon, rejections | `site/quality.html` |
+| Methodology — formulas, design, limitations | `site/methodology.html` |
+
+**Vercel.** [vercel.json](vercel.json) sets `outputDirectory` to `site`, blanks
+the install and build steps, and disables framework auto-detection — so a
+deployment serves the committed static pages instead of trying to compile them.
+Push, or set the project's *Framework Preset* to **Other** with empty build
+settings, and the export goes live. Regenerate `site/` and commit it whenever
+the data changes; the deploy never rebuilds it.
+
+**Streamlit Community Cloud** runs the real app: repository
+`prathamravi022-cmd/Commodity-Intelligence`, branch `main`, main file
+`app/Home.py`, Python 3.12, no secrets.
+
 ## Pipeline
 
 ```
@@ -302,9 +338,12 @@ data/                     raw CSV, clean parquet, analytics parquet, results, al
 tests/                    pytest suite + synthetic fixture generator
 docs/ROADMAP.md           150-feature backlog with audit status and the milestone plan
 tools/                    artwork + photo builders, QA screenshot harness,
+                          build_static_site.py (HTML export in site/),
                           verify_import_flow.py (browser test of the import path),
                           verify_signal_page.py (renders + charts on Signal Explorer)
 qa/                       screenshot pack (generated)
+site/                     static export of the dashboard (generated, committed)
+vercel.json               serves site/ as a static deployment
 ```
 
 ## Known assumptions and limitations

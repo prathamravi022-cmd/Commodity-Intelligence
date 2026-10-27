@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Methodology · Commodity Intelligence</title>
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/plotly.min.js" charset="utf-8"></script>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html"><span class="mark">CI</span> Commodity Intelligence</a>
+  <nav><a href="index.html">Overview</a><a href="contracts.html">Contracts</a><a href="spreads.html">Spreads & Z-score</a><a href="signals.html">Signals</a><a href="backtest.html">Backtesting</a><a href="quality.html">Data quality</a><a href="methodology.html" class="active">Methodology</a></nav>
+</header>
+<main>
+  <div class="page-head">
+    <p class="eyebrow">MCX gold · relative value research</p>
+    <h1>Methodology</h1>
+    <p class="lede">Assumptions, formulas and limitations behind every number in this dashboard.</p>
+  </div>
+  
+<section class="panel"><h2>Normalisation</h2><p>Every contract is restated to one basis before any comparison:</p>
+<p><code>INR per gram fine = price × (trading unit ÷ quoted unit) ÷ purity</code></p>
+<p>GOLDM (10 g, 0.995), GOLDTEN (100 g, 0.995), GOLDGUINEA (10 g, 0.916) and GOLDPETAL (1 g, 0.995)
+therefore become directly comparable, and a spread is a real relative-value number rather than a
+unit mismatch.</p></section>
+<section class="panel"><h2>Spread and z-score</h2><ul class="plain">
+<li><strong>Spread</strong> = leg A − leg B, both in INR per gram fine.</li>
+<li><strong>Carry adjustment</strong> removes the financing implied by the expiry gap; the rate lives
+in <code>config/config.yaml</code> and is currently <code>0.0</code>, so the residual equals the raw spread.</li>
+<li><strong>Z-score</strong> = (residual − rolling mean) ÷ rolling standard deviation over a 60-session window.</li>
+<li><strong>Signal state machine</strong>: Neutral → Watch (inside the entry band) → Entered (|z| ≥ 2) →
+Exited (|z| ≤ 0.5). States are research labels, not orders.</li>
+</ul></section>
+<section class="panel"><h2>Backtest design</h2><ul class="plain">
+<li>Chronological split: 60% train, 40% out-of-sample — never shuffled, never re-fit on the test block.</li>
+<li>Walk-forward re-estimation every 20 sessions.</li>
+<li>Explicit per-leg, per-side costs: exchange fee, brokerage, statutory charges and slippage, in three
+scenarios (low / base / high).</li>
+<li>Metrics are per pair; a pair below the minimum out-of-sample trade count is reported as underpowered
+rather than ranked.</li>
+</ul></section>
+<section class="panel"><h2>Known limitations</h2><ul class="plain">
+<li>Daily settlement prices only — not executable fill prices.</li>
+<li>The carry rate is a documented input, not a sourced market rate.</li>
+<li>Cost assumptions are illustrative until tied to a real fee schedule.</li>
+<li>GOLDTEN's exchange history starts in 2025, so it contributes fewer sessions.</li>
+<li>The bundled fixture expiries are fixed, so late sessions show settled contracts.</li>
+<li>No theme toggle: Streamlit themes are fixed per deployment, and the dark workspace is the tested one.</li>
+</ul></section>
+<section class="panel"><h2>Rebuilding this export</h2><p>The Streamlit app is the interactive original and still runs from the repo root:</p>
+<p><code>python -m streamlit run app/Home.py --server.port 8601</code></p>
+<p>This static site is generated from the same committed artifacts and is what a static host serves:</p>
+<p><code>python -X utf8 tools/build_static_site.py</code></p></section>
+
+  
+</main>
+<footer class="site-foot">
+  <p><strong>Research prototype — not investment advice.</strong> Settlement prices are
+  not executable fills; past backtest results do not predict future performance.
+  Signals are research outputs, not trade recommendations.</p>
+  <p class="fine">Static export of the Streamlit dashboard, rendered from the committed
+  pipeline artifacts.</p>
+</footer>
+
+</body>
+</html>
