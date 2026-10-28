@@ -251,6 +251,46 @@ kbd {
   border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--text);
 }
 
+/* ---------------- Preferences ----------------
+   Density and motion are attributes on <html>, set by the head bootstrap, so a
+   saved preference never flashes from its default while the page loads. */
+:root[data-density="compact"] td,
+:root[data-density="compact"] th { padding: 5px 9px; }
+:root[data-density="compact"] .panel { padding: 14px 16px 16px; margin-bottom: 14px; }
+:root[data-density="compact"] .card { padding: 10px 12px; }
+:root[data-density="compact"] .card .value { font-size: 22px; }
+:root[data-density="compact"] .cards { gap: 9px; margin-bottom: 16px; }
+:root[data-motion="reduced"] *,
+:root[data-motion="reduced"] *::before,
+:root[data-motion="reduced"] *::after {
+  transition: none !important; animation: none !important;
+}
+:root[data-motion="reduced"] .card:hover { transform: none; }
+
+/* Preference rows on Settings: one control per row, label left, value right. */
+.pref { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
+         padding: 13px 0; border-bottom: 1px solid rgba(143,163,191,.10); }
+.pref:last-of-type { border-bottom: 0; }
+.pref .pref-label { flex: 1 1 300px; }
+.pref .pref-label b { display: block; font-size: 13.5px; font-weight: 600; }
+.pref .pref-label span { display: block; margin-top: 2px; color: var(--muted); font-size: 12px; }
+.seg { display: inline-flex; gap: 3px; padding: 3px; border-radius: 10px;
+        border: 1px solid var(--line); background: rgba(5,8,15,.55); }
+.seg button { font: inherit; font-size: 12px; cursor: pointer; padding: 5px 12px;
+               border-radius: 7px; color: var(--muted); background: transparent;
+               border: 1px solid transparent; }
+.seg button:hover { color: var(--text); }
+.seg button[aria-pressed="true"] { color: var(--canvas); background: var(--gold); font-weight: 600; }
+.pref select { font: inherit; font-size: 12.5px; color: var(--text); padding: 6px 10px;
+                border-radius: 9px; border: 1px solid var(--line); background: rgba(5,8,15,.7); }
+.pref-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; }
+.pref-status { margin: 12px 0 0; font-size: 12px; color: var(--muted); min-height: 18px; }
+.pref-status.ok { color: var(--up); }
+.pref-status.warn { color: var(--down); }
+.shortcut-list { margin: 0; display: grid; grid-template-columns: 130px 1fr; gap: 7px 14px; font-size: 12.5px; }
+.shortcut-list dt { color: var(--gold); font-family: ui-monospace, "Cascadia Mono", monospace; font-size: 11.5px; }
+.shortcut-list dd { margin: 0; color: var(--muted); }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }

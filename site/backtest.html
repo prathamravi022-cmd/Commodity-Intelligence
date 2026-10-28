@@ -6,6 +6,50 @@
 <title>Backtesting · Commodity Intelligence</title>
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="stylesheet" href="assets/site.css">
+<script>
+(function () {
+  var KEY = 'ci.prefs.v1';
+  var DEFAULTS = { density: 'comfortable', motion: 'full', start: 'index.html',
+                   scenario: 'base', range: 'all' };
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { saved = {}; }
+  var prefs = {};
+  Object.keys(DEFAULTS).forEach(function (k) {
+    prefs[k] = Object.prototype.hasOwnProperty.call(saved, k) && saved[k] !== null
+      ? saved[k] : DEFAULTS[k];
+  });
+
+  function apply() {
+    var root = document.documentElement;
+    root.setAttribute('data-density', prefs.density);
+    root.setAttribute('data-motion', prefs.motion);
+    var brand = document.querySelector('.rail-brand');
+    if (brand) brand.setAttribute('href', prefs.start);
+  }
+
+  window.CI_PREFS = {
+    key: KEY,
+    defaults: DEFAULTS,
+    all: function () { return JSON.parse(JSON.stringify(prefs)); },
+    get: function (k) { return prefs[k]; },
+    set: function (k, v) { prefs[k] = v; this.save(); apply(); },
+    save: function () {
+      try { localStorage.setItem(KEY, JSON.stringify(prefs)); } catch (e) {}
+    },
+    replace: function (obj) {
+      if (!obj || typeof obj !== 'object') return;
+      Object.keys(DEFAULTS).forEach(function (k) {
+        if (Object.prototype.hasOwnProperty.call(obj, k)) prefs[k] = obj[k];
+      });
+      this.save(); apply();
+    },
+    reset: function () { prefs = JSON.parse(JSON.stringify(DEFAULTS)); this.save(); apply(); }
+  };
+
+  apply();
+  document.addEventListener('DOMContentLoaded', apply);
+})();
+</script>
 <script src="assets/plotly.min.js" charset="utf-8"></script>
 </head>
 <body data-bg="backtesting" data-page="backtest.html">
@@ -81,7 +125,13 @@
   /* The chart specs are emitted after the page body, so the first pane is drawn
      once parsing has finished rather than mid-parse. */
   function start() {
-    var initial = bar.querySelector('button[aria-selected="true"]') || buttons[0];
+    /* The Settings default opens the page on the reader's cost scenario; the
+       panes still switch freely from there. */
+    var pref = window.CI_PREFS && window.CI_PREFS.get('scenario');
+    var chosen = pref && buttons.filter(function (b) {
+      return b.dataset.pane === 'pane-' + pref;
+    })[0];
+    var initial = chosen || bar.querySelector('button[aria-selected="true"]') || buttons[0];
     if (initial) show(initial.dataset.pane);
   }
   if (document.readyState === 'loading') {

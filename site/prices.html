@@ -6,6 +6,50 @@
 <title>Price Comparison · Commodity Intelligence</title>
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="stylesheet" href="assets/site.css">
+<script>
+(function () {
+  var KEY = 'ci.prefs.v1';
+  var DEFAULTS = { density: 'comfortable', motion: 'full', start: 'index.html',
+                   scenario: 'base', range: 'all' };
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { saved = {}; }
+  var prefs = {};
+  Object.keys(DEFAULTS).forEach(function (k) {
+    prefs[k] = Object.prototype.hasOwnProperty.call(saved, k) && saved[k] !== null
+      ? saved[k] : DEFAULTS[k];
+  });
+
+  function apply() {
+    var root = document.documentElement;
+    root.setAttribute('data-density', prefs.density);
+    root.setAttribute('data-motion', prefs.motion);
+    var brand = document.querySelector('.rail-brand');
+    if (brand) brand.setAttribute('href', prefs.start);
+  }
+
+  window.CI_PREFS = {
+    key: KEY,
+    defaults: DEFAULTS,
+    all: function () { return JSON.parse(JSON.stringify(prefs)); },
+    get: function (k) { return prefs[k]; },
+    set: function (k, v) { prefs[k] = v; this.save(); apply(); },
+    save: function () {
+      try { localStorage.setItem(KEY, JSON.stringify(prefs)); } catch (e) {}
+    },
+    replace: function (obj) {
+      if (!obj || typeof obj !== 'object') return;
+      Object.keys(DEFAULTS).forEach(function (k) {
+        if (Object.prototype.hasOwnProperty.call(obj, k)) prefs[k] = obj[k];
+      });
+      this.save(); apply();
+    },
+    reset: function () { prefs = JSON.parse(JSON.stringify(DEFAULTS)); this.save(); apply(); }
+  };
+
+  apply();
+  document.addEventListener('DOMContentLoaded', apply);
+})();
+</script>
 <script src="assets/plotly.min.js" charset="utf-8"></script>
 </head>
 <body data-bg="price-comparison" data-page="prices.html">
@@ -43,7 +87,16 @@
   var readout = document.getElementById('pc-readout');
   var on = {};
   series.forEach(function (s) { on[s.symbol] = true; });
-  var windowDays = 0;
+
+  /* The window follows the Settings default (1m / 3m / 6m / all) until the
+     reader picks another chip on this page. */
+  var RANGE_DAYS = { '1m': 30, '3m': 90, '6m': 180, 'all': 0 };
+  var prefs = window.CI_PREFS;
+  var windowKey = (prefs && RANGE_DAYS.hasOwnProperty(prefs.get('range'))) ? prefs.get('range') : 'all';
+  var windowDays = RANGE_DAYS[windowKey];
+  Array.prototype.forEach.call(controls.querySelectorAll('[data-range]'), function (b) {
+    b.setAttribute('aria-pressed', String(Number(b.dataset.range) === windowDays));
+  });
 
   var layout = {
     paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',

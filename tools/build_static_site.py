@@ -444,6 +444,7 @@ def shell(slug: str, title: str, subtitle: str, body: str, charts: ChartSink, fo
 <title>{title} · Commodity Intelligence</title>
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="stylesheet" href="assets/site.css">
+{PREFS_JS}
 <script src="assets/plotly.min.js" charset="utf-8"></script>
 </head>
 <body data-bg="{key}" data-page="{slug}">
@@ -737,6 +738,46 @@ kbd {{
   border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--text);
 }}
 
+/* ---------------- Preferences ----------------
+   Density and motion are attributes on <html>, set by the head bootstrap, so a
+   saved preference never flashes from its default while the page loads. */
+:root[data-density="compact"] td,
+:root[data-density="compact"] th {{ padding: 5px 9px; }}
+:root[data-density="compact"] .panel {{ padding: 14px 16px 16px; margin-bottom: 14px; }}
+:root[data-density="compact"] .card {{ padding: 10px 12px; }}
+:root[data-density="compact"] .card .value {{ font-size: 22px; }}
+:root[data-density="compact"] .cards {{ gap: 9px; margin-bottom: 16px; }}
+:root[data-motion="reduced"] *,
+:root[data-motion="reduced"] *::before,
+:root[data-motion="reduced"] *::after {{
+  transition: none !important; animation: none !important;
+}}
+:root[data-motion="reduced"] .card:hover {{ transform: none; }}
+
+/* Preference rows on Settings: one control per row, label left, value right. */
+.pref {{ display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
+         padding: 13px 0; border-bottom: 1px solid rgba(143,163,191,.10); }}
+.pref:last-of-type {{ border-bottom: 0; }}
+.pref .pref-label {{ flex: 1 1 300px; }}
+.pref .pref-label b {{ display: block; font-size: 13.5px; font-weight: 600; }}
+.pref .pref-label span {{ display: block; margin-top: 2px; color: var(--muted); font-size: 12px; }}
+.seg {{ display: inline-flex; gap: 3px; padding: 3px; border-radius: 10px;
+        border: 1px solid var(--line); background: rgba(5,8,15,.55); }}
+.seg button {{ font: inherit; font-size: 12px; cursor: pointer; padding: 5px 12px;
+               border-radius: 7px; color: var(--muted); background: transparent;
+               border: 1px solid transparent; }}
+.seg button:hover {{ color: var(--text); }}
+.seg button[aria-pressed="true"] {{ color: var(--canvas); background: var(--gold); font-weight: 600; }}
+.pref select {{ font: inherit; font-size: 12.5px; color: var(--text); padding: 6px 10px;
+                border-radius: 9px; border: 1px solid var(--line); background: rgba(5,8,15,.7); }}
+.pref-actions {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; }}
+.pref-status {{ margin: 12px 0 0; font-size: 12px; color: var(--muted); min-height: 18px; }}
+.pref-status.ok {{ color: var(--up); }}
+.pref-status.warn {{ color: var(--down); }}
+.shortcut-list {{ margin: 0; display: grid; grid-template-columns: 130px 1fr; gap: 7px 14px; font-size: 12.5px; }}
+.shortcut-list dt {{ color: var(--gold); font-family: ui-monospace, "Cascadia Mono", monospace; font-size: 11.5px; }}
+.shortcut-list dd {{ margin: 0; color: var(--muted); }}
+
 @media (prefers-reduced-motion: reduce) {{
   *, *::before, *::after {{ transition: none !important; animation: none !important; }}
 }}
@@ -788,6 +829,57 @@ kbd {{
 """
 
 
+#: Presentation preferences, read in the head before the page paints.
+#: They live in this browser only (localStorage), so the export needs no server
+#: and no account: density and motion are attributes on <html>, the start page
+#: retargets the rail brand, and the research defaults are read by the pages
+#: that own tabs. Nothing here changes an artefact or a calculation.
+PREFS_JS = """<script>
+(function () {
+  var KEY = 'ci.prefs.v1';
+  var DEFAULTS = { density: 'comfortable', motion: 'full', start: 'index.html',
+                   scenario: 'base', range: 'all' };
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { saved = {}; }
+  var prefs = {};
+  Object.keys(DEFAULTS).forEach(function (k) {
+    prefs[k] = Object.prototype.hasOwnProperty.call(saved, k) && saved[k] !== null
+      ? saved[k] : DEFAULTS[k];
+  });
+
+  function apply() {
+    var root = document.documentElement;
+    root.setAttribute('data-density', prefs.density);
+    root.setAttribute('data-motion', prefs.motion);
+    var brand = document.querySelector('.rail-brand');
+    if (brand) brand.setAttribute('href', prefs.start);
+  }
+
+  window.CI_PREFS = {
+    key: KEY,
+    defaults: DEFAULTS,
+    all: function () { return JSON.parse(JSON.stringify(prefs)); },
+    get: function (k) { return prefs[k]; },
+    set: function (k, v) { prefs[k] = v; this.save(); apply(); },
+    save: function () {
+      try { localStorage.setItem(KEY, JSON.stringify(prefs)); } catch (e) {}
+    },
+    replace: function (obj) {
+      if (!obj || typeof obj !== 'object') return;
+      Object.keys(DEFAULTS).forEach(function (k) {
+        if (Object.prototype.hasOwnProperty.call(obj, k)) prefs[k] = obj[k];
+      });
+      this.save(); apply();
+    },
+    reset: function () { prefs = JSON.parse(JSON.stringify(DEFAULTS)); this.save(); apply(); }
+  };
+
+  apply();
+  document.addEventListener('DOMContentLoaded', apply);
+})();
+</script>"""
+
+
 #: Filters, a range window and a CSV download for the Price Comparison page.
 #: Runs against the embedded series, so the hosted page needs no server.
 PRICE_COMPARISON_JS = """(function () {
@@ -799,7 +891,16 @@ PRICE_COMPARISON_JS = """(function () {
   var readout = document.getElementById('pc-readout');
   var on = {};
   series.forEach(function (s) { on[s.symbol] = true; });
-  var windowDays = 0;
+
+  /* The window follows the Settings default (1m / 3m / 6m / all) until the
+     reader picks another chip on this page. */
+  var RANGE_DAYS = { '1m': 30, '3m': 90, '6m': 180, 'all': 0 };
+  var prefs = window.CI_PREFS;
+  var windowKey = (prefs && RANGE_DAYS.hasOwnProperty(prefs.get('range'))) ? prefs.get('range') : 'all';
+  var windowDays = RANGE_DAYS[windowKey];
+  Array.prototype.forEach.call(controls.querySelectorAll('[data-range]'), function (b) {
+    b.setAttribute('aria-pressed', String(Number(b.dataset.range) === windowDays));
+  });
 
   var layout = {
     paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
@@ -948,7 +1049,13 @@ SCENARIO_TABS_JS = """(function () {
   /* The chart specs are emitted after the page body, so the first pane is drawn
      once parsing has finished rather than mid-parse. */
   function start() {
-    var initial = bar.querySelector('button[aria-selected="true"]') || buttons[0];
+    /* The Settings default opens the page on the reader's cost scenario; the
+       panes still switch freely from there. */
+    var pref = window.CI_PREFS && window.CI_PREFS.get('scenario');
+    var chosen = pref && buttons.filter(function (b) {
+      return b.dataset.pane === 'pane-' + pref;
+    })[0];
+    var initial = chosen || bar.querySelector('button[aria-selected="true"]') || buttons[0];
     if (initial) show(initial.dataset.pane);
   }
   if (document.readyState === 'loading') {
@@ -957,6 +1064,100 @@ SCENARIO_TABS_JS = """(function () {
     start();
   }
 })();"""
+
+#: Settings controls. Each one writes the shared preference store and repaints
+#: the site immediately; the export has no server, so "saved" means saved in
+#: this browser, and the panel says so rather than implying an account.
+SETTINGS_JS = """(function () {
+  var P = window.CI_PREFS;
+  if (!P) return;
+  var status = document.getElementById('pref-status');
+  var NAMES = { density: 'Density', motion: 'Motion', scenario: 'Default cost scenario',
+                range: 'Default price window', start: 'Opening page' };
+
+  function say(message, kind) {
+    if (!status) return;
+    status.textContent = message;
+    status.className = 'pref-status ' + (kind || 'ok');
+  }
+
+  function paint() {
+    var p = P.all();
+    var start = document.getElementById('pref-start');
+    if (start) start.value = p.start;
+    Array.prototype.forEach.call(
+      document.querySelectorAll('[data-pref][data-value]'), function (b) {
+        b.setAttribute('aria-pressed', String(String(p[b.dataset.pref]) === b.dataset.value));
+      });
+  }
+
+  document.addEventListener('click', function (event) {
+    var b = event.target.closest('[data-pref][data-value]');
+    if (!b) return;
+    P.set(b.dataset.pref, b.dataset.value);
+    paint();
+    say((NAMES[b.dataset.pref] || 'Preference') + ' set to ' + b.textContent.trim() +
+        ' — applied to every page in this browser.');
+  });
+
+  var start = document.getElementById('pref-start');
+  if (start) {
+    start.addEventListener('change', function () {
+      P.set('start', start.value);
+      paint();
+      say('Opening page set to ' + start.options[start.selectedIndex].text +
+          ' — the rail brand now links there.');
+    });
+  }
+
+  var download = document.getElementById('pref-download');
+  if (download) {
+    download.addEventListener('click', function () {
+      var payload = JSON.stringify(
+        { app: 'commodity-intelligence', version: 1, prefs: P.all() }, null, 2);
+      var blob = new Blob([payload], { type: 'application/json' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'commodity-intelligence-preferences.json';
+      a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+      say('Downloaded — settings only, no market data.');
+    });
+  }
+
+  var imp = document.getElementById('pref-import');
+  if (imp) {
+    imp.addEventListener('change', function () {
+      var file = imp.files && imp.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function () {
+        try {
+          var parsed = JSON.parse(String(reader.result));
+          P.replace(parsed.prefs || parsed);
+          paint();
+          say('Preferences imported from ' + file.name + '.');
+        } catch (err) {
+          say('That file is not a preferences export — nothing changed.', 'warn');
+        }
+        imp.value = '';
+      };
+      reader.readAsText(file);
+    });
+  }
+
+  var reset = document.getElementById('pref-reset');
+  if (reset) {
+    reset.addEventListener('click', function () {
+      P.reset();
+      paint();
+      say('Back to the shipped defaults.');
+    });
+  }
+
+  paint();
+})();"""
+
 
 #: Arrow-key page navigation, a shortcuts panel and print. Progressive: with
 #: JavaScript off the rail still navigates and every page still renders.
@@ -1447,9 +1648,10 @@ rather than ranked.</li>
                                     body, ChartSink(), "")
 
     # ---------------- Settings ----------------
-    # The app's Settings page is interactive; the export documents the same facts
-    # read-only: what is loaded, which run produced the results, and the exact
-    # configuration the pipeline was given.
+    # Preferences here are real controls: they persist in localStorage and change
+    # the export itself (density, motion, opening page, and the defaults that the
+    # Prices and Backtesting tabs open with). The data facts below stay read-only,
+    # because no browser can rewrite a committed artefact or config.yaml.
     body = ""
     cfg_path = ROOT / "config" / "config.yaml"
     cfg_text = cfg_path.read_text(encoding="utf-8") if cfg_path.is_file() else ""
@@ -1474,6 +1676,82 @@ rather than ranked.</li>
         {"label": "Last pipeline run", "value": run_label, "sub": "results directory in data/results"},
         {"label": "Config", "value": "Read-only", "sub": "config/config.yaml"},
     ])
+
+    # ---- Preferences ----------------------------------------------------
+    # Counters, not a menu: a segmentation control is one click away from the
+    # page it changes, and every value is written to localStorage immediately.
+    def seg(pref: str, options: list[tuple[str, str]]) -> str:
+        buttons = "".join(
+            f'<button type="button" data-pref="{pref}" data-value="{value}"'
+            f' aria-pressed="false">{label}</button>'
+            for value, label in options)
+        return f'<div class="seg" role="group" aria-label="{pref}">{buttons}</div>'
+
+    start_options = "".join(
+        f'<option value="{href}">{label}</option>' for href, label, _, _ in PAGES)
+
+    body += panel("Workspace", (
+        '<div class="pref">'
+        '<span class="pref-label"><b>Opening page</b>'
+        '<span>Where the rail brand takes you. The arrow keys still walk the full page order.</span></span>'
+        f'<select id="pref-start" aria-label="Opening page">{start_options}</select>'
+        '</div>'
+        '<div class="pref">'
+        '<span class="pref-label"><b>Density</b>'
+        '<span>Compact tightens table rows and panel padding for screens with more rows than room.</span></span>'
+        + seg("density", [("comfortable", "Comfortable"), ("compact", "Compact")]) +
+        '</div>'
+        '<div class="pref">'
+        '<span class="pref-label"><b>Motion</b>'
+        '<span>Reduced drops hover lifts and transitions. The OS reduce-motion setting is '
+        'respected either way.</span></span>'
+        + seg("motion", [("full", "Full"), ("reduced", "Reduced")]) +
+        '</div>'
+        '<p class="pref-status" id="pref-status" role="status" aria-live="polite">'
+        'Preferences are saved in this browser only — no account, and nothing is sent to a server.</p>'
+    ), "Changes apply to every page the moment you click them.")
+
+    body += panel("Research defaults", (
+        '<div class="pref">'
+        '<span class="pref-label"><b>Default cost scenario</b>'
+        '<span>Which pane Backtesting opens on. The tabs stay switchable, and every pane '
+        'still reflects the same pipeline run.</span></span>'
+        + seg("scenario", [("low", "Low"), ("base", "Base"), ("high", "High")]) +
+        '</div>'
+        '<div class="pref">'
+        '<span class="pref-label"><b>Default price window</b>'
+        '<span>The span Price Comparison opens on. The chips on that page override it for '
+        'the rest of the session.</span></span>'
+        + seg("range", [("1m", "1M"), ("3m", "3M"), ("6m", "6M"), ("all", "All")]) +
+        '</div>'
+    ), "These choose what you <em>see</em> first — they do not change a threshold, a "
+       "cost assumption or any computed figure. Those live in config/config.yaml and "
+       "the run recorded below.")
+
+    body += panel("This browser", (
+        '<div class="pref-actions">'
+        '<button type="button" class="btn ghost" id="pref-download">Download preferences</button>'
+        '<label class="btn ghost" for="pref-import" style="cursor:pointer">Import preferences</label>'
+        '<input id="pref-import" type="file" accept="application/json,.json" style="display:none">'
+        '<button type="button" class="btn ghost" id="pref-reset">Reset to defaults</button>'
+        '</div>'
+        '<p class="note">The exported JSON holds these five settings and nothing else — no '
+        'market data and no credentials. Importing one replaces what this browser has saved, '
+        'which is the quickest way to move a setup to another machine.</p>'
+    ))
+
+    body += panel("Keyboard", (
+        '<dl class="shortcut-list">'
+        '<dt>← / →</dt><dd>Previous / next page, in rail order</dd>'
+        '<dt>?</dt><dd>Open the shortcut panel</dd>'
+        '<dt>Esc</dt><dd>Close the panel</dd>'
+        '<dt>P</dt><dd>Print, or save the page as PDF</dd>'
+        '<dt>Tab</dt><dd>Reach the rail, scenario tabs and contract chips without a mouse</dd>'
+        '</dl>'
+    ), "The same shortcuts are listed in the overlay, so you can find them from any page.")
+
+    body += f'<script>{SETTINGS_JS}</script>'
+
     body += panel("Loaded datasets", table(
         ["Dataset", "Rows", "Coverage"], [
             ["Normalized prices", num(len(norm)), coverage(norm)],
@@ -1494,7 +1772,8 @@ rather than ranked.</li>
                   "The first writes sample data only when none is present; the last rebuilds "
                   "these pages from the committed artifacts.")
     out["settings.html"] = shell("settings.html", "Settings",
-                                 "Defaults, loaded data and the configuration in force — read-only in this export.",
+                                 "Preferences for this browser, plus the data and configuration this "
+                                 "export was rendered from.",
                                  body, ChartSink(), "")
     return out
 

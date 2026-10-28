@@ -6,6 +6,50 @@
 <title>Settings · Commodity Intelligence</title>
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="stylesheet" href="assets/site.css">
+<script>
+(function () {
+  var KEY = 'ci.prefs.v1';
+  var DEFAULTS = { density: 'comfortable', motion: 'full', start: 'index.html',
+                   scenario: 'base', range: 'all' };
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { saved = {}; }
+  var prefs = {};
+  Object.keys(DEFAULTS).forEach(function (k) {
+    prefs[k] = Object.prototype.hasOwnProperty.call(saved, k) && saved[k] !== null
+      ? saved[k] : DEFAULTS[k];
+  });
+
+  function apply() {
+    var root = document.documentElement;
+    root.setAttribute('data-density', prefs.density);
+    root.setAttribute('data-motion', prefs.motion);
+    var brand = document.querySelector('.rail-brand');
+    if (brand) brand.setAttribute('href', prefs.start);
+  }
+
+  window.CI_PREFS = {
+    key: KEY,
+    defaults: DEFAULTS,
+    all: function () { return JSON.parse(JSON.stringify(prefs)); },
+    get: function (k) { return prefs[k]; },
+    set: function (k, v) { prefs[k] = v; this.save(); apply(); },
+    save: function () {
+      try { localStorage.setItem(KEY, JSON.stringify(prefs)); } catch (e) {}
+    },
+    replace: function (obj) {
+      if (!obj || typeof obj !== 'object') return;
+      Object.keys(DEFAULTS).forEach(function (k) {
+        if (Object.prototype.hasOwnProperty.call(obj, k)) prefs[k] = obj[k];
+      });
+      this.save(); apply();
+    },
+    reset: function () { prefs = JSON.parse(JSON.stringify(DEFAULTS)); this.save(); apply(); }
+  };
+
+  apply();
+  document.addEventListener('DOMContentLoaded', apply);
+})();
+</script>
 <script src="assets/plotly.min.js" charset="utf-8"></script>
 </head>
 <body data-bg="settings" data-page="settings.html">
@@ -32,9 +76,97 @@
     <div class="page-head">
   <p class="eyebrow">MCX gold · relative value research</p>
   <h1>Settings</h1>
-  <p class="lede">Defaults, loaded data and the configuration in force — read-only in this export.</p>
+  <p class="lede">Preferences for this browser, plus the data and configuration this export was rendered from.</p>
 </div>
-    <div class="cards"><div class="card"><p class="label">Contracts</p><p class="value">4</p><p class="sub">in configuration</p></div><div class="card"><p class="label">Sessions</p><p class="value">273</p><p class="sub">trading days loaded</p></div><div class="card"><p class="label">Last pipeline run</p><p class="value">27 Oct 2026</p><p class="sub">results directory in data/results</p></div><div class="card"><p class="label">Config</p><p class="value">Read-only</p><p class="sub">config/config.yaml</p></div></div><section class="panel"><h2>Loaded datasets</h2><div class="scroll"><table><thead><tr><th>Dataset</th><th>Rows</th><th>Coverage</th></tr></thead><tbody><tr><td>Normalized prices</td><td>1,092</td><td>15 Sep 2025 → 30 Sep 2026</td></tr><tr><td>Spread / z-score history</td><td>1,638</td><td>15 Sep 2025 → 30 Sep 2026</td></tr><tr><td>Clean bhavcopy</td><td>1,092</td><td>15 Sep 2025 → 30 Sep 2026</td></tr><tr><td>Rejected rows</td><td>0</td><td>reason-tagged</td></tr></tbody></table></div><p class="note">The export reads these files directly; nothing is downloaded at page load.</p></section><section class="panel"><h2>Configuration in force</h2><pre class="code"># ============================================================
+    <div class="cards"><div class="card"><p class="label">Contracts</p><p class="value">4</p><p class="sub">in configuration</p></div><div class="card"><p class="label">Sessions</p><p class="value">273</p><p class="sub">trading days loaded</p></div><div class="card"><p class="label">Last pipeline run</p><p class="value">27 Oct 2026</p><p class="sub">results directory in data/results</p></div><div class="card"><p class="label">Config</p><p class="value">Read-only</p><p class="sub">config/config.yaml</p></div></div><section class="panel"><h2>Workspace</h2><div class="pref"><span class="pref-label"><b>Opening page</b><span>Where the rail brand takes you. The arrow keys still walk the full page order.</span></span><select id="pref-start" aria-label="Opening page"><option value="index.html">Overview</option><option value="contracts.html">Gold Contracts</option><option value="prices.html">Price Comparison</option><option value="spreads.html">Spread Analytics</option><option value="signals.html">Signal Explorer</option><option value="backtest.html">Backtesting</option><option value="quality.html">Data Quality</option><option value="methodology.html">Methodology</option><option value="settings.html">Settings</option></select></div><div class="pref"><span class="pref-label"><b>Density</b><span>Compact tightens table rows and panel padding for screens with more rows than room.</span></span><div class="seg" role="group" aria-label="density"><button type="button" data-pref="density" data-value="comfortable" aria-pressed="false">Comfortable</button><button type="button" data-pref="density" data-value="compact" aria-pressed="false">Compact</button></div></div><div class="pref"><span class="pref-label"><b>Motion</b><span>Reduced drops hover lifts and transitions. The OS reduce-motion setting is respected either way.</span></span><div class="seg" role="group" aria-label="motion"><button type="button" data-pref="motion" data-value="full" aria-pressed="false">Full</button><button type="button" data-pref="motion" data-value="reduced" aria-pressed="false">Reduced</button></div></div><p class="pref-status" id="pref-status" role="status" aria-live="polite">Preferences are saved in this browser only — no account, and nothing is sent to a server.</p><p class="note">Changes apply to every page the moment you click them.</p></section><section class="panel"><h2>Research defaults</h2><div class="pref"><span class="pref-label"><b>Default cost scenario</b><span>Which pane Backtesting opens on. The tabs stay switchable, and every pane still reflects the same pipeline run.</span></span><div class="seg" role="group" aria-label="scenario"><button type="button" data-pref="scenario" data-value="low" aria-pressed="false">Low</button><button type="button" data-pref="scenario" data-value="base" aria-pressed="false">Base</button><button type="button" data-pref="scenario" data-value="high" aria-pressed="false">High</button></div></div><div class="pref"><span class="pref-label"><b>Default price window</b><span>The span Price Comparison opens on. The chips on that page override it for the rest of the session.</span></span><div class="seg" role="group" aria-label="range"><button type="button" data-pref="range" data-value="1m" aria-pressed="false">1M</button><button type="button" data-pref="range" data-value="3m" aria-pressed="false">3M</button><button type="button" data-pref="range" data-value="6m" aria-pressed="false">6M</button><button type="button" data-pref="range" data-value="all" aria-pressed="false">All</button></div></div><p class="note">These choose what you <em>see</em> first — they do not change a threshold, a cost assumption or any computed figure. Those live in config/config.yaml and the run recorded below.</p></section><section class="panel"><h2>This browser</h2><div class="pref-actions"><button type="button" class="btn ghost" id="pref-download">Download preferences</button><label class="btn ghost" for="pref-import" style="cursor:pointer">Import preferences</label><input id="pref-import" type="file" accept="application/json,.json" style="display:none"><button type="button" class="btn ghost" id="pref-reset">Reset to defaults</button></div><p class="note">The exported JSON holds these five settings and nothing else — no market data and no credentials. Importing one replaces what this browser has saved, which is the quickest way to move a setup to another machine.</p></section><section class="panel"><h2>Keyboard</h2><dl class="shortcut-list"><dt>← / →</dt><dd>Previous / next page, in rail order</dd><dt>?</dt><dd>Open the shortcut panel</dd><dt>Esc</dt><dd>Close the panel</dd><dt>P</dt><dd>Print, or save the page as PDF</dd><dt>Tab</dt><dd>Reach the rail, scenario tabs and contract chips without a mouse</dd></dl><p class="note">The same shortcuts are listed in the overlay, so you can find them from any page.</p></section><script>(function () {
+  var P = window.CI_PREFS;
+  if (!P) return;
+  var status = document.getElementById('pref-status');
+  var NAMES = { density: 'Density', motion: 'Motion', scenario: 'Default cost scenario',
+                range: 'Default price window', start: 'Opening page' };
+
+  function say(message, kind) {
+    if (!status) return;
+    status.textContent = message;
+    status.className = 'pref-status ' + (kind || 'ok');
+  }
+
+  function paint() {
+    var p = P.all();
+    var start = document.getElementById('pref-start');
+    if (start) start.value = p.start;
+    Array.prototype.forEach.call(
+      document.querySelectorAll('[data-pref][data-value]'), function (b) {
+        b.setAttribute('aria-pressed', String(String(p[b.dataset.pref]) === b.dataset.value));
+      });
+  }
+
+  document.addEventListener('click', function (event) {
+    var b = event.target.closest('[data-pref][data-value]');
+    if (!b) return;
+    P.set(b.dataset.pref, b.dataset.value);
+    paint();
+    say((NAMES[b.dataset.pref] || 'Preference') + ' set to ' + b.textContent.trim() +
+        ' — applied to every page in this browser.');
+  });
+
+  var start = document.getElementById('pref-start');
+  if (start) {
+    start.addEventListener('change', function () {
+      P.set('start', start.value);
+      paint();
+      say('Opening page set to ' + start.options[start.selectedIndex].text +
+          ' — the rail brand now links there.');
+    });
+  }
+
+  var download = document.getElementById('pref-download');
+  if (download) {
+    download.addEventListener('click', function () {
+      var payload = JSON.stringify(
+        { app: 'commodity-intelligence', version: 1, prefs: P.all() }, null, 2);
+      var blob = new Blob([payload], { type: 'application/json' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'commodity-intelligence-preferences.json';
+      a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+      say('Downloaded — settings only, no market data.');
+    });
+  }
+
+  var imp = document.getElementById('pref-import');
+  if (imp) {
+    imp.addEventListener('change', function () {
+      var file = imp.files && imp.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function () {
+        try {
+          var parsed = JSON.parse(String(reader.result));
+          P.replace(parsed.prefs || parsed);
+          paint();
+          say('Preferences imported from ' + file.name + '.');
+        } catch (err) {
+          say('That file is not a preferences export — nothing changed.', 'warn');
+        }
+        imp.value = '';
+      };
+      reader.readAsText(file);
+    });
+  }
+
+  var reset = document.getElementById('pref-reset');
+  if (reset) {
+    reset.addEventListener('click', function () {
+      P.reset();
+      paint();
+      say('Back to the shipped defaults.');
+    });
+  }
+
+  paint();
+})();</script><section class="panel"><h2>Loaded datasets</h2><div class="scroll"><table><thead><tr><th>Dataset</th><th>Rows</th><th>Coverage</th></tr></thead><tbody><tr><td>Normalized prices</td><td>1,092</td><td>15 Sep 2025 → 30 Sep 2026</td></tr><tr><td>Spread / z-score history</td><td>1,638</td><td>15 Sep 2025 → 30 Sep 2026</td></tr><tr><td>Clean bhavcopy</td><td>1,092</td><td>15 Sep 2025 → 30 Sep 2026</td></tr><tr><td>Rejected rows</td><td>0</td><td>reason-tagged</td></tr></tbody></table></div><p class="note">The export reads these files directly; nothing is downloaded at page load.</p></section><section class="panel"><h2>Configuration in force</h2><pre class="code"># ============================================================
 # Commodity Derivatives Intelligence - Master Configuration
 # Every assumption lives here. Nothing hard-coded in source.
 # Replace placeholder values with documented fee schedules

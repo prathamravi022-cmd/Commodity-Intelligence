@@ -60,7 +60,7 @@ groups, so every screen is one click away exactly as it is in Streamlit:
 | Research — Backtesting: KPIs, equity curve, per-pair, trade log | `site/backtest.html` |
 | Research — Data Quality: coverage, presence ribbon, rejections | `site/quality.html` |
 | Research — Methodology: formulas, design, limitations | `site/methodology.html` |
-| Preferences — Settings: loaded datasets, run, configuration (read-only) | `site/settings.html` |
+| Preferences — Settings: browser preferences, loaded datasets, run, configuration | `site/settings.html` |
 
 The export keeps the app's artwork: each page carries its own vector scene and
 (where the app has one) its registered photograph, copied into
@@ -77,6 +77,11 @@ What works without a server:
   6M / all, and download the visible rows as CSV — all against the embedded series.
 - **Backtesting** tabs: low, base and high cost scenarios, each with its own KPIs,
   equity curve, per-pair table and trade log.
+- **Settings preferences**: density (comfortable / compact), motion, the opening
+  page behind the rail brand, and the defaults the Price Comparison window and
+  Backtesting scenario open on. They persist in `localStorage`, apply to every
+  page immediately, and can be exported or imported as JSON. They are saved in
+  that browser only — there is no account and no server round trip.
 - **Keyboard**: `←` / `→` move between pages, `?` lists the shortcuts, `P` prints.
 - Charts keep Plotly's hover, legend isolation and zoom; tables scroll with a
   sticky header.
