@@ -927,7 +927,9 @@ SCENARIO_TABS_JS = """(function () {
     });
     document.querySelectorAll('.tabpane').forEach(function (p) { p.hidden = p.id !== id; });
     var pane = document.getElementById(id);
-    if (pane) { requestAnimationFrame(function () { plot(pane); }); }
+    /* Plot synchronously: the pane is already visible, and a frame callback is
+       throttled or never delivered in background tabs and offscreen views. */
+    if (pane) plot(pane);
   }
 
   bar.addEventListener('click', function (e) {
